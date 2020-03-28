@@ -1,17 +1,20 @@
 package com.avatarduel.model;
 
+import com.avatarduel.AvatarDuel;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-public class CardController implements Initializable{
+public class CardController{
 
     @FXML
     private AnchorPane root;
@@ -52,14 +55,14 @@ public class CardController implements Initializable{
     @FXML
     private Text power;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
-    public void setAttributes(Card c){
-        this.name = new Text(c.name);
-        this.descriptionText = new Text(c.description);
+    public <T extends Card> void setAttributes(T c){
+        this.name.setText(c.name);
+        this.descriptionText.setText(c.description);
+        try {
+            this.image.setImage(new Image(new FileInputStream(AvatarDuel.RESOURCE_PATH + AvatarDuel.IMAGE_PATH + c.imgPath)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         switch (c.element){
             case AIR:
 //                this.elementImage = new ImageView(new Image());
@@ -73,6 +76,25 @@ public class CardController implements Initializable{
             case WATER:
                 //                this.elementImage = new ImageView(new Image());
                 break;
+        }
+        if(c instanceof Land){
+            this.type.setText("[LAND]");
+            this.attack.setText("");
+            this.defend.setText("");
+            this.power.setText("");
+            this.effect.setText("");
+        } else if (c instanceof Character){
+            this.type.setText("[CHARACTER]");
+            this.attack.setText(((Character) c).getAttack().toString());
+            this.defend.setText(((Character) c).getDefend().toString());
+            this.power.setText(((Character) c).getPower().toString());
+            this.effect.setText("");
+        } else if (c instanceof  Skill){
+            this.type.setText("[SKILL]");
+            this.attack.setText(((Skill) c).getAttack().toString());
+            this.defend.setText(((Skill) c).getDefend().toString());
+            this.power.setText(((Skill) c).getPower().toString());
+            this.effect.setText(((Skill) c).getType());
         }
     }
 }

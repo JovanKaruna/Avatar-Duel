@@ -1,21 +1,18 @@
 package com.avatarduel.model;
 
-import com.avatarduel.AvatarDuel;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.event.ActionEvent;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import com.avatarduel.AvatarDuel;
 
-public class DeckViewerController {
-    private final static String IMAGE_PATH = "src/main/resources/com/avatarduel/card/image/";
+public class DeckViewerController extends CardController{
     @FXML
     private AnchorPane root;
 
@@ -66,29 +63,4 @@ public class DeckViewerController {
         this.i++;
         this.i %= AvatarDuel.cards.size();
     }
-
-    public void setAttributes(Card c){
-        this.name.setText(c.name);
-        this.descriptionText.setText(c.description);
-        try {
-            this.image.setImage(new Image(new FileInputStream(IMAGE_PATH + c.imgPath)));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        switch (c.element){
-            case AIR:
-//                this.elementImage = new ImageView(new Image());
-                break;
-            case FIRE:
-                //                this.elementImage = new ImageView(new Image());
-                break;
-            case EARTH:
-                //                this.elementImage = new ImageView(new Image());
-                break;
-            case WATER:
-                //                this.elementImage = new ImageView(new Image());
-                break;
-        }
-    }
-
 }
