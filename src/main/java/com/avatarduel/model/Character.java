@@ -5,6 +5,7 @@ public class Character extends Card {
     private Integer attack;
     private Integer defend;
     private Integer power;
+
     public Character(String name, String description, Element element, String imgPath, Integer attack, Integer defend, Integer power) {
         super(name, description, element, imgPath);
         this.attack = attack;

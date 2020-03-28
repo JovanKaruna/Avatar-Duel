@@ -6,6 +6,7 @@ public class Skill extends Card {
     private Integer defend;
     private Integer power;
     private String type;
+
     public Skill(String name, String description, Element element, String imgPath, Integer attack, Integer defend, Integer power) {
         super(name, description, element, imgPath);
         this.attack = attack;
