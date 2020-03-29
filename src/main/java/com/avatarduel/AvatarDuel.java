@@ -20,16 +20,19 @@ import com.avatarduel.util.CSVReader;
 public class AvatarDuel extends Application {
     public static final String RESOURCE_PATH = "src/main/resources/com/avatarduel/";
     public static final String IMAGE_PATH = "card/image/";
-    private static final String APP_FXML_PATH = "fxml/DeckViewer.fxml";
+    private static final String APP_FXML_PATH = "fxml/Board.fxml";
+    private static final String DECK_VIEWER_FXML_PATH = "fxml/DeckViewer.fxml";
     public static ArrayList<Card> cards = new ArrayList<>();
     private static Player activePlayer, otherPlayer;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader rootLoader = new FXMLLoader(getClass().getResource(AvatarDuel.APP_FXML_PATH));
+        // kalo mau deck viewer uncomment 3 baris di bwh:
+        //        rootLoader = new FXMLLoader(getClass().getResource(AvatarDuel.DECK_VIEWER_FXML_PATH));
         Parent root = rootLoader.load();
-        DeckViewerController rootController = rootLoader.getController();
-        rootController.setCards(AvatarDuel.getActivePlayer().deck);
+//        DeckViewerController rootController = rootLoader.getController();
+//        rootController.setCards(AvatarDuel.getActivePlayer().deck);
         stage.setTitle("Avatar Duel K03 G07");
 
         Scene scene = new Scene(root);
