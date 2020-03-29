@@ -2,170 +2,206 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <BorderPane prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <left>
-            <VBox BorderPane.alignment="CENTER">
-               <children>
-                  <fx:include prefHeight="400.0" prefWidth="250.0" scaleX="0.5" scaleY="0.5" source="Card.fxml" translateX="-50.0" translateY="-100.0" />
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
-            </VBox>
-         </left>
-         <center>
-            <VBox spacing="10.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ProgressBar prefHeight="21.0" prefWidth="973.0" progress="0.0" VBox.vgrow="ALWAYS" />
-                  <HBox>
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.BoardController">
+   <left>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="250.0" scaleX="0.5" scaleY="0.5" spacing="10.0" translateX="-62.5" translateY="-175.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <children>
+            <fx:include fx:id="card" source="Card.fxml" />
+            <fx:include fx:id="cardDesc" source="CardDesc.fxml" />
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="800.0">
+              <items>
+                  <VBox fx:id="player2">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2 - {NAME}" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HP {hp}" />
+                        <ProgressBar fx:id="player2HealthBar" prefHeight="25.0" prefWidth="1000.0" progress="0.0" />
+                        <HBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2 - ">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Text>
+                              <Text fx:id="player2Name" strokeType="OUTSIDE" strokeWidth="0.0" text="{NAME}">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HP ">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Text>
+                              <Text fx:id="player2hp" strokeType="OUTSIDE" strokeWidth="0.0" text="{hp}">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Region VBox.vgrow="ALWAYS" />
+                                    <HBox>
+                                       <children>
+                                          <Text fx:id="player2curDeck" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player2maxDeck" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                       </children>
+                                    </HBox>
+                                    <Region VBox.vgrow="ALWAYS" />
+                                    <HBox>
+                                       <children>
+                                          <Text fx:id="player2curWater" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player2maxWater" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                          <ImageView fx:id="player2WaterImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="180.0">
+                                       <children>
+                                          <Text fx:id="player2curWind" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player2maxWind" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                          <ImageView fx:id="player2WindImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="181.0">
+                                       <children>
+                                          <Text fx:id="player2curFire" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player2maxFire" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                          <ImageView fx:id="player2FireImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="180.0">
+                                       <children>
+                                          <Text fx:id="player2curEarth" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player2maxEarth" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                          <ImageView fx:id="player2EarthImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox fx:id="player2Field">
+                                 <children>
+                                    <Region prefHeight="100.0" />
+                                    <fx:include source="Field.fxml" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox>
+                  </VBox>
+                  <VBox fx:id="player1" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Region prefHeight="200.0" prefWidth="200.0" />
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <HBox>
                            <children>
-                              <Region prefHeight="200.0" prefWidth="200.0" />
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <VBox>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                    <fx:include source="Field.fxml" />
+                                    <Region prefHeight="100.0" />
                                  </children>
-                              </HBox>
-                              <Region prefHeight="200.0" prefWidth="200.0" />
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                    <HBox>
+                                       <children>
+                                          <Text fx:id="player1curWater" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player1maxWater" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                          <ImageView fx:id="player1WaterImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="180.0">
+                                       <children>
+                                          <Text fx:id="player1curWind" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player1maxWind" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                          <ImageView fx:id="player1WindImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="181.0">
+                                       <children>
+                                          <Text fx:id="player1curFire" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player1maxFire" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                          <ImageView fx:id="player1FireImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="180.0">
+                                       <children>
+                                          <Text fx:id="player1curEarth" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player1maxEarth" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                          <ImageView fx:id="player1EarthImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
+                                    <Region VBox.vgrow="ALWAYS" />
+                                    <HBox>
+                                       <children>
+                                          <Text fx:id="player1curDeck" strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                                          <Text fx:id="player1maxDeck" strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
+                                       </children>
+                                    </HBox>
+                                    <Region layoutX="10.0" layoutY="130.0" VBox.vgrow="ALWAYS" />
                                  </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="180.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="181.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="180.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
+                              </VBox>
+                              <Region HBox.hgrow="ALWAYS" />
                            </children>
-                        </VBox>
-                        <VBox>
+                        </HBox>
+                        <HBox>
                            <children>
-                              <Region prefHeight="70.0" />
-                              <fx:include source="Field.fxml" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HP ">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="player1hp" strokeType="OUTSIDE" strokeWidth="0.0" text="{hp}">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Text>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1 - ">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="player1Name" strokeType="OUTSIDE" strokeWidth="0.0" text="{NAME}">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Text>
                            </children>
-                        </VBox>
+                        </HBox>
+                        <ProgressBar fx:id="player1HealthBar" prefHeight="25.0" prefWidth="1000.0" progress="0.0" />
                      </children>
-                  </HBox>
-                  <Region VBox.vgrow="ALWAYS" />
-                  <HBox layoutX="10.0" layoutY="70.0">
-                     <children>
-                        <VBox>
-                           <children>
-                              <fx:include source="Field.fxml" />
-                              <Region prefHeight="70.0" />
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                 </children>
-                              </HBox>
-                              <Region prefHeight="200.0" prefWidth="200.0" />
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="180.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="181.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="10.0" layoutY="180.0" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" />
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </HBox>
-                              <Region prefHeight="200.0" prefWidth="200.0" />
-                           </children>
-                        </VBox>
-                        <Region prefHeight="200.0" prefWidth="200.0" />
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="41.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HP {hp}" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1 - {NAME}" />
-                     </children>
-                  </HBox>
-                  <ProgressBar prefHeight="21.0" prefWidth="972.0" progress="0.0" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets right="10.0" />
-                     </VBox.margin>
-                  </ProgressBar>
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
-            </VBox>
-         </center>
-      </BorderPane>
-   </children>
-</AnchorPane>
+                  </VBox>
+              </items>
+            </SplitPane>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>

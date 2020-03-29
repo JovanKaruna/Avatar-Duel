@@ -1,6 +1,8 @@
 package com.avatarduel.model;
 
 import com.avatarduel.AvatarDuel;
+import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.CardController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
@@ -8,10 +10,7 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
-public class DeckViewerController {
-    @FXML
-    private CardController cardController;
-
+public class DeckViewerController extends HasCardController{
     @FXML
     private Text currentIdx;
 
@@ -33,7 +32,7 @@ public class DeckViewerController {
     public void setCards(List<Card> cards) {
         this.i = 0;
         this.cards = cards;
-        this.cardController.setAttributes(this.cards.get(i));
+        this.setActiveCard(this.cards.get(i));
         this.currentIdx.setText(i.toString());
         this.maxIdx.setText(((Integer)this.cards.size()).toString());
     }

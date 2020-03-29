@@ -3,3 +3,7 @@
     -fx-border-width: 1.7;
     -fx-border-style: solid;
 }
+
+.field-cell {
+    -fx-background-color : lightgray;
+}

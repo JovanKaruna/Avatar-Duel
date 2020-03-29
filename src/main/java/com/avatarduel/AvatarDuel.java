@@ -3,12 +3,13 @@ package com.avatarduel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.avatarduel.model.*;
-import com.avatarduel.model.Character;
+import com.avatarduel.model.card.CardContainer;
+import com.avatarduel.model.card.Character;
+import com.avatarduel.model.card.Land;
+import com.avatarduel.model.card.Skill;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,37 +19,50 @@ import javafx.stage.Stage;
 import com.avatarduel.util.CSVReader;
 
 public class AvatarDuel extends Application {
-    public static final String RESOURCE_PATH = "src/main/resources/com/avatarduel/";
-    public static final String IMAGE_PATH = "card/image/";
-    private static final String APP_FXML_PATH = "fxml/Board.fxml";
-    private static final String DECK_VIEWER_FXML_PATH = "fxml/DeckViewer.fxml";
-    public static ArrayList<Card> cards = new ArrayList<>();
     private static Player activePlayer, otherPlayer;
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader rootLoader = new FXMLLoader(getClass().getResource(AvatarDuel.APP_FXML_PATH));
-        // kalo mau deck viewer uncomment 3 baris di bwh:
-        //        rootLoader = new FXMLLoader(getClass().getResource(AvatarDuel.DECK_VIEWER_FXML_PATH));
+        FXMLLoader rootLoader;
+
+        // uncomment sesuai kebutuhan
+        // board
+        rootLoader = new FXMLLoader(getClass().getResource(Paths.APP_FXML_PATH));
+        // deck viewer
+//        rootLoader = new FXMLLoader(getClass().getResource(Paths.DECK_VIEWER_FXML_PATH));
+        // card only
+//        rootLoader = new FXMLLoader(getClass().getResource("fxml/Card.fxml"));
+
         Parent root = rootLoader.load();
+
+        // deck viewer
 //        DeckViewerController rootController = rootLoader.getController();
 //        rootController.setCards(AvatarDuel.getActivePlayer().deck);
+
+        // board
+        BoardController rootController = rootLoader.getController();
+        rootController.setActiveCard(activePlayer.hand.get(0));
+
+        // =============================================
         stage.setTitle("Avatar Duel K03 G07");
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("root.css").toExternalForm());
         stage.setScene(scene);
+//        stage.setMinHeight(Settings.minHeight);
+//        stage.setMinWidth(Settings.minWidth);
+        stage.setResizable(false);
         stage.show();
     }
 
     public AvatarDuel() {
         try {
             for (String[] row : this.loadCards(Land.CSV_FILE_PATH))
-                AvatarDuel.cards.add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));
+                CardContainer.add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));
             for (String[] row : this.loadCards(Character.CSV_FILE_PATH))
-                AvatarDuel.cards.add(new Character(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
+                CardContainer.add(new Character(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
             for (String[] row : this.loadCards(Skill.CSV_FILE_PATH))
-                AvatarDuel.cards.add(new Skill(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
+                CardContainer.add(new Skill(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,8 +76,8 @@ public class AvatarDuel extends Application {
     }
 
     private void startGame() {
-        AvatarDuel.activePlayer.drawNCards(7);
-        AvatarDuel.otherPlayer.drawNCards(7);
+        AvatarDuel.activePlayer.drawNCards(Settings.startingCardAmount);
+        AvatarDuel.otherPlayer.drawNCards(Settings.startingCardAmount);
         AvatarDuel.activePlayer.startTurn();
     }
 

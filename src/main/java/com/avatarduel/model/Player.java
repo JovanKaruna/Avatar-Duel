@@ -1,6 +1,7 @@
 package com.avatarduel.model;
 
-import com.avatarduel.AvatarDuel;
+import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.CardContainer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +15,9 @@ public class Player {
     }
 
     private void initDeck() {
-        Collections.shuffle(AvatarDuel.cards);
+        Collections.shuffle(CardContainer.getCards());
         for (int i = 0; i < 60; i++) {
-            this.deck.add(AvatarDuel.cards.get(i));
+            this.deck.add(CardContainer.get(i));
         }
     }
 

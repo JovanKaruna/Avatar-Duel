@@ -1,6 +1,7 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
 
-import com.avatarduel.AvatarDuel;
+import com.avatarduel.Paths;
+import com.avatarduel.model.HasCardController;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -14,10 +15,10 @@ import java.io.FileInputStream;
 public class CardController {
     public static final String FXML_PATH = "fxml/Card.fxml";
 
-    private DeckViewerController parent;
+    private HasCardController parent;
 
     @FXML
-    private AnchorPane root;
+    private VBox root;
 
     @FXML
     private HBox title;
@@ -47,19 +48,22 @@ public class CardController {
     private Text descriptionText;
 
     @FXML
-    private Text attack;
+    private Text attribute;
 
     @FXML
-    private Text defend;
+    public void initialize() {
+        this.image.prefWidth(this.root.getWidth()*0.8);
+    }
 
-    @FXML
-    private Text power;
+    public void init(HasCardController hasCardController) {
+        this.parent = hasCardController;
+    }
 
     public <T extends Card> void setAttributes(T c) {
         this.name.setText(c.name);
         this.descriptionText.setText(c.description);
         try {
-            this.image.setImage(new Image(new FileInputStream(AvatarDuel.RESOURCE_PATH + AvatarDuel.IMAGE_PATH + c.imgPath)));
+            this.image.setImage(new Image(new FileInputStream(Paths.RESOURCE_PATH + Paths.IMAGE_PATH + c.imgPath)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,29 +85,28 @@ public class CardController {
                 //                this.elementImage = new ImageView(new Image());
                 break;
         }
+        String tmp = "";
         if (c instanceof Land) {
-            this.type.setText("[LAND]");
-            this.attack.setText("");
-            this.defend.setText("");
-            this.power.setText("");
+            this.type.setText("LAND");
             this.effect.setText("");
         } else if (c instanceof Character) {
-            this.type.setText("[CHARACTER]");
-            this.attack.setText("ATK / " + ((Character) c).getAttack().toString());
-            this.defend.setText("DEF / " + ((Character) c).getDefend().toString());
-            this.power.setText("POW / " + ((Character) c).getPower().toString());
+            this.type.setText("CHARACTER");
+            tmp += "ATK / " + ((Character) c).getAttack().toString();
+            tmp += " | DEF / " + ((Character) c).getDefend().toString();
+            tmp += " | POW / " + ((Character) c).getPower().toString();
             this.effect.setText("");
         } else if (c instanceof Skill) {
-            this.type.setText("[SKILL]");
-            this.attack.setText("ATK / " + ((Skill) c).getAttack().toString());
-            this.defend.setText("DEF / " + ((Skill) c).getDefend().toString());
-            this.power.setText("POW / " + ((Skill) c).getPower().toString());
+            this.type.setText("SKILL");
+            tmp += "ATK / " + ((Skill) c).getAttack().toString();
+            tmp += " | DEF / " + ((Skill) c).getDefend().toString();
+            tmp += " | POW / " + ((Skill) c).getPower().toString();
             this.effect.setText(((Skill) c).getType());
         }
+        this.attribute.setText(tmp);
     }
 
-    public void init(DeckViewerController deckViewerController) {
-        this.parent = deckViewerController;
+    public String getDescription() {
+        return this.descriptionText.getText();
     }
 }
 

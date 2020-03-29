@@ -1,6 +1,8 @@
-package com.avatarduel.model;
+package com.avatarduel.model.card;
 
-public class Character extends Card {
+import com.avatarduel.model.Element;
+
+public class Character extends Card implements Summonable {
     public static final String CSV_FILE_PATH = "card/data/character.csv";
     private Integer attack;
     private Integer defend;

@@ -3,16 +3,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.DeckViewerController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.DeckViewerController">
     <children>
-        <VBox layoutX="232.0" layoutY="79.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+      <BorderPane prefHeight="800.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#viewDeckPlayer1" text="Player 1 Deck" />
                   <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewDeckPlayer2" text="Player 2 Deck" />
@@ -20,8 +20,9 @@
                   <Button layoutX="72.0" layoutY="10.0" mnemonicParsing="false" onAction="#viewHandPlayer2" text="Player 2 Hand" />
                </children>
             </HBox>
-                <fx:include fx:id="card" source="Card.fxml" />
-                <HBox spacing="5.0">
+         </top>
+         <bottom>
+                <HBox spacing="5.0" BorderPane.alignment="CENTER">
                     <children>
                         <Button fx:id="nextBtn" mnemonicParsing="false" onAction="#prevCard" text="Prev Card" />
                         <Region HBox.hgrow="ALWAYS" />
@@ -31,11 +32,14 @@
                   <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="nextBtn1" mnemonicParsing="false" onAction="#nextCard" text="Next Card" />
                     </children>
-                    <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
                 </HBox>
-            </children>
-        </VBox>
+         </bottom>
+         <center>
+                <fx:include fx:id="card" source="Card.fxml" />
+         </center>
+      </BorderPane>
     </children>
 </AnchorPane>
