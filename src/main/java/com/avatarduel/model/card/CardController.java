@@ -76,7 +76,6 @@ public class CardController {
         this.parent = hasCardController;
     }
 
-
     public <T extends Card> void setAttributes(T c) {
         // fit image container size
         this.image.setFitWidth(this.root.getWidth() * CardController.imageToCardWidthRatio);

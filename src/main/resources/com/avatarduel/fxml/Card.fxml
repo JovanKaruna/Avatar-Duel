@@ -92,7 +92,7 @@
                       <content>
                           <AnchorPane>
                               <children>
-                                  <Text fx:id="descriptionText" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{description}" wrappingWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <Text fx:id="descriptionText" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{description}" wrappingWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <font>
                                           <Font size="16.0" />
                                       </font>

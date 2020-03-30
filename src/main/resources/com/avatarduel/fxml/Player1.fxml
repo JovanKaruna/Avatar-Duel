@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane prefHeight="350.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.PlayerController">
+   <bottom>
+      <fx:include fx:id="attribute" source="PlayerAttribute1.fxml" />
+   </bottom>
+   <left>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <fx:include fx:id="field" source="Field.fxml" />
+            <fx:include fx:id="deck" source="Deck.fxml" />
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <fx:include fx:id="inventory" source="PlayerInventory1.fxml" />
+   </right>
+</BorderPane>
