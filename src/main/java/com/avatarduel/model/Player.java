@@ -1,7 +1,7 @@
 package com.avatarduel.model;
 
 import com.avatarduel.model.card.Card;
-import com.avatarduel.model.card.CardContainer;
+import com.avatarduel.model.card.CardDAO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,9 +15,9 @@ public class Player {
     }
 
     private void initDeck() {
-        Collections.shuffle(CardContainer.getCards());
+        Collections.shuffle(CardDAO.getCards());
         for (int i = 0; i < 60; i++) {
-            this.deck.add(CardContainer.get(i));
+            this.deck.add(CardDAO.get(i));
         }
     }
 

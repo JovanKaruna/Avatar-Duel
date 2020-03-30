@@ -6,10 +6,11 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import com.avatarduel.model.*;
-import com.avatarduel.model.card.CardContainer;
+import com.avatarduel.model.card.CardDAO;
 import com.avatarduel.model.card.Character;
 import com.avatarduel.model.card.Land;
 import com.avatarduel.model.card.Skill;
+import com.avatarduel.model.element.Element;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,6 +36,16 @@ public class AvatarDuel extends Application {
 
         Parent root = rootLoader.load();
 
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("root.css").toExternalForm());
+
+        stage.setScene(scene);
+        stage.setTitle("Avatar Duel K03 G07");
+//        stage.setMinHeight(Settings.minHeight);
+//        stage.setMinWidth(Settings.minWidth);
+        stage.setResizable(false);
+        stage.show();
+
         // deck viewer
 //        DeckViewerController rootController = rootLoader.getController();
 //        rootController.setCards(AvatarDuel.getActivePlayer().deck);
@@ -42,27 +53,16 @@ public class AvatarDuel extends Application {
         // board
         BoardController rootController = rootLoader.getController();
         rootController.setActiveCard(activePlayer.hand.get(0));
-
-        // =============================================
-        stage.setTitle("Avatar Duel K03 G07");
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("root.css").toExternalForm());
-        stage.setScene(scene);
-//        stage.setMinHeight(Settings.minHeight);
-//        stage.setMinWidth(Settings.minWidth);
-        stage.setResizable(false);
-        stage.show();
     }
 
     public AvatarDuel() {
         try {
             for (String[] row : this.loadCards(Land.CSV_FILE_PATH))
-                CardContainer.add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));
+                CardDAO.add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));
             for (String[] row : this.loadCards(Character.CSV_FILE_PATH))
-                CardContainer.add(new Character(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
+                CardDAO.add(new Character(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
             for (String[] row : this.loadCards(Skill.CSV_FILE_PATH))
-                CardContainer.add(new Skill(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
+                CardDAO.add(new Skill(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
         } catch (Exception e) {
             e.printStackTrace();
         }

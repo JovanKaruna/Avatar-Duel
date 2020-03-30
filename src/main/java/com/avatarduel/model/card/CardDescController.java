@@ -22,18 +22,8 @@ public class CardDescController {
     }
 
     public <T extends Card> void setAttribute(T c){
-        this.description.setText(c.description);
-        String tmp = "";
-        if(c instanceof Character){
-            tmp += "ATK / " + ((Character) c).getAttack();
-            tmp += " | DEF / " + ((Character) c).getDefend();
-            tmp += " | POW / " + ((Character) c).getPower();
-        } else if (c instanceof Skill) {
-            tmp += "ATK / " + ((Skill) c).getAttack();
-            tmp += " | DEF / " + ((Skill) c).getDefend();
-            tmp += " | POW / " + ((Skill) c).getPower();
-        }
-        this.attribute.setText(tmp);
+        this.description.setText(c.getDescription());
+        this.attribute.setText(c.getAttributeDescription());
     }
 }
 
