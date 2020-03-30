@@ -6,13 +6,13 @@ import javafx.fxml.FXML;
 
 public class BoardController extends HasCardController{
     @FXML
-    private PlayerController player1Controller;
+    public PlayerController player1Controller;
 
     @FXML
-    private PlayerController player2Controller;
+    public PlayerController player2Controller;
 
     @FXML
-    private CardDescController cardDescController;
+    public CardDescController cardDescController;
 
     @FXML
     public void initialize(){
@@ -25,10 +25,6 @@ public class BoardController extends HasCardController{
     @Override
     public void setActiveCard(Card c) {
         super.setActiveCard(c);
-        this.cardDescController.setAttribute(c);
-    }
-
-    public PlayerController getPlayer1(){
-        return this.player1Controller;
+        this.cardDescController.setAttributes(c);
     }
 }

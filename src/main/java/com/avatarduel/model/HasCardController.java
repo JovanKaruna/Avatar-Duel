@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 
 public abstract class HasCardController {
     @FXML
-    protected CardController cardController;
+    public CardController cardController;
 
     public void setActiveCard(Card c){
         this.cardController.setAttributes(c);

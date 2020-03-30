@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -86,21 +84,14 @@
             <Insets bottom="10.0" />
          </VBox.margin>
           </HBox>
-          <VBox fx:id="descriptionBox" prefHeight="200.0" prefWidth="100.0" styleClass="border" VBox.vgrow="ALWAYS">
+          <VBox prefHeight="200.0" prefWidth="100.0" styleClass="border" VBox.vgrow="ALWAYS">
               <children>
-                  <ScrollPane opacity="0.79" prefHeight="200.0" prefWidth="200.0" styleClass="border" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                      <content>
-                          <AnchorPane>
-                              <children>
-                                  <Text fx:id="descriptionText" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{description}" wrappingWidth="440.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <font>
-                                          <Font size="16.0" />
-                                      </font>
-                                  </Text>
-                              </children>
-                          </AnchorPane>
-                      </content>
-                  </ScrollPane>
+                      <Text fx:id="descriptionText" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{description}" wrappingWidth="440.0">
+                          <font>
+                              <Font size="16.0" />
+                          </font>
+                      </Text>
+            <Region VBox.vgrow="ALWAYS" />
                   <HBox spacing="10.0">
                       <children>
                           <Region HBox.hgrow="ALWAYS" />

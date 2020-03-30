@@ -32,7 +32,7 @@ public class AvatarDuel extends Application {
         // deck viewer
 //        rootLoader = new FXMLLoader(getClass().getResource(Paths.DECK_VIEWER_FXML_PATH));
         // card only
-//        rootLoader = new FXMLLoader(getClass().getResource("fxml/Card.fxml"));
+//        rootLoader = new FXMLLoader(getClass().getResource(Paths.CARD_FXML_PATH));
 
         Parent root = rootLoader.load();
 
@@ -51,8 +51,11 @@ public class AvatarDuel extends Application {
 //        rootController.setCards(AvatarDuel.getActivePlayer().deck);
 
         // board
-        BoardController rootController = rootLoader.getController();
-        rootController.setActiveCard(activePlayer.hand.get(0));
+        BoardController boardController = rootLoader.getController();
+        AvatarDuel.activePlayer = new Player(boardController.player1Controller);
+        AvatarDuel.otherPlayer = new Player(boardController.player2Controller);
+//        boardController.setActiveCard(activePlayer.hand.get(0));
+        this.startGame();
     }
 
     public AvatarDuel() {
@@ -66,9 +69,6 @@ public class AvatarDuel extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        AvatarDuel.activePlayer = new Player();
-        AvatarDuel.otherPlayer = new Player();
-        this.startGame();
     }
 
     public static void main(String[] args) {

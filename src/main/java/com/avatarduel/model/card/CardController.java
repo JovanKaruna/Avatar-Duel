@@ -2,6 +2,7 @@ package com.avatarduel.model.card;
 
 import com.avatarduel.Paths;
 import com.avatarduel.Settings;
+import com.avatarduel.model.BoardController;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.element.Element;
 
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -37,6 +39,8 @@ public class CardController {
         }
     };
 
+    private boolean isImageFitted = false;
+
     private HasCardController parent;
 
     @FXML
@@ -64,22 +68,40 @@ public class CardController {
     private ImageView image;
 
     @FXML
-    private VBox descriptionBox;
-
-    @FXML
     private Text descriptionText;
 
     @FXML
     private Text attribute;
 
+
+    public void setRoot(VBox root) {
+        this.root = root;
+
+        this.title = (HBox) root.getChildren().get(0);
+        this.name = (Text) this.title.getChildren().get(0);
+        this.elementImage = (ImageView) this.title.getChildren().get(2);
+
+        this.subtitle = (HBox) root.getChildren().get(1);
+        this.effect = (Text) this.subtitle.getChildren().get(0);
+        this.type = (Text) this.subtitle.getChildren().get(3);
+
+        this.image = (ImageView) ((VBox)((HBox) root.getChildren().get(2)).getChildren().get(1)).getChildren().get(0);
+        this.descriptionText = (Text) ((VBox) root.getChildren().get(3)).getChildren().get(0);
+        this.attribute = (Text) ((HBox) ((VBox) root.getChildren().get(3)).getChildren().get(2)).getChildren().get(1);
+    }
+
+    @FXML
     public void init(HasCardController hasCardController) {
         this.parent = hasCardController;
     }
 
     public <T extends Card> void setAttributes(T c) {
-        // fit image container size
-        this.image.setFitWidth(this.root.getWidth() * CardController.imageToCardWidthRatio);
-        this.elementImage.setFitHeight(this.title.getHeight() * 1.1);
+        if(!this.isImageFitted){
+            // fit image container size
+            this.image.setFitWidth(this.root.getWidth() * CardController.imageToCardWidthRatio);
+            this.elementImage.setFitHeight(this.title.getHeight());
+            this.isImageFitted = true;
+        }
 
         // set text
         this.name.setText(c.getName());

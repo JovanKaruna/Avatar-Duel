@@ -21,7 +21,7 @@ public class CardDescController {
         this.parent = hasCardController;
     }
 
-    public <T extends Card> void setAttribute(T c){
+    public <T extends Card> void setAttributes(T c){
         this.description.setText(c.getDescription());
         this.attribute.setText(c.getAttributeDescription());
     }
