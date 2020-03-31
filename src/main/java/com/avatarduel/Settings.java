@@ -24,7 +24,7 @@ public class Settings {
         }
     };
 
-    private Settings(){
+    private Settings() {
         throw new AssertionError("This is a utility class.");
     }
 }

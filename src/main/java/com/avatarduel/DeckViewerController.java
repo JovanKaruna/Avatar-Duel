@@ -1,6 +1,5 @@
 package com.avatarduel;
 
-import com.avatarduel.AvatarDuel;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
@@ -22,7 +21,7 @@ public class DeckViewerController extends HasCardController {
     private Button nextBtn;
 
     private Integer i = 0;
-    
+
     private List<Card> cards;
 
     @FXML
@@ -35,7 +34,7 @@ public class DeckViewerController extends HasCardController {
         this.cards = cards;
         this.setActiveCard(this.cards.get(i));
         this.currentIdx.setText(i.toString());
-        this.maxIdx.setText(((Integer)this.cards.size()).toString());
+        this.maxIdx.setText(((Integer) this.cards.size()).toString());
     }
 
     @FXML
@@ -55,22 +54,22 @@ public class DeckViewerController extends HasCardController {
     }
 
     @FXML
-    public void viewDeckPlayer1(ActionEvent event){
+    public void viewDeckPlayer1(ActionEvent event) {
         this.setCards(AvatarDuel.getActivePlayer().deckCard);
     }
 
     @FXML
-    public void viewDeckPlayer2(ActionEvent event){
+    public void viewDeckPlayer2(ActionEvent event) {
         this.setCards(AvatarDuel.getOtherPlayer().deckCard);
     }
 
     @FXML
-    public void viewHandPlayer1(ActionEvent event){
+    public void viewHandPlayer1(ActionEvent event) {
         this.setCards(AvatarDuel.getActivePlayer().handCard);
     }
 
     @FXML
-    public void viewHandPlayer2(ActionEvent event){
+    public void viewHandPlayer2(ActionEvent event) {
         this.setCards(AvatarDuel.getOtherPlayer().handCard);
     }
 

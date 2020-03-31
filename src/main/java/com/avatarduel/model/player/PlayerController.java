@@ -4,6 +4,7 @@ import com.avatarduel.model.BoardController;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.deck.HandController;
 import com.avatarduel.model.field.FieldController;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -11,7 +12,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.List;
 
-public class PlayerController{
+public class PlayerController {
 
     public BoardController parent;
 
@@ -42,12 +43,12 @@ public class PlayerController{
     @FXML
     private PlayerAttributeController attributeController;
 
-    public void init(BoardController boardController){
+    public void init(BoardController boardController) {
         this.parent = boardController;
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.fieldController.init(this);
         this.handController.init(this);
         this.inventoryController.init(this);
@@ -56,7 +57,7 @@ public class PlayerController{
         this.deckCard = this.inventoryController.getCards();
     }
 
-    public void update(){
+    public void update() {
         this.handController.update();
         this.inventoryController.update();
     }
@@ -66,7 +67,7 @@ public class PlayerController{
         this.update();
     }
 
-    public void drawNCards(Integer n){
+    public void drawNCards(Integer n) {
         this.handController.addNCards(this.inventoryController.takeNCards(n));
     }
 

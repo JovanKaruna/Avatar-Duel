@@ -21,14 +21,14 @@ public class PlayerAttributeController {
     @FXML
     private Text name;
 
-    public void init(PlayerController playerController){
+    public void init(PlayerController playerController) {
         this.parent = playerController;
         this.hpValue = Settings.startingHealthAmount;
         this.update();
     }
 
-    public void update(){
+    public void update() {
         this.hp.setText(this.hpValue.toString());
-        this.healthBar.setProgress(this.hpValue/Settings.startingHealthAmount);
+        this.healthBar.setProgress(this.hpValue / Settings.startingHealthAmount);
     }
 }

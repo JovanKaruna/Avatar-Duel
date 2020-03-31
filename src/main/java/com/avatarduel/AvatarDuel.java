@@ -37,13 +37,11 @@ public class AvatarDuel extends Application {
 
         Parent root = rootLoader.load();
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, Settings.screenWidth, Settings.screenHeight);
         scene.getStylesheets().add(getClass().getResource("root.css").toExternalForm());
 
         stage.setScene(scene);
         stage.setTitle("Avatar Duel K03 G07");
-//        stage.setMinHeight(Settings.minHeight);
-//        stage.setMinWidth(Settings.minWidth);
         stage.setResizable(false);
         stage.show();
 
@@ -55,7 +53,6 @@ public class AvatarDuel extends Application {
         BoardController boardController = rootLoader.getController();
         AvatarDuel.activePlayer = boardController.player1Controller;
         AvatarDuel.otherPlayer = boardController.player2Controller;
-//        boardController.setActiveCard(activePlayer.hand.get(0));
         this.startGame();
     }
 

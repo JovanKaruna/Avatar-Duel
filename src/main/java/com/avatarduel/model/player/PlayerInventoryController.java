@@ -4,6 +4,7 @@ import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import com.avatarduel.model.card.CardDAO;
 import com.avatarduel.model.element.Element;
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;

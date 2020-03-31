@@ -5,7 +5,7 @@ import com.avatarduel.model.card.CardDescController;
 import com.avatarduel.model.player.PlayerController;
 import javafx.fxml.FXML;
 
-public class BoardController extends HasCardController{
+public class BoardController extends HasCardController {
     @FXML
     public PlayerController player1Controller;
 
@@ -16,13 +16,13 @@ public class BoardController extends HasCardController{
     public CardDescController cardDescController;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.cardController.init(this);
         this.cardDescController.init(this);
         this.player1Controller.init(this);
         this.player2Controller.init(this);
     }
-    
+
     @Override
     public void setActiveCard(Card c) {
         super.setActiveCard(c);

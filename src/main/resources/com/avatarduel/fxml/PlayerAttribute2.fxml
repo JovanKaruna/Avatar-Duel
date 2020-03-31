@@ -6,28 +6,31 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" stylesheets="@../root.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.player.PlayerAttributeController">
-   <styleClass>
-      <String fx:value="bold" />
-      <String fx:value="size18" />
-   </styleClass>
-   <top>
-      <ProgressBar fx:id="healthBar" prefHeight="20.0" prefWidth="1000.0" progress="0.0" BorderPane.alignment="CENTER" />
-   </top>
-   <right>
-      <HBox spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HP" />
-            <Text fx:id="hp" strokeType="OUTSIDE" strokeWidth="0.0" text="{hp}" />
-         </children>
-      </HBox>
-   </right>
-   <left>
-      <HBox spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2 -" />
-            <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="{playerName}" />
-         </children>
-      </HBox>
-   </left>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0"
+            prefWidth="1000.0" stylesheets="@../root.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.player.PlayerAttributeController">
+    <styleClass>
+        <String fx:value="bold"/>
+        <String fx:value="size18"/>
+    </styleClass>
+    <top>
+        <ProgressBar fx:id="healthBar" prefHeight="20.0" prefWidth="1000.0" progress="0.0"
+                     BorderPane.alignment="CENTER"/>
+    </top>
+    <right>
+        <HBox spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HP"/>
+                <Text fx:id="hp" strokeType="OUTSIDE" strokeWidth="0.0" text="{hp}"/>
+            </children>
+        </HBox>
+    </right>
+    <left>
+        <HBox spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2 -"/>
+                <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="{playerName}"/>
+            </children>
+        </HBox>
+    </left>
 </BorderPane>
