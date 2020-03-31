@@ -17,6 +17,8 @@ public class BoardController extends HasCardController {
 
     @FXML
     public void initialize() {
+        this.player1Controller.getFieldController().setColor("blue");
+        this.player2Controller.getFieldController().setColor("red");
         this.cardController.init(this);
         this.cardDescController.init(this);
         this.player1Controller.init(this);

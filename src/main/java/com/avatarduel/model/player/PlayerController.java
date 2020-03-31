@@ -47,6 +47,10 @@ public class PlayerController {
         this.parent = boardController;
     }
 
+    public FieldController getFieldController() {
+        return fieldController;
+    }
+
     @FXML
     public void initialize() {
         this.fieldController.init(this);

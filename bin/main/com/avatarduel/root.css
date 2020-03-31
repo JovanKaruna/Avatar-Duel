@@ -1,0 +1,17 @@
+.border {
+    -fx-border-color: black;
+    -fx-border-width: 1.7;
+    -fx-border-style: solid;
+}
+
+.field-cell {
+    -fx-background-color : lightgray;
+}
+
+.bold {
+    -fx-font-weight: bold;
+}
+
+.size18 {
+    -fx-font-size: 18;
+}

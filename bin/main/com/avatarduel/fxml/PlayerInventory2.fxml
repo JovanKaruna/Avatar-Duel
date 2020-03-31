@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.PlayerInventoryController">
+   <bottom>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Region prefHeight="21.0" />
+            <fx:include fx:id="wind" source="Power2.fxml" />
+            <Region prefHeight="10.0" />
+            <fx:include fx:id="water" source="Power2.fxml" />
+            <Region prefHeight="10.0" />
+            <fx:include fx:id="earth" source="Power2.fxml" />
+            <Region prefHeight="10.0" />
+            <fx:include fx:id="fire" source="Power2.fxml" />
+            <Region prefHeight="10.0" />
+            <HBox>
+               <children>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Text fx:id="currentDeck" strokeType="OUTSIDE" strokeWidth="0.0" text="currentDeck" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                  <Text fx:id="maxDeck" layoutX="10.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="maxDeck" />
+                  <Region layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <center>
+      <HBox scaleX="0.18" scaleY="0.18" BorderPane.alignment="CENTER">
+         <children>
+            <fx:include fx:id="graveyard" source="Card.fxml" />
+            <fx:include fx:id="deck" source="CardBack.fxml" />
+         </children>
+      </HBox>
+   </center>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</BorderPane>

@@ -3,9 +3,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Ellipse?>
 
-
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: #7ea0ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Ellipse fill="#1ecaff" layoutX="250.0" layoutY="350.0" radiusX="112.0" radiusY="203.0" stroke="#152875" strokeMiterLimit="0.0" strokeType="INSIDE" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="147.0" />
+      <Ellipse layoutX="250.0" layoutY="350.0" radiusX="112.0" radiusY="203.0" stroke="#152875" strokeMiterLimit="0.0" strokeType="INSIDE" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="147.0" >
+         <fill>
+            <LinearGradient startX="0.5" startY="0" endX="0.5" endY="1">
+               <stops>
+                  <Stop color="#BADFFC" />
+                  <Stop color="#1ecaff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Ellipse>
    </children>
 </AnchorPane>

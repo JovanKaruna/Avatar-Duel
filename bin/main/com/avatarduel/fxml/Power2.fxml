@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="170.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.PowerController">
+   <children>
+      <Region HBox.hgrow="ALWAYS" />
+      <Text fx:id="cur" strokeType="OUTSIDE" strokeWidth="0.0" text="cur" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+      <Text fx:id="max" strokeType="OUTSIDE" strokeWidth="0.0" text="max" />
+      <ImageView fx:id="image" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</HBox>

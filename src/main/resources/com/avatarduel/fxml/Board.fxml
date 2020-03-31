@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.BoardController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffecb8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.BoardController">
    <left>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="250.0" scaleX="0.5" scaleY="0.5" spacing="10.0" translateX="-62.5" translateY="-175.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -21,7 +20,7 @@
    <center>
       <VBox spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="800.0">
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="800.0" style="-fx-background-color: #ffecb8;">
                <items>
                   <fx:include fx:id="player2" source="Player2.fxml" />
                   <fx:include fx:id="player1" source="Player1.fxml" />

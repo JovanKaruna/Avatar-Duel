@@ -4,9 +4,6 @@
     -fx-border-style: solid;
 }
 
-.field-cell {
-    -fx-background-color : lightgray;
-}
 
 .bold {
     -fx-font-weight: bold;
@@ -14,4 +11,26 @@
 
 .size18 {
     -fx-font-size: 18;
+}
+
+.red-progress-bar .bar {
+        -fx-background-color: red;
+}
+
+.field-cell {
+    -fx-background-color : 	#f7c297;
+    -fx-border-width: 1.7;
+    -fx-border-style: solid;
+}
+
+.red-field-cell {
+    -fx-border-color: red;
+}
+
+.blue-field-cell {
+    -fx-border-color: blue;
+}
+
+.field-cell : hover{
+    -fx-background-color: #ffecb8;
 }
