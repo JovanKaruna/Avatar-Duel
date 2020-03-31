@@ -1,6 +1,7 @@
-package com.avatarduel.model;
+package com.avatarduel;
 
 import com.avatarduel.AvatarDuel;
+import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
-public class DeckViewerController extends HasCardController{
+public class DeckViewerController extends HasCardController {
     @FXML
     private Text currentIdx;
 

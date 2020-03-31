@@ -8,11 +8,11 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.PlayerInventoryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.player.PlayerInventoryController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <fx:include fx:id="wind" source="Power1.fxml" />
+            <fx:include fx:id="air" source="Power1.fxml" />
             <Region prefHeight="10.0" />
             <fx:include fx:id="water" source="Power1.fxml" />
             <Region prefHeight="10.0" />

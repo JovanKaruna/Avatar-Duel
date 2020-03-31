@@ -1,4 +1,4 @@
-package com.avatarduel.model;
+package com.avatarduel.model.player;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;

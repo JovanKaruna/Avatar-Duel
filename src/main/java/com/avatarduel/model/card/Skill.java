@@ -10,7 +10,7 @@ public class Skill extends Card implements Summonable {
     private Integer power;
     private String type;
 
-    public Skill(String name, String description, Element element, String imgPath, Integer attack, Integer defend, Integer power) {
+    public Skill(String name, String description, Element element, String imgPath, Integer power, Integer attack, Integer defend) {
         super(name, description, element, imgPath);
         this.attack = attack;
         this.defend = defend;

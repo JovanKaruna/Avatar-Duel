@@ -2,6 +2,7 @@ package com.avatarduel.model;
 
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardDescController;
+import com.avatarduel.model.player.PlayerController;
 import javafx.fxml.FXML;
 
 public class BoardController extends HasCardController{

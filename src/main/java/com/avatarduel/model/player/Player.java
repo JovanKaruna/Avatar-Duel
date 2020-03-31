@@ -1,4 +1,4 @@
-package com.avatarduel.model;
+package com.avatarduel.model.player;
 
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardDAO;
@@ -22,6 +22,7 @@ public class Player {
             this.deck.add(CardDAO.get(i));
         }
         this.playerController.deckController.setCards(this.hand);
+        this.playerController.inventoryController.setCards(this.hand, this.deck);
     }
 
     public void startTurn() {
@@ -34,5 +35,6 @@ public class Player {
             this.hand.add(this.deck.get(0));
             this.deck.remove(0);
         }
+        this.playerController.inventoryController.drawNCards(n);
     }
 }

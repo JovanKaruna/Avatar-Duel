@@ -1,5 +1,6 @@
-package com.avatarduel.model;
+package com.avatarduel.model.field;
 
+import com.avatarduel.model.player.PlayerController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 

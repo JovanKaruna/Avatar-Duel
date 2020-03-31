@@ -1,10 +1,10 @@
-package com.avatarduel.model;
+package com.avatarduel.model.deck;
 
-import com.avatarduel.Paths;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
+import com.avatarduel.model.player.CanShowCard;
+import com.avatarduel.model.player.PlayerController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeckController implements CanShowCard{
+public class DeckController implements CanShowCard {
 
     private PlayerController parent;
 

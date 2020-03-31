@@ -1,6 +1,8 @@
-package com.avatarduel.model;
+package com.avatarduel.model.player;
 
-import com.avatarduel.model.card.CardDescController;
+import com.avatarduel.model.BoardController;
+import com.avatarduel.model.deck.DeckController;
+import com.avatarduel.model.field.FieldController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -8,7 +10,7 @@ import javafx.scene.layout.HBox;
 
 public class PlayerController{
 
-    protected BoardController parent;
+    public BoardController parent;
 
     @FXML
     private GridPane field;
@@ -26,7 +28,7 @@ public class PlayerController{
     private BorderPane inventory;
 
     @FXML
-    private PlayerInventoryController inventoryController;
+    PlayerInventoryController inventoryController;
 
     @FXML
     private BorderPane attribute;
@@ -48,5 +50,6 @@ public class PlayerController{
 
     public void update(){
         this.deckController.update();
+        this.inventoryController.update();
     }
 }
