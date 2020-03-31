@@ -2,6 +2,7 @@ package com.avatarduel.model.deck;
 
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
+import com.avatarduel.model.card.CardDAO;
 import com.avatarduel.model.player.CanShowCard;
 import com.avatarduel.model.player.PlayerController;
 import javafx.fxml.FXML;
@@ -11,13 +12,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class DeckController implements CanShowCard {
+public class HandController implements CanShowCard {
 
     private PlayerController parent;
 
     private ArrayList<CardController> cardControllers;
+
+    private ArrayList<Card> hand;
 
     @FXML
     private GridPane container;
@@ -47,6 +51,7 @@ public class DeckController implements CanShowCard {
 
     public void init(PlayerController playerController) {
         this.parent = playerController;
+        this.cards = new ArrayList<>();
     }
 
     public void setCards(List<Card> cards) {
@@ -71,5 +76,13 @@ public class DeckController implements CanShowCard {
         CardController cc = new CardController();
         cc.setRoot((VBox) ((Pane) this.container.getChildren().get(i)).getChildren().get(0));
         this.cardControllers.add(cc);
+    }
+
+    public void addNCards(List<Card> cards) {
+        this.cards.addAll(cards);
+    }
+
+    public List<Card> getCards() {
+        return this.cards;
     }
 }

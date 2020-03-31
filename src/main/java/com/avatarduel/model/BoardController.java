@@ -22,7 +22,7 @@ public class BoardController extends HasCardController{
         this.player1Controller.init(this);
         this.player2Controller.init(this);
     }
-
+    
     @Override
     public void setActiveCard(Card c) {
         super.setActiveCard(c);

@@ -1,16 +1,22 @@
 package com.avatarduel.model.player;
 
 import com.avatarduel.model.BoardController;
-import com.avatarduel.model.deck.DeckController;
+import com.avatarduel.model.card.Card;
+import com.avatarduel.model.deck.HandController;
 import com.avatarduel.model.field.FieldController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.util.List;
+
 public class PlayerController{
 
     public BoardController parent;
+
+    public List<Card> handCard;
+    public List<Card> deckCard;
 
     @FXML
     private GridPane field;
@@ -19,10 +25,10 @@ public class PlayerController{
     private FieldController fieldController;
 
     @FXML
-    private HBox deck;
+    private HBox hand;
 
     @FXML
-    protected DeckController deckController;
+    protected HandController handController;
 
     @FXML
     private BorderPane inventory;
@@ -43,13 +49,25 @@ public class PlayerController{
     @FXML
     public void initialize(){
         this.fieldController.init(this);
-        this.deckController.init(this);
+        this.handController.init(this);
         this.inventoryController.init(this);
         this.attributeController.init(this);
+        this.handCard = this.handController.getCards();
+        this.deckCard = this.inventoryController.getCards();
     }
 
     public void update(){
-        this.deckController.update();
+        this.handController.update();
         this.inventoryController.update();
     }
+
+    public void startTurn() {
+        this.drawNCards(1);
+        this.update();
+    }
+
+    public void drawNCards(Integer n){
+        this.handController.addNCards(this.inventoryController.takeNCards(n));
+    }
+
 }

@@ -11,7 +11,7 @@ import com.avatarduel.model.card.Character;
 import com.avatarduel.model.card.Land;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.element.Element;
-import com.avatarduel.model.player.Player;
+import com.avatarduel.model.player.PlayerController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import com.avatarduel.util.CSVReader;
 
 public class AvatarDuel extends Application {
-    private static Player activePlayer, otherPlayer;
+    private static PlayerController activePlayer, otherPlayer;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -53,8 +53,8 @@ public class AvatarDuel extends Application {
 
         // board
         BoardController boardController = rootLoader.getController();
-        AvatarDuel.activePlayer = new Player(boardController.player1Controller);
-        AvatarDuel.otherPlayer = new Player(boardController.player2Controller);
+        AvatarDuel.activePlayer = boardController.player1Controller;
+        AvatarDuel.otherPlayer = boardController.player2Controller;
 //        boardController.setActiveCard(activePlayer.hand.get(0));
         this.startGame();
     }
@@ -83,24 +83,24 @@ public class AvatarDuel extends Application {
     }
 
     private List<String[]> loadCards(String path) throws IOException, URISyntaxException {
-        File landCSVFile = new File(getClass().getResource(path).toURI());
-        CSVReader landReader = new CSVReader(landCSVFile, "\t");
+        File csvFile = new File(getClass().getResource(path).toURI());
+        CSVReader landReader = new CSVReader(csvFile, "\t");
         landReader.setSkipHeader(true);
         return landReader.read();
     }
 
     public void nextPlayer() {
-        Player tmp = AvatarDuel.activePlayer;
+        PlayerController tmp = AvatarDuel.activePlayer;
         AvatarDuel.activePlayer = AvatarDuel.otherPlayer;
         AvatarDuel.otherPlayer = tmp;
         AvatarDuel.activePlayer.startTurn();
     }
 
-    public static Player getActivePlayer() {
+    public static PlayerController getActivePlayer() {
         return activePlayer;
     }
 
-    public static Player getOtherPlayer() {
+    public static PlayerController getOtherPlayer() {
         return otherPlayer;
     }
 }

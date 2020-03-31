@@ -18,7 +18,7 @@
       <HBox spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HP" />
-            <Text fx:id="hpValue" strokeType="OUTSIDE" strokeWidth="0.0" text="{hp}" />
+            <Text fx:id="hp" strokeType="OUTSIDE" strokeWidth="0.0" text="{hp}" />
          </children>
       </HBox>
    </right>

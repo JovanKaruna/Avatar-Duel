@@ -11,7 +11,7 @@
    <right>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <fx:include fx:id="deck" source="Deck.fxml" />
+            <fx:include fx:id="hand" source="Hand.fxml" />
             <fx:include fx:id="field" source="Field.fxml" />
          </children>
       </VBox>

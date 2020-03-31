@@ -2,14 +2,13 @@ package com.avatarduel.model.player;
 
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
+import com.avatarduel.model.card.CardDAO;
 import com.avatarduel.model.element.Element;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class PlayerInventoryController {
 
@@ -53,11 +52,11 @@ public class PlayerInventoryController {
 
     @FXML
     private CardController graveyardController;
-    private ArrayList<Card> deck;
-    private ArrayList<Card> hand;
+
+    private ArrayList<Card> cards;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.powerMap = new HashMap<Element, PowerController>() {
             {
                 put(Element.AIR, airController);
@@ -69,33 +68,38 @@ public class PlayerInventoryController {
         this.powerMap.forEach((element, controller) -> controller.init(this, element));
     }
 
-    public void init(PlayerController playerController){
+    public void init(PlayerController playerController) {
         this.parent = playerController;
+        this.cards = new ArrayList<>();
+        Collections.shuffle(CardDAO.getCards());
+        for (int i = 0; i < 60; i++) {
+            this.cards.add(CardDAO.get(i));
+        }
+        this.maxDeckAmount = this.cards.size();
+        this.currentDeckAmount = this.maxDeckAmount;
     }
 
-    public void addPowerCapacity(Element element){
+    public void addPowerCapacity(Element element) {
         this.powerMap.get(element).addCapacity();
     }
 
-    void setCards(ArrayList<Card> hand, ArrayList<Card> deck) {
-        this.hand = hand;
-        this.deck = deck;
-        this.currentDeckAmount = this.deck.size();
-        this.maxDeckAmount = 60;
-        this.update();
-    }
-
-    void update(){
+    void update() {
         this.currentDeck.setText(this.currentDeckAmount.toString());
         this.maxDeck.setText(this.maxDeckAmount.toString());
     }
 
-    public void drawNCards(Integer n){
+    public List<Card> takeNCards(Integer n) {
+        List<Card> tmp = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            tmp.add(this.cards.get(0));
+            this.cards.remove(0);
+        }
         this.currentDeckAmount -= n;
+        this.update();
+        return tmp;
     }
-    
-    @FXML
-    public void drawOneCard(){
-        this.drawNCards(1);
+
+    public ArrayList<Card> getCards() {
+        return cards;
     }
 }
