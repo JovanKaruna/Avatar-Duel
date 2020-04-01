@@ -4,7 +4,6 @@ import com.avatarduel.Settings;
 import com.avatarduel.model.card.*;
 import com.avatarduel.model.player.PlayerController;
 
-import com.avatarduel.util.CardLoader;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class BoardController extends HasCardController {
     public CardDescController cardDescController;
 
     public BoardController() throws IOException, URISyntaxException {
-        CardLoader.loadAllCardsToCardsDAO();
+        CardDAO.loadAllCards();
     }
 
     public void init(String player1name, String player2name){
