@@ -1,7 +1,7 @@
 package com.avatarduel.model.player;
 
 import com.avatarduel.exception.NotEnoughPowerException;
-import com.avatarduel.model.ImageLoader;
+import com.avatarduel.util.ImageLoader;
 import com.avatarduel.model.element.Element;
 
 import javafx.fxml.FXML;

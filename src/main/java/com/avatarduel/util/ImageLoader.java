@@ -1,4 +1,4 @@
-package com.avatarduel.model;
+package com.avatarduel.util;
 
 import com.avatarduel.Paths;
 import javafx.scene.image.Image;
@@ -20,7 +20,7 @@ public class ImageLoader {
         }
     }
 
-    public static Image loadImageFromPath(String path) throws FileNotFoundException {
-        return new Image(new FileInputStream(Paths.RESOURCE_PATH + Paths.IMAGE_PATH + path));
+    private static Image loadImageFromPath(String path) throws FileNotFoundException {
+        return new Image(new FileInputStream(Paths.resourceFolder + Paths.imageFolder + path));
     }
 }

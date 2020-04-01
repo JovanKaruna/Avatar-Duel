@@ -1,14 +1,13 @@
 package com.avatarduel.model.element;
 
+import com.avatarduel.Paths;
 import javafx.scene.paint.Color;
 
 public class Water extends Element {
     private static Water singleton;
 
     private Water() {
-        this.color = Color.DEEPSKYBLUE;
-        this.type = Type.WATER;
-        this.imagePath = "element/Water.png";
+        super(Color.DEEPSKYBLUE, Type.WATER, Paths.waterElementImage);
     }
 
     public static Water getInstance() {

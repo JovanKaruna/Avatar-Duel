@@ -1,14 +1,14 @@
 package com.avatarduel.model.element;
 
+import com.avatarduel.Paths;
+
 import javafx.scene.paint.Color;
 
 public class Earth extends Element {
     private static Earth singleton;
 
     private Earth() {
-        this.color = Color.SANDYBROWN;
-        this.type = Type.EARTH;
-        this.imagePath = "element/Earth.png";
+        super(Color.SANDYBROWN, Type.EARTH, Paths.earthElementImage);
     }
 
     public static Earth getInstance() {

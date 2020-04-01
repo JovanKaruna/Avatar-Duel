@@ -1,12 +1,14 @@
 package com.avatarduel.model;
 
-import com.avatarduel.AvatarDuel;
 import com.avatarduel.Settings;
-import com.avatarduel.model.card.Card;
-import com.avatarduel.model.card.CardDescController;
+import com.avatarduel.model.card.*;
 import com.avatarduel.model.player.PlayerController;
 
+import com.avatarduel.util.CardLoader;
 import javafx.fxml.FXML;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class BoardController extends HasCardController {
     @FXML
@@ -18,12 +20,15 @@ public class BoardController extends HasCardController {
     @FXML
     public CardDescController cardDescController;
 
-    @FXML
-    public void initialize() {
+    public BoardController() throws IOException, URISyntaxException {
+        CardLoader.loadAllCardsToCardsDAO();
+    }
+
+    public void init(String player1name, String player2name){
         this.cardController.init(this);
         this.cardDescController.init(this);
-        this.player1Controller.init(this, "Jojo", "blue");
-        this.player2Controller.init(this, "Jovan", "red");
+        this.player1Controller.init(this, player1name, Settings.player1Color);
+        this.player2Controller.init(this, player2name, Settings.player2Color);
     }
 
     @Override

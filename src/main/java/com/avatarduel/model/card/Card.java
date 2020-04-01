@@ -3,7 +3,6 @@ package com.avatarduel.model.card;
 import com.avatarduel.model.element.Element;
 
 public abstract class Card {
-    public static String CSV_FILE_PATH;
     private String name;
     private String description;
     private Element element;
@@ -16,9 +15,13 @@ public abstract class Card {
         this.imgPath = imgPath;
     }
 
-    abstract public String getAttributeDescription();
+    public String getAttributeDescription() {
+        return "";
+    }
 
-    abstract public String getEffectDescription();
+    public String getEffectDescription() {
+        return "";
+    }
 
     abstract public String getTypeDescription();
 
@@ -36,6 +39,10 @@ public abstract class Card {
 
     public String getImgPath() {
         return imgPath;
+    }
+
+    public void flip(){
+        // flip
     }
 }
 

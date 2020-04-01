@@ -23,7 +23,9 @@ abstract public class Skill extends Card implements Summonable {
     }
 
     @Override
-    abstract public String getAttributeDescription();
+    public String getAttributeDescription() {
+        return "POW / " + this.getPower().toString();
+    }
 
     @Override
     public String getEffectDescription() {

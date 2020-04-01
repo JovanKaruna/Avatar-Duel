@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 
-public class Element {
+abstract public class Element {
     enum Type {
         WATER,
         FIRE,
@@ -22,8 +22,14 @@ public class Element {
     };
 
     Color color;
-    Element.Type type;
+    Type type;
     String imagePath;
+
+    Element(Color color, Type type, String imagePath){
+        this.color = color;
+        this.type = type;
+        this.imagePath = imagePath;
+    }
 
     public Color getColor() {
         return color;

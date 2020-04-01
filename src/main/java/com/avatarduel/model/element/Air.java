@@ -1,14 +1,14 @@
 package com.avatarduel.model.element;
 
+import com.avatarduel.Paths;
+
 import javafx.scene.paint.Color;
 
 public class Air extends Element {
     private static Air singleton;
 
     private Air() {
-        this.color = Color.LIGHTBLUE;
-        this.type = Type.AIR;
-        this.imagePath = "element/Air.png";
+        super(Color.LIGHTBLUE, Type.AIR, Paths.airElementImage);
     }
 
     public static Air getInstance() {

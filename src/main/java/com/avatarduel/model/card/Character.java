@@ -3,7 +3,6 @@ package com.avatarduel.model.card;
 import com.avatarduel.model.element.Element;
 
 public class Character extends Card implements Summonable {
-    public static final String CSV_FILE_PATH = "card/data/character.csv";
     private static final String TYPE_NAME = "CHARACTER";
     private Integer attack;
     private Integer defend;

@@ -1,22 +1,16 @@
 package com.avatarduel.model.card;
 
-import com.avatarduel.Paths;
-import com.avatarduel.Settings;
+import com.avatarduel.util.BackgroundLoader;
 import com.avatarduel.model.HasCardController;
-import com.avatarduel.model.ImageLoader;
-import com.avatarduel.model.element.Element;
+import com.avatarduel.util.ImageLoader;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-import java.util.HashMap;
-
 public class CardController {
-    public static final String FXML_PATH = "fxml/Card.fxml";
     private static final Double imageToCardWidthRatio = 0.8;
 
     private boolean isImageFitted = false;
@@ -65,7 +59,7 @@ public class CardController {
         this.effect = (Text) this.subtitle.getChildren().get(0);
         this.type = (Text) this.subtitle.getChildren().get(3);
 
-        this.image = (ImageView) ((VBox)((HBox) root.getChildren().get(2)).getChildren().get(1)).getChildren().get(0);
+        this.image = (ImageView) ((VBox) ((HBox) root.getChildren().get(2)).getChildren().get(1)).getChildren().get(0);
         this.descriptionText = (Text) ((VBox) root.getChildren().get(3)).getChildren().get(0);
         this.attribute = (Text) ((HBox) ((VBox) root.getChildren().get(3)).getChildren().get(2)).getChildren().get(1);
     }
@@ -76,7 +70,7 @@ public class CardController {
     }
 
     public <T extends Card> void setAttributes(T c) {
-        if(!this.isImageFitted){
+        if (!this.isImageFitted) {
             // fit image container size
             this.image.setFitWidth(this.root.getWidth() * CardController.imageToCardWidthRatio);
             this.elementImage.setFitHeight(this.title.getHeight());
@@ -101,7 +95,7 @@ public class CardController {
     }
 
     private void setBackground(Color c) {
-        root.setBackground(new Background(new BackgroundFill(c, CornerRadii.EMPTY, Insets.EMPTY)));
+        BackgroundLoader.setBackground(root, c);
     }
 }
 

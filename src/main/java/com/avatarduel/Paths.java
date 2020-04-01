@@ -1,14 +1,32 @@
 package com.avatarduel;
 
 public class Paths {
-    public static final String RESOURCE_PATH = "src/main/resources/com/avatarduel/";
-    public static final String IMAGE_PATH = "card/image/";
-    public static final String APP_FXML_PATH = "fxml/Board.fxml";
-    public static final String DECK_VIEWER_FXML_PATH = "fxml/DeckViewer.fxml";
-    public static final String CARD_FXML_PATH =  "fxml/Card.fxml";
-    public static final String BOARD_CSS_FILE = "root.css";
+    public static final String resourceFolder = "src/main/resources/com/avatarduel/";
+    public static final String srcFolder = "src/main/java/com/avatarduel/";
+    public static final String imageFolder = "card/image/";
+    public static final String csvFolder = "card/data/";
+    public static final String fxmlFolder = "fxml/";
+    public static final String elementFolder = "element/";
+    public static final String cssFolder = "css/";
 
-    private Paths(){
+    public static final String appFXML = fxmlFolder + "Board.fxml";
+    public static final String deckViewerFXML = fxmlFolder + "DeckViewer.fxml";
+    public static final String cardFXML = fxmlFolder + "Card.fxml";
+    public static final String boardCSS = cssFolder + "root.css";
+
+    public static final String landCSV = csvFolder + "land.csv";
+    public static final String characterCSV = csvFolder + "character.csv";
+    public static final String auraCSV = csvFolder + "aura.csv";
+    public static final String destroyCSV = csvFolder + "destroy.csv";
+    public static final String powerupCSV = csvFolder + "powerup.csv";
+
+    public static final String earthElementImage = elementFolder + "Earth.png";
+    public static final String airElementImage = elementFolder + "Air.png";
+    public static final String waterElementImage = elementFolder + "Water.png";
+    public static final String fireElementImage = elementFolder + "Fire.png";
+
+    private Paths() {
         throw new AssertionError("This is a utility class.");
     }
 }
+
