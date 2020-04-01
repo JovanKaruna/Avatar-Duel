@@ -91,9 +91,9 @@ public class CardController {
         this.effect.setText(c.getEffectDescription());
 
         // set image and background
-        this.setBackground(Settings.elementColorMap.get(c.getElement()));
+        this.setBackground(c.getElement().getColor());
         ImageLoader.setImage(this.image, c.getImgPath());
-        ImageLoader.setImage(this.elementImage, Paths.elementImageMap.get(c.getElement()));
+        ImageLoader.setImage(this.elementImage, c.getElement().getImagePath());
     }
 
     public String getDescription() {

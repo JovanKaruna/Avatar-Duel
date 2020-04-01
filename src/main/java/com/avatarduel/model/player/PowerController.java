@@ -1,9 +1,9 @@
 package com.avatarduel.model.player;
 
-import com.avatarduel.Paths;
 import com.avatarduel.exception.NotEnoughPowerException;
 import com.avatarduel.model.ImageLoader;
 import com.avatarduel.model.element.Element;
+
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -34,7 +34,7 @@ public class PowerController {
 
     public void init(PlayerInventoryController playerInventoryController, Element element){
         this.parent = playerInventoryController;
-        ImageLoader.setImage(this.image, Paths.elementImageMap.get(element));
+        ImageLoader.setImage(this.image, element.getImagePath());
     }
 
     private void updateText(){

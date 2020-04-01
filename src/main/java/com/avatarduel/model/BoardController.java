@@ -1,8 +1,11 @@
 package com.avatarduel.model;
 
+import com.avatarduel.AvatarDuel;
+import com.avatarduel.Settings;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardDescController;
 import com.avatarduel.model.player.PlayerController;
+
 import javafx.fxml.FXML;
 
 public class BoardController extends HasCardController {
@@ -17,17 +20,32 @@ public class BoardController extends HasCardController {
 
     @FXML
     public void initialize() {
-        this.player1Controller.getFieldController().setColor("blue");
-        this.player2Controller.getFieldController().setColor("red");
         this.cardController.init(this);
         this.cardDescController.init(this);
-        this.player1Controller.init(this);
-        this.player2Controller.init(this);
+        this.player1Controller.init(this, "Jojo", "blue");
+        this.player2Controller.init(this, "Jovan", "red");
     }
 
     @Override
     public void setActiveCard(Card c) {
         super.setActiveCard(c);
         this.cardDescController.setAttributes(c);
+    }
+
+    public void startGame() {
+        this.player1Controller.drawNCards(Settings.startingCardAmount);
+        this.player2Controller.drawNCards(Settings.startingCardAmount);
+        this.player1Controller.startTurn();
+    }
+
+    public void nextPlayer() {
+        PlayerController tmp = this.player1Controller;
+        this.player1Controller = this.player2Controller;
+        this.player2Controller = tmp;
+        this.player1Controller.startTurn();
+    }
+
+    public PlayerController getActivePlayer(){
+        return this.player1Controller;
     }
 }

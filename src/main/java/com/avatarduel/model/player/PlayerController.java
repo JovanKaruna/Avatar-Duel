@@ -43,8 +43,12 @@ public class PlayerController {
     @FXML
     private PlayerAttributeController attributeController;
 
-    public void init(BoardController boardController) {
+    public void init(BoardController boardController, String name, String color) {
         this.parent = boardController;
+        this.fieldController.setColor(color);
+        this.attributeController.setName(name);
+        this.handCard = this.handController.getCards();
+        this.deckCard = this.inventoryController.getCards();
     }
 
     public FieldController getFieldController() {
@@ -57,12 +61,11 @@ public class PlayerController {
         this.handController.init(this);
         this.inventoryController.init(this);
         this.attributeController.init(this);
-        this.handCard = this.handController.getCards();
-        this.deckCard = this.inventoryController.getCards();
     }
 
     public void update() {
         this.handController.update();
+        this.attributeController.update();
         this.inventoryController.update();
     }
 
@@ -75,4 +78,7 @@ public class PlayerController {
         this.handController.addNCards(this.inventoryController.takeNCards(n));
     }
 
+    public void setName(String name) {
+        this.attributeController.setName(name);
+    }
 }

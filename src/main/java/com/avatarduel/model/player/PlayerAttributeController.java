@@ -21,6 +21,8 @@ public class PlayerAttributeController {
     @FXML
     private Text name;
 
+    private String nameValue;
+
     public void init(PlayerController playerController) {
         this.parent = playerController;
         this.hpValue = Settings.startingHealthAmount;
@@ -30,5 +32,10 @@ public class PlayerAttributeController {
     public void update() {
         this.hp.setText(this.hpValue.toString());
         this.healthBar.setProgress(this.hpValue / Settings.startingHealthAmount);
+    }
+
+    public void setName(String nameValue) {
+        this.nameValue = nameValue;
+        this.name.setText(this.nameValue);
     }
 }

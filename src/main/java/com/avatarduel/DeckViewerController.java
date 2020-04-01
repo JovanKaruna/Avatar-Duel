@@ -55,22 +55,22 @@ public class DeckViewerController extends HasCardController {
 
     @FXML
     public void viewDeckPlayer1(ActionEvent event) {
-        this.setCards(AvatarDuel.getActivePlayer().deckCard);
+        //
     }
 
     @FXML
     public void viewDeckPlayer2(ActionEvent event) {
-        this.setCards(AvatarDuel.getOtherPlayer().deckCard);
+        //
     }
 
     @FXML
     public void viewHandPlayer1(ActionEvent event) {
-        this.setCards(AvatarDuel.getActivePlayer().handCard);
+        //
     }
 
     @FXML
     public void viewHandPlayer2(ActionEvent event) {
-        this.setCards(AvatarDuel.getOtherPlayer().handCard);
+        //
     }
 
     public void setCardController(CardController cardController) {

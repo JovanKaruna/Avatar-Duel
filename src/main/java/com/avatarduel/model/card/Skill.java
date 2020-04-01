@@ -2,28 +2,16 @@ package com.avatarduel.model.card;
 
 import com.avatarduel.model.element.Element;
 
-public class Skill extends Card implements Summonable {
-    public static final String CSV_FILE_PATH = "card/data/skill.csv";
+abstract public class Skill extends Card implements Summonable {
     private static final String TYPE_NAME = "SKILL";
-    private Integer attack;
-    private Integer defend;
+
     private Integer power;
     private String type;
 
-    public Skill(String name, String description, Element element, String imgPath, Integer power, Integer attack, Integer defend) {
+    public Skill(String name, String description, Element element, String imgPath, Integer power, String type) {
         super(name, description, element, imgPath);
-        this.attack = attack;
-        this.defend = defend;
         this.power = power;
-        this.type = "AURA";
-    }
-
-    public Integer getAttack() {
-        return attack;
-    }
-
-    public Integer getDefend() {
-        return defend;
+        this.type = type;
     }
 
     public Integer getPower() {
@@ -35,15 +23,11 @@ public class Skill extends Card implements Summonable {
     }
 
     @Override
-    public String getAttributeDescription() {
-        return "ATK / " + this.getAttack().toString() +
-                " | DEF / " + this.getDefend().toString() +
-                " | POW / " + this.getPower().toString();
-    }
+    abstract public String getAttributeDescription();
 
     @Override
     public String getEffectDescription() {
-        return this.type;
+        return this.getType();
     }
 
     @Override

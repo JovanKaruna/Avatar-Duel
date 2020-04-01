@@ -1,9 +1,10 @@
 package com.avatarduel.model.player;
 
+import com.avatarduel.Settings;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import com.avatarduel.model.card.CardDAO;
-import com.avatarduel.model.element.Element;
+import com.avatarduel.model.element.*;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
@@ -58,24 +59,18 @@ public class PlayerInventoryController {
 
     @FXML
     public void initialize() {
-        this.powerMap = new HashMap<Element, PowerController>() {
-            {
-                put(Element.AIR, airController);
-                put(Element.WATER, waterController);
-                put(Element.FIRE, fireController);
-                put(Element.EARTH, earthController);
-            }
-        };
-        this.powerMap.forEach((element, controller) -> controller.init(this, element));
+        this.airController.init(this, Air.getInstance());
+        this.fireController.init(this, Fire.getInstance());
+        this.earthController.init(this, Earth.getInstance());
+        this.waterController.init(this, Water.getInstance());
     }
 
     public void init(PlayerController playerController) {
         this.parent = playerController;
         this.cards = new ArrayList<>();
         Collections.shuffle(CardDAO.getCards());
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < Settings.startingDeckAmount; i++)
             this.cards.add(CardDAO.get(i));
-        }
         this.maxDeckAmount = this.cards.size();
         this.currentDeckAmount = this.maxDeckAmount;
     }
