@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" spacing="10.0" styleClass="border" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.card.CardDescController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" spacing="10.0" styleClass="border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.card.CardDescController">
    <children>
       <TextFlow prefHeight="600.0">
          <children>
-            <VBox prefHeight="600.0">
+            <VBox prefHeight="300.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
                      <font>
@@ -31,8 +31,12 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <ListView fx:id="skills" prefHeight="100.0" />
-                  <Region VBox.vgrow="ALWAYS" />
+                  <ListView fx:id="skills" prefHeight="50.0" style="-fx-background-color: #f6db5f;" />
+                  <Text fx:id="attribute" strokeType="OUTSIDE" strokeWidth="0.0" text="{cardAttribute}" textAlignment="RIGHT" wrappingWidth="437.5481719970703">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
                </children>
             </VBox>
          </children>
@@ -41,11 +45,6 @@
       <HBox spacing="5.0">
          <children>
             <Region HBox.hgrow="ALWAYS" />
-            <Text fx:id="attribute" strokeType="OUTSIDE" strokeWidth="0.0" text="{cardAttribute}">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Text>
          </children>
       </HBox>
    </children>
