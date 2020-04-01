@@ -11,6 +11,6 @@ public class Destroy extends Skill{
 
     @Override
     public String getAttributeDescription() {
-        return " | POW / " + this.getPower().toString();
+        return "POW / " + this.getPower().toString();
     }
 }
