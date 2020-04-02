@@ -4,12 +4,13 @@ import javafx.scene.paint.Color;
 
 import java.util.EnumMap;
 
-abstract public class Element {
+public abstract class Element {
     enum Type {
         WATER,
         FIRE,
         AIR,
-        EARTH
+        EARTH,
+        NOELEMENT
     }
 
     private static EnumMap<Type, Element> classMap = new EnumMap<Type, Element>(Type.class) {
@@ -18,6 +19,7 @@ abstract public class Element {
             put(Type.WATER, Water.getInstance());
             put(Type.AIR, Air.getInstance());
             put(Type.EARTH, Earth.getInstance());
+            put(Type.NOELEMENT, NoElement.getInstance());
         }
     };
 

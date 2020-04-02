@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Repository Pattern
 public class CardDAO {
     private static ArrayList<Card> cards = new ArrayList<>();
 
@@ -29,7 +30,8 @@ public class CardDAO {
         return CardDAO.cards.get(i);
     }
 
-    public static void loadAllCards() throws IOException, URISyntaxException {
+    // Factory Pattern
+    public static void init() throws IOException, URISyntaxException {
         for (String[] row : loadCards(Paths.landCSV)) {
             CardDAO.add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));
             CardDAO.add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));

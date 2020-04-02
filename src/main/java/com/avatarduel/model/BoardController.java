@@ -17,13 +17,13 @@ public class BoardController extends HasCardController {
     private PlayerController player2Controller;
 
     @FXML
-    public CardDescController cardDescController;
+    private CardDescController cardDescController;
 
     @FXML
-    public PhaseController phaseController;
+    private PhaseController phaseController;
 
     public BoardController() throws IOException, URISyntaxException {
-        CardDAO.loadAllCards();
+        CardDAO.init();
     }
 
     public void init(String player1name, String player2name){
@@ -31,6 +31,7 @@ public class BoardController extends HasCardController {
         this.cardDescController.init(this);
         this.player1Controller.init(this, player1name, Settings.player1Color);
         this.player2Controller.init(this, player2name, Settings.player2Color);
+        this.phaseController.init(this);
     }
 
     @Override
@@ -42,10 +43,14 @@ public class BoardController extends HasCardController {
     public void startGame() {
         this.player1Controller.drawNCards(Settings.startingCardAmount);
         this.player2Controller.drawNCards(Settings.startingCardAmount);
+        this.player2Controller.endTurn();
+        this.player1Controller.update();
+        this.player2Controller.update();
         this.player1Controller.startTurn();
     }
 
     public void nextPlayer() {
+        this.player1Controller.endTurn();
         PlayerController tmp = this.player1Controller;
         this.player1Controller = this.player2Controller;
         this.player2Controller = tmp;

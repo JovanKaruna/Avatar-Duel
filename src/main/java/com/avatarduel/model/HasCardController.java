@@ -6,7 +6,7 @@ import com.avatarduel.model.card.CardController;
 import javafx.fxml.FXML;
 
 
-abstract public class HasCardController {
+public abstract class HasCardController {
     @FXML
     protected CardController cardController;
 

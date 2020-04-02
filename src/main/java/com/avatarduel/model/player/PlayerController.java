@@ -67,6 +67,7 @@ public class PlayerController {
 
     public void startTurn() {
         this.drawNCards(1);
+        this.handCard.forEach(c -> c.open());
         this.update();
     }
 
@@ -84,5 +85,9 @@ public class PlayerController {
 
     public BoardController getParent() {
         return parent;
+    }
+
+    public void endTurn() {
+        this.handController.endTurn();
     }
 }

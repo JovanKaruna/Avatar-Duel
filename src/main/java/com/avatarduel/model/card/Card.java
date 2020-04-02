@@ -7,12 +7,14 @@ public abstract class Card {
     private String description;
     private Element element;
     private String imgPath;
+    private boolean isOpen;
 
     public Card(String name, String description, Element element, String imgPath) {
         this.name = name;
         this.description = description;
         this.element = element;
         this.imgPath = imgPath;
+        this.isOpen = true;
     }
 
     public String getAttributeDescription() {
@@ -23,7 +25,7 @@ public abstract class Card {
         return "";
     }
 
-    abstract public String getTypeDescription();
+    public abstract String getTypeDescription();
 
     public String getName() {
         return name;
@@ -41,8 +43,29 @@ public abstract class Card {
         return imgPath;
     }
 
+    private boolean isEmpty(){
+        return element.equals(Element.valueOf("NOELEMENT"));
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
     public void flip(){
-        // flip
+        if(this.isEmpty()) return;
+        if(this.isOpen){
+            this.close();
+        } else {
+            this.open();
+        }
+    }
+
+    public void close() {
+        this.isOpen = false;
+    }
+
+    public void open() {
+        this.isOpen = true;
     }
 }
 

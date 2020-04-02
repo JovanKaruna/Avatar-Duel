@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.player.PlayerInventoryController">
    <top>
       <VBox BorderPane.alignment="CENTER">
@@ -36,7 +35,7 @@
    <center>
       <HBox scaleX="0.18" scaleY="0.18" BorderPane.alignment="CENTER">
          <children>
-            <fx:include fx:id="deck" source="CardBack.fxml" />
+            <fx:include fx:id="deck" source="Card.fxml" />
             <fx:include fx:id="graveyard" source="Card.fxml" />
          </children>
       </HBox>

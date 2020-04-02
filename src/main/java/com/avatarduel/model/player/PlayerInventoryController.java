@@ -1,9 +1,11 @@
 package com.avatarduel.model.player;
 
 import com.avatarduel.Settings;
+import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import com.avatarduel.model.card.CardDAO;
+import com.avatarduel.model.card.EmptyCard;
 import com.avatarduel.model.element.*;
 
 import javafx.fxml.FXML;
@@ -12,7 +14,7 @@ import javafx.scene.text.Text;
 
 import java.util.*;
 
-public class PlayerInventoryController {
+public class PlayerInventoryController extends HasCardController {
 
     private PlayerController parent;
 
@@ -53,6 +55,9 @@ public class PlayerInventoryController {
     private Integer maxDeckAmount;
 
     @FXML
+    private CardController deckController;
+
+    @FXML
     private CardController graveyardController;
 
     private ArrayList<Card> cards;
@@ -63,6 +68,8 @@ public class PlayerInventoryController {
         this.fireController.init(this, Fire.getInstance());
         this.earthController.init(this, Earth.getInstance());
         this.waterController.init(this, Water.getInstance());
+        this.graveyardController.init(this);
+        this.deckController.init(this);
     }
 
     public void init(PlayerController playerController) {
@@ -71,6 +78,7 @@ public class PlayerInventoryController {
         Collections.shuffle(CardDAO.getCards());
         for (int i = 0; i < Settings.startingDeckAmount; i++)
             this.cards.add(CardDAO.get(i));
+        this.graveyardController.setAttributes(EmptyCard.getInstance());
         this.maxDeckAmount = this.cards.size();
         this.currentDeckAmount = this.maxDeckAmount;
     }

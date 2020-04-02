@@ -1,5 +1,6 @@
 package com.avatarduel.model.card;
 
+import com.avatarduel.Settings;
 import com.avatarduel.util.BackgroundLoader;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.util.ImageLoader;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
 
 public class CardController {
@@ -47,21 +49,29 @@ public class CardController {
     @FXML
     private Text attribute;
 
+    @FXML
+    private AnchorPane back;
 
-    public void setRoot(VBox root) {
-        this.root = root;
+    @FXML
+    private Ellipse backLogo;
 
-        this.title = (HBox) root.getChildren().get(0);
+    public void setRoot(StackPane root) {
+        this.root = (VBox) root.getChildren().get(0);
+
+        this.back = (AnchorPane) root.getChildren().get(1);
+        this.backLogo = (Ellipse) this.back.getChildren().get(0);
+
+        this.title = (HBox) this.root.getChildren().get(0);
         this.name = (Text) this.title.getChildren().get(0);
         this.elementImage = (ImageView) this.title.getChildren().get(2);
 
-        this.subtitle = (HBox) root.getChildren().get(1);
+        this.subtitle = (HBox) this.root.getChildren().get(1);
         this.effect = (Text) this.subtitle.getChildren().get(0);
         this.type = (Text) this.subtitle.getChildren().get(3);
 
-        this.image = (ImageView) ((VBox) ((HBox) root.getChildren().get(2)).getChildren().get(1)).getChildren().get(0);
-        this.descriptionText = (Text) ((VBox) root.getChildren().get(3)).getChildren().get(0);
-        this.attribute = (Text) ((HBox) ((VBox) root.getChildren().get(3)).getChildren().get(2)).getChildren().get(1);
+        this.image = (ImageView) ((VBox) ((HBox) this.root.getChildren().get(2)).getChildren().get(1)).getChildren().get(0);
+        this.descriptionText = (Text) ((VBox) this.root.getChildren().get(3)).getChildren().get(0);
+        this.attribute = (Text) ((HBox) ((VBox) this.root.getChildren().get(3)).getChildren().get(2)).getChildren().get(1);
     }
 
     @FXML
@@ -70,24 +80,44 @@ public class CardController {
     }
 
     public <T extends Card> void setAttributes(T c) {
-        if (!this.isImageFitted) {
-            // fit image container size
-            this.image.setFitWidth(this.root.getWidth() * CardController.imageToCardWidthRatio);
-            this.elementImage.setFitHeight(this.title.getHeight());
-            this.isImageFitted = true;
+        if (c.isOpen()) {
+            this.back.setBackground(Background.EMPTY);
+            this.backLogo.setFill(new Color(0, 0, 0, 0));
+
+            if (!this.isImageFitted) {
+                // fit image container size
+                this.image.setFitWidth(this.root.getWidth() * CardController.imageToCardWidthRatio);
+                this.elementImage.setFitHeight(this.title.getHeight());
+                this.isImageFitted = true;
+            }
+
+            // set text
+            this.name.setText(c.getName());
+            this.descriptionText.setText(c.getDescription());
+            this.attribute.setText(c.getAttributeDescription());
+            this.type.setText(c.getTypeDescription());
+            this.effect.setText(c.getEffectDescription());
+
+            // set image and background
+            this.setBackground(c.getElement().getColor());
+            ImageLoader.setImage(this.image, c.getImgPath());
+            ImageLoader.setImage(this.elementImage, c.getElement().getImagePath());
+        } else {
+            BackgroundLoader.setBackground(this.back, Settings.cardBackColor);
+            this.backLogo.setFill(new Color(45 / 255.0, 184 / 255.0, 255 / 255.0, 1));
         }
+    }
 
-        // set text
-        this.name.setText(c.getName());
-        this.descriptionText.setText(c.getDescription());
-        this.attribute.setText(c.getAttributeDescription());
-        this.type.setText(c.getTypeDescription());
-        this.effect.setText(c.getEffectDescription());
+    public void lift(){
+        this.root.setTranslateY(-100);
+        this.root.setScaleX(1.1);
+        this.root.setScaleY(1.1);
+    }
 
-        // set image and background
-        this.setBackground(c.getElement().getColor());
-        ImageLoader.setImage(this.image, c.getImgPath());
-        ImageLoader.setImage(this.elementImage, c.getElement().getImagePath());
+    public void unlift(){
+        this.root.setTranslateY(0);
+        this.root.setScaleX(1);
+        this.root.setScaleY(1);
     }
 
     public String getDescription() {

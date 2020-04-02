@@ -2,7 +2,7 @@ package com.avatarduel.model.card;
 
 import com.avatarduel.model.element.Element;
 
-abstract public class Skill extends Card implements Summonable {
+public abstract class Skill extends Card implements Summonable {
     private static final String TYPE_NAME = "SKILL";
 
     private Integer power;

@@ -19,7 +19,7 @@
 }
 
 .red-progress-bar .bar {
-        -fx-background-color: red;
+    -fx-background-color: red;
 }
 
 .field-cell {
