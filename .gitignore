@@ -16,6 +16,7 @@
 
 # Bin file
 bin/*
+out/*
 
 # Package Files #
 *.jar
