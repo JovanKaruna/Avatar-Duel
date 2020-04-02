@@ -7,6 +7,9 @@ import javafx.scene.text.Text;
 public class PhaseController {
 
     @FXML
+    private BoardController parent;
+
+    @FXML
     private Text playerTurn;
 
     @FXML
@@ -18,5 +21,19 @@ public class PhaseController {
     @FXML
     private Button next;
 
+    @FXML
+    public void initialize(){
+        this.playerTurn.setText("Player 1");
+        this.turn.setText("1");
+        this.phase.setText("DRAW PHASE");
+    }
+
+    public void init(BoardController boardController){
+        this.parent = boardController;
+    }
+
+    public BoardController getParent() {
+        return parent;
+    }
 }
 

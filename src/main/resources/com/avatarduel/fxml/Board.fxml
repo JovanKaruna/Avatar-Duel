@@ -14,7 +14,7 @@
          <children>
             <fx:include fx:id="card" source="Card.fxml" />
             <fx:include fx:id="cardDesc" source="CardDesc.fxml" />
-            <fx:include source="Phase.fxml" />
+            <fx:include fx:id="phase" source="Phase.fxml" />
          </children>
       </VBox>
    </left>

@@ -57,4 +57,8 @@ public class PowerController {
             this.curVal -= n;
         }
     }
+
+    public PlayerInventoryController getParent() {
+        return parent;
+    }
 }

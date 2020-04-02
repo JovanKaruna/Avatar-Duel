@@ -25,7 +25,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="0">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="0">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>
@@ -33,7 +33,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="1">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="1">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>
@@ -41,7 +41,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="2">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="2">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>
@@ -49,7 +49,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="3">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="3">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>
@@ -57,7 +57,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="4">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="4">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>
@@ -65,7 +65,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="5">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="5">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>
@@ -73,7 +73,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="6">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="6">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>
@@ -81,7 +81,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="7">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="7">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>
@@ -89,7 +89,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="8">
+            <Pane onMouseEntered="#showDetail" onMouseExited="#removeDetail" onMouseClicked="#useCard" prefWidth="75.0" styleClass="border" stylesheets="@../css/root.css" GridPane.columnIndex="8">
                <children>
                   <fx:include scaleX="0.14" scaleY="0.14" source="Card.fxml" translateX="-212.0" translateY="-300.0" />
                </children>

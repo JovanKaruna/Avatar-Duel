@@ -6,11 +6,15 @@ import com.avatarduel.model.card.CardController;
 import javafx.fxml.FXML;
 
 
-public abstract class HasCardController {
+abstract public class HasCardController {
     @FXML
-    public CardController cardController;
+    protected CardController cardController;
 
     public void setActiveCard(Card c){
         this.cardController.setAttributes(c);
+    }
+
+    public CardController getCardController() {
+        return cardController;
     }
 }

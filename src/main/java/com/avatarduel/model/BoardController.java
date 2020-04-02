@@ -11,13 +11,16 @@ import java.net.URISyntaxException;
 
 public class BoardController extends HasCardController {
     @FXML
-    public PlayerController player1Controller;
+    private PlayerController player1Controller;
 
     @FXML
-    public PlayerController player2Controller;
+    private PlayerController player2Controller;
 
     @FXML
     public CardDescController cardDescController;
+
+    @FXML
+    public PhaseController phaseController;
 
     public BoardController() throws IOException, URISyntaxException {
         CardDAO.loadAllCards();

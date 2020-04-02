@@ -4,6 +4,11 @@
     -fx-border-style: solid;
 }
 
+.chosen-card-border {
+    -fx-border-color: brown;
+    -fx-border-width: 1.7;
+    -fx-border-style: solid;
+}
 
 .bold {
     -fx-font-weight: bold;

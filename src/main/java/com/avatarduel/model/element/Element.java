@@ -2,7 +2,7 @@ package com.avatarduel.model.element;
 
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 abstract public class Element {
     enum Type {
@@ -12,7 +12,7 @@ abstract public class Element {
         EARTH
     }
 
-    private static HashMap<Type, Element> classMap = new HashMap<Type, Element>() {
+    private static EnumMap<Type, Element> classMap = new EnumMap<Type, Element>(Type.class) {
         {
             put(Type.FIRE, Fire.getInstance());
             put(Type.WATER, Water.getInstance());
@@ -21,9 +21,9 @@ abstract public class Element {
         }
     };
 
-    Color color;
-    Type type;
-    String imagePath;
+    private Color color;
+    private Type type;
+    private String imagePath;
 
     Element(Color color, Type type, String imagePath){
         this.color = color;

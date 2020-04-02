@@ -16,8 +16,8 @@ public class PlayerController {
 
     public BoardController parent;
 
-    public List<Card> handCard;
-    public List<Card> deckCard;
+    private List<Card> handCard;
+    private List<Card> deckCard;
 
     @FXML
     private GridPane field;
@@ -29,13 +29,13 @@ public class PlayerController {
     private HBox hand;
 
     @FXML
-    protected HandController handController;
+    private HandController handController;
 
     @FXML
     private BorderPane inventory;
 
     @FXML
-    PlayerInventoryController inventoryController;
+    private PlayerInventoryController inventoryController;
 
     @FXML
     private BorderPane attribute;
@@ -43,24 +43,20 @@ public class PlayerController {
     @FXML
     private PlayerAttributeController attributeController;
 
-    public void init(BoardController boardController, String name, String color) {
-        this.parent = boardController;
-        this.fieldController.setColor(color);
-        this.attributeController.setName(name);
-        this.handCard = this.handController.getCards();
-        this.deckCard = this.inventoryController.getCards();
-    }
-
-    public FieldController getFieldController() {
-        return fieldController;
-    }
-
     @FXML
     public void initialize() {
         this.fieldController.init(this);
         this.handController.init(this);
         this.inventoryController.init(this);
         this.attributeController.init(this);
+    }
+
+    public void init(BoardController boardController, String name, String color) {
+        this.parent = boardController;
+        this.fieldController.setColor(color);
+        this.attributeController.setName(name);
+        this.handCard = this.handController.getCards();
+        this.deckCard = this.inventoryController.getCards();
     }
 
     public void update() {
@@ -80,5 +76,13 @@ public class PlayerController {
 
     public void setName(String name) {
         this.attributeController.setName(name);
+    }
+
+    public FieldController getFieldController() {
+        return fieldController;
+    }
+
+    public BoardController getParent() {
+        return parent;
     }
 }

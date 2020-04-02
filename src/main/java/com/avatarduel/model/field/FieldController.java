@@ -2,8 +2,8 @@ package com.avatarduel.model.field;
 
 import com.avatarduel.model.player.PlayerController;
 
+import com.avatarduel.util.CSSLoader;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 public class FieldController {
@@ -19,8 +19,10 @@ public class FieldController {
     }
 
     public void setColor(String color){
-        for(Node node : root.getChildren()){
-            node.getStyleClass().add(color+"-field-cell");
-        }
+        root.getChildren().forEach(node -> CSSLoader.addClass(node, color+"-field-cell"));
+    }
+
+    public PlayerController getParent() {
+        return parent;
     }
 }
