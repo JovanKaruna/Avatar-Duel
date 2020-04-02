@@ -44,18 +44,22 @@ public class HandController implements CanShowCard {
         }
     }
 
-    @FXML // on Enter Hover
+    @FXML // on Hover Enter
     public void showDetail(MouseEvent event) {
-        try {
-            this.getParent().getParent().setActiveCard(this.cursorAtCard(event));
-        } catch (IndexOutOfBoundsException e) {
-            this.getParent().getParent().setActiveCard(EmptyCard.getInstance());
+        if (this.isActivePlayer()) {
+            try {
+                this.getParent().getParent().setActiveCard(this.cursorAtCard(event));
+            } catch (IndexOutOfBoundsException e) {
+                this.getParent().getParent().setActiveCard(EmptyCard.getInstance());
+            }
         }
     }
 
     @FXML // on Click
     public void useCard(MouseEvent event) {
-        this.select(this.cursorAtCard(event));
+        if (this.isActivePlayer()) {
+            this.select(this.cursorAtCard(event));
+        }
     }
 
     private void select(Card card) {
@@ -64,7 +68,7 @@ public class HandController implements CanShowCard {
         if (this.selectedCard != null) this.getController(this.selectedCard).lift();
     }
 
-    @FXML // on Exit Hover
+    @FXML // on Hover Exit
     public void removeDetail(MouseEvent event) {
         this.getParent().getParent().setActiveCard(EmptyCard.getInstance());
     }
@@ -85,6 +89,7 @@ public class HandController implements CanShowCard {
 
     public void addNCards(List<Card> cards) {
         this.cards.addAll(cards);
+        this.update();
     }
 
     public List<Card> getCards() {
@@ -93,6 +98,10 @@ public class HandController implements CanShowCard {
 
     public PlayerController getParent() {
         return parent;
+    }
+
+    private boolean isActivePlayer() {
+        return this.getParent().isActivePlayer();
     }
 
     private Card cursorAtCard(MouseEvent event) {

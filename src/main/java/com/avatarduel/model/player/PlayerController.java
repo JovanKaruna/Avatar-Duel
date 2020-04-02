@@ -90,4 +90,8 @@ public class PlayerController {
     public void endTurn() {
         this.handController.endTurn();
     }
+
+    public boolean isActivePlayer(){
+        return this.getParent().getActivePlayer() == this;
+    }
 }

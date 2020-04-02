@@ -44,8 +44,6 @@ public class BoardController extends HasCardController {
         this.player1Controller.drawNCards(Settings.startingCardAmount);
         this.player2Controller.drawNCards(Settings.startingCardAmount);
         this.player2Controller.endTurn();
-        this.player1Controller.update();
-        this.player2Controller.update();
         this.player1Controller.startTurn();
     }
 
