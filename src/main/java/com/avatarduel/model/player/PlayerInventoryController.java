@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 
 import java.util.*;
 
-public class PlayerInventoryController extends HasCardController {
+public class PlayerInventoryController implements HasCardController {
 
     private PlayerController parent;
 
@@ -78,7 +78,7 @@ public class PlayerInventoryController extends HasCardController {
         Collections.shuffle(CardDAO.getCards());
         for (int i = 0; i < Settings.startingDeckAmount; i++)
             this.cards.add(CardDAO.get(i));
-        this.graveyardController.setAttributes(EmptyCard.getInstance());
+        this.graveyardController.setCard(EmptyCard.getInstance());
         this.maxDeckAmount = this.cards.size();
         this.currentDeckAmount = this.maxDeckAmount;
     }
@@ -105,5 +105,15 @@ public class PlayerInventoryController extends HasCardController {
 
     public ArrayList<Card> getCards() {
         return cards;
+    }
+
+    @Override
+    public void setActiveCard(Card c){
+        this.graveyardController.setCard(c);
+    }
+
+    @Override
+    public CardController getCardController() {
+        return this.graveyardController;
     }
 }

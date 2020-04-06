@@ -2,20 +2,12 @@ package com.avatarduel.model.card;
 
 import com.avatarduel.model.element.Element;
 
-public abstract class Skill extends Card implements Summonable {
-    private static final String TYPE_NAME = "SKILL";
-
-    private Integer power;
+public abstract class Skill extends SummonableCard{
     private String type;
 
     public Skill(String name, String description, Element element, String imgPath, Integer power, String type) {
-        super(name, description, element, imgPath);
-        this.power = power;
+        super(name, description, element, imgPath, power, "SKILL");
         this.type = type;
-    }
-
-    public Integer getPower() {
-        return power;
     }
 
     public String getType() {
@@ -30,10 +22,5 @@ public abstract class Skill extends Card implements Summonable {
     @Override
     public String getEffectDescription() {
         return this.getType();
-    }
-
-    @Override
-    public String getTypeDescription() {
-        return Skill.TYPE_NAME;
     }
 }

@@ -1,40 +1,32 @@
-package com.avatarduel.model;
+package com.avatarduel.model.phase;
 
+import com.avatarduel.model.BoardController;
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 public class PhaseController {
-
-    @FXML
     private BoardController parent;
 
-    @FXML
-    private Text playerTurn;
+    @FXML private Text playerTurn;
+    @FXML private Text turn;
+    @FXML private Text phase;
+    @FXML private Button next;
 
     private Integer playerTurnValue;
-
-    @FXML
-    private Text turn;
-
     private Integer turnValue;
-
-    @FXML
-    private Text phase;
-
     private Phase phaseValue;
 
+    // on Mouse Click
     @FXML
-    private Button next;
-
-    @FXML
-    public void nextPhase(ActionEvent event){
+    public void nextPhase(ActionEvent event) {
         this.phaseValue = this.phaseValue.next();
-        if(this.phaseValue.equals(Phase.DRAW)){
+        if (this.phaseValue.equals(Phase.DRAW)) {
             this.playerTurnValue %= 2;
             this.playerTurnValue++;
-            if(this.playerTurnValue == 1){
+            if (this.playerTurnValue == 1) {
                 this.turnValue++;
             }
             this.parent.nextPlayer();
@@ -43,13 +35,13 @@ public class PhaseController {
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.playerTurnValue = 1;
         this.turnValue = 1;
         this.phaseValue = Phase.DRAW;
     }
 
-    public void init(BoardController boardController){
+    public void init(BoardController boardController) {
         this.parent = boardController;
         this.update();
     }
@@ -58,12 +50,10 @@ public class PhaseController {
         return parent;
     }
 
-    public void update(){
+    public void update() {
         this.playerTurn.setText("Player " + this.playerTurnValue.toString());
         this.turn.setText(this.turnValue.toString());
         this.phase.setText(this.phaseValue.toString() + " PHASE");
     }
-
-
 }
 

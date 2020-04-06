@@ -6,11 +6,7 @@ import java.util.EnumMap;
 
 public abstract class Element {
     enum Type {
-        WATER,
-        FIRE,
-        AIR,
-        EARTH,
-        NOELEMENT
+        WATER, FIRE, AIR, EARTH, NOELEMENT
     }
 
     private static EnumMap<Type, Element> classMap = new EnumMap<Type, Element>(Type.class) {
@@ -27,7 +23,7 @@ public abstract class Element {
     private Type type;
     private String imagePath;
 
-    Element(Color color, Type type, String imagePath){
+    Element(Color color, Type type, String imagePath) {
         this.color = color;
         this.type = type;
         this.imagePath = imagePath;

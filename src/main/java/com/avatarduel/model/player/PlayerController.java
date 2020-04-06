@@ -2,7 +2,7 @@ package com.avatarduel.model.player;
 
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.card.Card;
-import com.avatarduel.model.deck.HandController;
+import com.avatarduel.model.hand.HandController;
 import com.avatarduel.model.field.FieldController;
 
 import javafx.fxml.FXML;
@@ -61,6 +61,7 @@ public class PlayerController {
 
     public void update() {
         this.handController.update();
+        this.fieldController.update();
         this.attributeController.update();
         this.inventoryController.update();
     }

@@ -8,12 +8,7 @@ public final class EmptyCard extends Card{
     private static EmptyCard emptyCard;
 
     private EmptyCard() {
-        super("", "", Element.valueOf("NOELEMENT"), "Empty.png");
-    }
-
-    @Override
-    public String getTypeDescription() {
-        return "";
+        super("", "", Element.valueOf("NOELEMENT"), "Empty.png", "");
     }
 
     public static EmptyCard getInstance(){

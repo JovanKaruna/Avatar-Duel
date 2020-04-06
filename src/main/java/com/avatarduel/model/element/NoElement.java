@@ -4,11 +4,11 @@ import com.avatarduel.Paths;
 
 import javafx.scene.paint.Color;
 
-public class NoElement extends Element {
+public final class NoElement extends Element {
     private static NoElement singleton;
 
     private NoElement() {
-        super(Color.TRANSPARENT, Type.NOELEMENT, "Empty.png");
+        super(Color.TRANSPARENT, Type.NOELEMENT, Paths.emptyImagePath);
     }
 
     public static NoElement getInstance() {

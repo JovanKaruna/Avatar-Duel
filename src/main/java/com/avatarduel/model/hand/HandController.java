@@ -1,4 +1,4 @@
-package com.avatarduel.model.deck;
+package com.avatarduel.model.hand;
 
 import com.avatarduel.Settings;
 import com.avatarduel.model.card.Card;
@@ -21,13 +21,10 @@ public class HandController implements CanShowCard {
 
     private PlayerController parent;
 
-    private ArrayList<CardController> cardControllers;
-
-    @FXML
-    private GridPane container;
+    @FXML private GridPane container;
 
     private List<Card> cards;
-
+    private ArrayList<CardController> cardControllers;
     private Card selectedCard;
 
     public HandController() {
@@ -47,11 +44,7 @@ public class HandController implements CanShowCard {
     @FXML // on Hover Enter
     public void showDetail(MouseEvent event) {
         if (this.isActivePlayer()) {
-            try {
-                this.getParent().getParent().setActiveCard(this.cursorAtCard(event));
-            } catch (IndexOutOfBoundsException e) {
-                this.getParent().getParent().setActiveCard(EmptyCard.getInstance());
-            }
+            this.getParent().getParent().setActiveCard(this.cursorAtCard(event));
         }
     }
 
@@ -63,9 +56,13 @@ public class HandController implements CanShowCard {
     }
 
     private void select(Card card) {
-        if (this.selectedCard != null) this.getController(this.selectedCard).unlift();
+        if (this.selectedCard != null) {
+            this.getController(this.selectedCard).unlift();
+        }
         this.selectedCard = card;
-        if (this.selectedCard != null) this.getController(this.selectedCard).lift();
+        if (this.selectedCard != null) {
+            this.getController(this.selectedCard).lift();
+        }
     }
 
     @FXML // on Hover Exit
@@ -75,11 +72,7 @@ public class HandController implements CanShowCard {
 
     public void update() {
         for (int i = 0; i < Settings.maximumHandCard; i++) {
-            try {
-                this.cardControllers.get(i).setAttributes(this.cards.get(i));
-            } catch (IndexOutOfBoundsException e) {
-                this.cardControllers.get(i).setAttributes(EmptyCard.getInstance());
-            }
+            this.cardControllers.get(i).setCard(this.getCard(i));
         }
     }
 
@@ -96,6 +89,14 @@ public class HandController implements CanShowCard {
         return this.cards;
     }
 
+    private Card getCard(Integer index) {
+        try {
+            return this.cards.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            return EmptyCard.getInstance();
+        }
+    }
+
     public PlayerController getParent() {
         return parent;
     }
@@ -105,7 +106,7 @@ public class HandController implements CanShowCard {
     }
 
     private Card cursorAtCard(MouseEvent event) {
-        return this.cards.get(GridPane.getColumnIndex(this.cursorAtNode(event)));
+        return this.getCard(GridPane.getColumnIndex(this.cursorAtNode(event)));
     }
 
     private Node cursorAtNode(MouseEvent event) {
@@ -114,13 +115,13 @@ public class HandController implements CanShowCard {
 
     public void endTurn() {
         this.select(null);
-        this.cards.forEach(c -> c.close());
+        this.cards.forEach(Card::close);
         this.update();
     }
 
     private CardController getController(Card c) {
         for (int i = 0; i < this.cards.size(); i++) {
-            if (this.cards.get(i) == c) {
+            if (this.getCard(i) == c) {
                 return this.cardControllers.get(i);
             }
         }

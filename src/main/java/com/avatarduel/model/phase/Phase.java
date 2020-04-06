@@ -1,4 +1,4 @@
-package com.avatarduel.model;
+package com.avatarduel.model.phase;
 
 public enum Phase {
     DRAW, MAIN1, BATTLE, MAIN2, END;
