@@ -71,6 +71,10 @@ public class CardController {
         this.attribute = (Text) ((HBox) ((VBox) this.root.getChildren().get(3)).getChildren().get(2)).getChildren().get(1);
     }
 
+    public boolean isEmpty() {
+        return this.card.isEmpty();
+    }
+
     public void update() {
         if (this.card.isOpen()) {
             this.back.setBackground(Background.EMPTY);

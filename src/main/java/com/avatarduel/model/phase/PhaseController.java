@@ -22,6 +22,10 @@ public class PhaseController {
     // on Mouse Click
     @FXML
     public void nextPhase(ActionEvent event) {
+        this.nextPhase();
+    }
+
+    public void nextPhase() {
         this.phaseValue = this.phaseValue.next();
         if (this.phaseValue.equals(Phase.DRAW)) {
             this.playerTurnValue %= 2;
@@ -54,6 +58,10 @@ public class PhaseController {
         this.playerTurn.setText("Player " + this.playerTurnValue.toString());
         this.turn.setText(this.turnValue.toString());
         this.phase.setText(this.phaseValue.toString() + " PHASE");
+    }
+
+    public Phase getPhaseValue(){
+        return this.phaseValue;
     }
 }
 

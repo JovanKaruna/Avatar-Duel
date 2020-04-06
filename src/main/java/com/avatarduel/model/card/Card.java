@@ -47,7 +47,7 @@ public abstract class Card {
         return imgPath;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return element.equals(Element.valueOf("NOELEMENT"));
     }
 

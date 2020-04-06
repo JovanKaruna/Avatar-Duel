@@ -80,9 +80,17 @@ public class HandController implements CanShowCard {
         this.cards.add(c);
     }
 
+    public void removeCard(Card c){
+        this.getController(this.selectedCard).unlift();
+        this.selectedCard=null;
+        this.cards.remove(c);
+        this.update();
+    }
+
     public void addNCards(List<Card> cards) {
         this.cards.addAll(cards);
         this.update();
+        this.getParent().getParent().getPhaseController().nextPhase();
     }
 
     public List<Card> getCards() {
@@ -126,5 +134,9 @@ public class HandController implements CanShowCard {
             }
         }
         return null;
+    }
+
+    public Card getSelectedCard(){
+        return this.selectedCard;
     }
 }

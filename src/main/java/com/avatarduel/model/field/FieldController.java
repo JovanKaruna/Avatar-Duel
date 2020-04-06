@@ -1,8 +1,13 @@
 package com.avatarduel.model.field;
 
 import com.avatarduel.model.card.*;
+import com.avatarduel.model.phase.Phase;
 import com.avatarduel.model.player.PlayerController;
-
+import com.avatarduel.model.card.Character;
+import com.avatarduel.model.card.Skill;
+import com.avatarduel.model.card.Land;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import com.avatarduel.util.CSSLoader;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -36,6 +41,43 @@ public class FieldController {
         }
     }
 
+    @FXML
+    public void onClick(MouseEvent event){
+        Phase currentPhase=this.getParent().getParent().getPhaseController().getPhaseValue();
+        Card card=this.getParent().getHandController().getSelectedCard();
+        if (this.isActivePlayer()&&((Phase.MAIN1==currentPhase)||(Phase.MAIN2==currentPhase))) {
+            //try {this.getParent().getInventory().usePower}
+            if(this.cursorSetCard(event,card)){
+                this.getParent().getHandController().removeCard(card);
+            }
+
+        }
+    }
+
+    private boolean isActivePlayer() {
+        return this.getParent().isActivePlayer();
+    }
+    
+    private boolean cursorSetCard(MouseEvent event, Card card) {
+        int j=(GridPane.getColumnIndex(this.cursorAtNode(event)));
+        int i=(GridPane.getRowIndex(this.cursorAtNode(event)));
+        if(card instanceof Land){
+            this.getParent().getInventory().addPowerCapacity(card.getElement());
+            return true;
+        }
+        if(this.cardControllers[i][j].isEmpty()){
+            if((card instanceof Character&&(i==0))||(card instanceof Skill&&(i==1))){
+                this.cardControllers[i][j].setCard(card);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private Node cursorAtNode(MouseEvent event) {
+        return (Node) event.getSource();
+    }
+    
     public void update(){
         this.cardControllers[0][1].setCard(CardDAO.get(2));
         for (int i = 0; i < FieldController.nrow; i++) {

@@ -88,6 +88,14 @@ public class PlayerController {
         return parent;
     }
 
+    public HandController getHandController(){
+        return this.handController;
+    }
+
+    public PlayerInventoryController getInventory(){
+        return this.inventoryController;
+    }
+
     public void endTurn() {
         this.handController.endTurn();
     }
