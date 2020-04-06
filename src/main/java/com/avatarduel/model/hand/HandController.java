@@ -4,6 +4,7 @@ import com.avatarduel.Settings;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import com.avatarduel.model.card.EmptyCard;
+import com.avatarduel.model.phase.Phase;
 import com.avatarduel.model.player.CanShowCard;
 import com.avatarduel.model.player.PlayerController;
 
@@ -50,7 +51,8 @@ public class HandController implements CanShowCard {
 
     @FXML // on Click
     public void useCard(MouseEvent event) {
-        if (this.isActivePlayer()) {
+        Phase currentPhase = this.getCurrentPhase();
+        if (this.isActivePlayer() && ((currentPhase.equals(Phase.MAIN1)) || currentPhase.equals(Phase.MAIN2))) {
             this.select(this.cursorAtCard(event));
         }
     }
@@ -80,9 +82,9 @@ public class HandController implements CanShowCard {
         this.cards.add(c);
     }
 
-    public void removeCard(Card c){
+    public void removeCard(Card c) {
         this.getController(this.selectedCard).unlift();
-        this.selectedCard=null;
+        this.selectedCard = null;
         this.cards.remove(c);
         this.update();
     }
@@ -90,7 +92,6 @@ public class HandController implements CanShowCard {
     public void addNCards(List<Card> cards) {
         this.cards.addAll(cards);
         this.update();
-        this.getParent().getParent().getPhaseController().nextPhase();
     }
 
     public List<Card> getCards() {
@@ -121,10 +122,22 @@ public class HandController implements CanShowCard {
         return (Node) event.getSource();
     }
 
+    public void startTurn() {
+        this.cards.forEach(Card::open);
+    }
+
     public void endTurn() {
         this.select(null);
         this.cards.forEach(Card::close);
         this.update();
+    }
+
+    public void endPhase() {
+        for (Card card : this.cards) {
+            if (card != null) {
+                this.getController(card).unlift();
+            }
+        }
     }
 
     private CardController getController(Card c) {
@@ -136,7 +149,11 @@ public class HandController implements CanShowCard {
         return null;
     }
 
-    public Card getSelectedCard(){
+    public Card getSelectedCard() {
         return this.selectedCard;
+    }
+
+    private Phase getCurrentPhase() {
+        return this.getParent().getCurrentPhase();
     }
 }

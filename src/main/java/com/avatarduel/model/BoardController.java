@@ -62,4 +62,8 @@ public class BoardController implements HasCardController {
     public PhaseController getPhaseController(){
         return this.phaseController;
     }
+
+    public void endPhase() {
+        this.getActivePlayer().endPhase();
+    }
 }

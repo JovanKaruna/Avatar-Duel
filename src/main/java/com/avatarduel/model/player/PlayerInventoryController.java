@@ -1,11 +1,9 @@
 package com.avatarduel.model.player;
 
 import com.avatarduel.Settings;
+import com.avatarduel.exception.NotEnoughPowerException;
 import com.avatarduel.model.HasCardController;
-import com.avatarduel.model.card.Card;
-import com.avatarduel.model.card.CardController;
-import com.avatarduel.model.card.CardDAO;
-import com.avatarduel.model.card.EmptyCard;
+import com.avatarduel.model.card.*;
 import com.avatarduel.model.element.*;
 
 import javafx.fxml.FXML;
@@ -20,47 +18,23 @@ public class PlayerInventoryController implements HasCardController {
 
     private HashMap<Element, PowerController> powerMap;
 
-    @FXML
-    private PowerController airController;
-
-    @FXML
-    private HBox air;
-
-    @FXML
-    private PowerController waterController;
-
-    @FXML
-    private HBox water;
-
-    @FXML
-    private PowerController fireController;
-
-    @FXML
-    private HBox fire;
-
-    @FXML
-    private PowerController earthController;
-
-    @FXML
-    private HBox earth;
-
-    @FXML
-    private Text currentDeck;
+    @FXML private HBox air;
+    @FXML private HBox water;
+    @FXML private HBox fire;
+    @FXML private HBox earth;
+    @FXML private PowerController airController;
+    @FXML private PowerController waterController;
+    @FXML private PowerController fireController;
+    @FXML private PowerController earthController;
+    @FXML private Text currentDeck;
+    @FXML private Text maxDeck;
+    @FXML private CardController deckController;
+    @FXML private CardController graveyardController;
 
     private Integer currentDeckAmount;
-
-    @FXML
-    private Text maxDeck;
-
     private Integer maxDeckAmount;
-
-    @FXML
-    private CardController deckController;
-
-    @FXML
-    private CardController graveyardController;
-
     private ArrayList<Card> cards;
+    private boolean summonedLandThisTurn;
 
     @FXML
     public void initialize() {
@@ -76,15 +50,32 @@ public class PlayerInventoryController implements HasCardController {
         this.parent = playerController;
         this.cards = new ArrayList<>();
         Collections.shuffle(CardDAO.getCards());
-        for (int i = 0; i < Settings.startingDeckAmount; i++)
+        for (int i = 0; i < Settings.startingDeckAmount; i++) {
             this.cards.add(CardDAO.get(i));
+        }
         this.graveyardController.setCard(EmptyCard.getInstance());
         this.maxDeckAmount = this.cards.size();
         this.currentDeckAmount = this.maxDeckAmount;
+        this.powerMap = new HashMap<>();
+        this.powerMap.put(Element.valueOf("AIR"), airController);
+        this.powerMap.put(Element.valueOf("WATER"), waterController);
+        this.powerMap.put(Element.valueOf("FIRE"), fireController);
+        this.powerMap.put(Element.valueOf("EARTH"), earthController);
     }
+
 
     public void addPowerCapacity(Element element) {
         this.powerMap.get(element).addCapacity();
+        this.powerMap.get(element).addCurrentPower(1);
+        this.summonedLandThisTurn = true;
+    }
+
+    public void usePower(SummonableCard c) throws NotEnoughPowerException {
+        this.powerMap.get(c.getElement()).usePower(c.getPower());
+    }
+
+    public void addCurrentPower(Element e, Integer n){
+        this.powerMap.get(e).addCurrentPower(n);
     }
 
     void update() {
@@ -108,12 +99,21 @@ public class PlayerInventoryController implements HasCardController {
     }
 
     @Override
-    public void setActiveCard(Card c){
+    public void setActiveCard(Card c) {
         this.graveyardController.setCard(c);
     }
 
     @Override
     public CardController getCardController() {
         return this.graveyardController;
+    }
+
+    public void startTurn() {
+        this.summonedLandThisTurn = false;
+        this.powerMap.forEach((k, v) -> v.resetCurrentPower());
+    }
+
+    public boolean summonedLandThisTurn(){
+        return this.summonedLandThisTurn;
     }
 }

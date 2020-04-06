@@ -26,16 +26,21 @@ public class PhaseController {
     }
 
     public void nextPhase() {
+        this.getParent().endPhase();
         this.phaseValue = this.phaseValue.next();
         if (this.phaseValue.equals(Phase.DRAW)) {
-            this.playerTurnValue %= 2;
-            this.playerTurnValue++;
-            if (this.playerTurnValue == 1) {
-                this.turnValue++;
-            }
-            this.parent.nextPlayer();
+            this.nextTurn();
         }
         this.update();
+    }
+
+    private void nextTurn(){
+        this.playerTurnValue %= 2;
+        this.playerTurnValue++;
+        if (this.playerTurnValue == 1) {
+            this.turnValue++;
+        }
+        this.getParent().nextPlayer();
     }
 
     @FXML

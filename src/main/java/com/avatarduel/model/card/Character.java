@@ -23,7 +23,8 @@ public class Character extends SummonableCard {
     @Override
     public String getAttributeDescription() {
         return "ATK / " + this.getAttack().toString() +
-                " | DEF / " + this.getDefend().toString();
+                " | DEF / " + this.getDefend().toString() +
+                " | POW / " + this.getPower().toString();
     }
 
     @Override
