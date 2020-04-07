@@ -1,13 +1,14 @@
-package com.avatarduel.model.card;
+package com.avatarduel.model.card.summonable.skill;
 
 import com.avatarduel.model.element.Element;
 
-public class Character extends SummonableCard {
+public class Aura extends Skill {
+    private static final String TYPE_NAME = "AURA";
     private Integer attack;
     private Integer defend;
 
-    public Character(String name, String description, Element element, String imgPath, Integer attack, Integer defend, Integer power) {
-        super(name, description, element, imgPath, power, "CHARACTER");
+    public Aura(String name, String description, Element element, String imgPath, Integer power, Integer attack, Integer defend) {
+        super(name, description, element, imgPath, power, Aura.TYPE_NAME);
         this.attack = attack;
         this.defend = defend;
     }
@@ -24,12 +25,6 @@ public class Character extends SummonableCard {
     public String getAttributeDescription() {
         return "ATK / " + this.getAttack().toString() +
                 " | DEF / " + this.getDefend().toString() +
-                " | POW / " + this.getPower().toString();
+                " | " + super.getAttributeDescription();
     }
-
-    @Override
-    public String getEffectDescription() {
-        return "";
-    }
-
 }

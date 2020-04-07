@@ -1,4 +1,4 @@
-package com.avatarduel.model.hand;
+package com.avatarduel.model.player.hand;
 
 import com.avatarduel.Settings;
 import com.avatarduel.model.card.Card;
@@ -124,6 +124,7 @@ public class HandController implements CanShowCard {
 
     public void startTurn() {
         this.cards.forEach(Card::open);
+        this.update();
     }
 
     public void endTurn() {

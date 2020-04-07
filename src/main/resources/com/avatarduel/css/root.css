@@ -4,12 +4,6 @@
     -fx-border-style: solid;
 }
 
-.chosen-card-border {
-    -fx-border-color: brown;
-    -fx-border-width: 1.7;
-    -fx-border-style: solid;
-}
-
 .bold {
     -fx-font-weight: bold;
 }
@@ -22,20 +16,14 @@
     -fx-background-color: red;
 }
 
-.field-cell {
-    -fx-background-color : 	#f7c297;
+.red-field-cell {
+    -fx-border-color: red;
     -fx-border-width: 1.7;
     -fx-border-style: solid;
 }
 
-.red-field-cell {
-    -fx-border-color: red;
-}
-
 .blue-field-cell {
     -fx-border-color: blue;
-}
-
-.field-cell : hover{
-    -fx-background-color: #ffecb8;
+    -fx-border-width: 1.7;
+    -fx-border-style: solid;
 }

@@ -8,14 +8,13 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.card.CardController">
+<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.card.CardController">
    <children>
       <VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" spacing="8.0" styleClass="border">
             <padding>
@@ -117,17 +116,9 @@
                 </VBox>
             </children>
         </VBox>
-      <AnchorPane fx:id="back" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: #7ea0ff;">
+      <AnchorPane fx:id="back" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0">
          <children>
-            <Ellipse fx:id="backLogo" layoutX="250.0" layoutY="350.0" radiusX="112.0" radiusY="203.0" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="147.0">
-               <fill>
-                  <LinearGradient endX="0.5" endY="1" startX="0.5" startY="0">
-                     <stops>
-                        <Stop color="#BADFFC" />
-                        <Stop color="#1ecaff" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </fill>
+            <Ellipse fx:id="backLogo" fill="TRANSPARENT" layoutX="250.0" layoutY="350.0" radiusX="112.0" radiusY="203.0" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="147.0">
                <stroke>
                   <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>

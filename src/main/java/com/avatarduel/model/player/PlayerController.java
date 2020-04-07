@@ -2,8 +2,8 @@ package com.avatarduel.model.player;
 
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.card.Card;
-import com.avatarduel.model.hand.HandController;
-import com.avatarduel.model.field.FieldController;
+import com.avatarduel.model.player.hand.HandController;
+import com.avatarduel.model.player.field.FieldController;
 
 import com.avatarduel.model.phase.Phase;
 import javafx.fxml.FXML;
@@ -33,10 +33,10 @@ public class PlayerController {
 
     @FXML
     public void initialize() {
-        this.fieldController.init(this);
         this.handController.init(this);
         this.inventoryController.init(this);
         this.attributeController.init(this);
+        this.fieldController.init(this);
     }
 
     public void init(BoardController boardController, String name, String color) {
@@ -50,16 +50,15 @@ public class PlayerController {
 
     public void update() {
         this.handController.update();
-        this.fieldController.update();
         this.attributeController.update();
         this.inventoryController.update();
+        this.fieldController.update();
     }
 
     public void startTurn() {
         this.drawNCards(1);
         this.handController.startTurn();
         this.inventoryController.startTurn();
-        this.update();
 
         this.getParent().getPhaseController().nextPhase();
     }

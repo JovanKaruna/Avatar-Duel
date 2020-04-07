@@ -9,6 +9,7 @@ public abstract class Card {
     private Element element;
     private String imgPath;
     private boolean isOpen;
+    private boolean isPortrait;
 
     public Card(String name, String description, Element element, String imgPath, String typeName) {
         this.name = name;
@@ -16,6 +17,7 @@ public abstract class Card {
         this.element = element;
         this.imgPath = imgPath;
         this.isOpen = true;
+        this.isPortrait = true;
         this.typeName = typeName;
     }
 
@@ -72,6 +74,18 @@ public abstract class Card {
 
     public void open() {
         this.isOpen = true;
+    }
+
+    public void changeOrientation(){
+        this.isPortrait ^= true;
+    }
+
+    public void setOrientation(boolean isPortrait){
+        this.isPortrait = isPortrait;
+    }
+
+    public boolean isPortrait() {
+        return isPortrait;
     }
 }
 

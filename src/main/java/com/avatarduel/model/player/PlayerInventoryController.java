@@ -4,6 +4,7 @@ import com.avatarduel.Settings;
 import com.avatarduel.exception.NotEnoughPowerException;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.*;
+import com.avatarduel.model.card.summonable.SummonableCard;
 import com.avatarduel.model.element.*;
 
 import javafx.fxml.FXML;
@@ -36,9 +37,9 @@ public class PlayerInventoryController implements HasCardController {
     private Integer maxDeckAmount;
     private ArrayList<Card> cards;
     private boolean summonedLandThisTurn;
-    private final Integer characterWeight = 7;
-    private final Integer landWeight = 7;
-    private final Integer auraWeight = 4;
+    private final Integer characterWeight = 6;
+    private final Integer landWeight = 9;
+    private final Integer auraWeight = 3;
     private final Integer destroyWeight = 1;
     private final Integer powerupWeight = 1;
     private final Integer totalWeight = 20;

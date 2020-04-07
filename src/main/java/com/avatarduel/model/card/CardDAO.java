@@ -2,6 +2,10 @@ package com.avatarduel.model.card;
 
 
 import com.avatarduel.Paths;
+import com.avatarduel.model.card.summonable.character.Character;
+import com.avatarduel.model.card.summonable.skill.Aura;
+import com.avatarduel.model.card.summonable.skill.Destroy;
+import com.avatarduel.model.card.summonable.skill.PowerUp;
 import com.avatarduel.model.element.Element;
 import com.avatarduel.util.CSVReader;
 

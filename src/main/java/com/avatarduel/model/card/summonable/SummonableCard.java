@@ -1,8 +1,9 @@
-package com.avatarduel.model.card;
+package com.avatarduel.model.card.summonable;
 
+import com.avatarduel.model.card.Card;
 import com.avatarduel.model.element.Element;
 
-public abstract class SummonableCard extends Card implements Summonable{
+public abstract class SummonableCard extends Card implements Summonable {
     private Integer power;
 
     public SummonableCard(String name, String description, Element element, String imgPath, Integer power, String typeName) {

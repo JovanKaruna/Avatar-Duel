@@ -1,4 +1,4 @@
-package com.avatarduel.model.card;
+package com.avatarduel.model.card.summonable.skill;
 
 import com.avatarduel.model.element.Element;
 

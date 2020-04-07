@@ -34,7 +34,7 @@ public class CardController {
     @FXML private AnchorPane back;
     @FXML private Ellipse backLogo;
 
-    public CardController(){
+    public CardController() {
         this.card = EmptyCard.getInstance();
     }
 
@@ -51,7 +51,8 @@ public class CardController {
         this.card = card;
         this.update();
     }
-    public Card getCard(){
+
+    public Card getCard() {
         return this.card;
     }
 
@@ -105,6 +106,12 @@ public class CardController {
             this.setBackground(this.card.getElement().getColor());
             ImageLoader.setImage(this.image, this.card.getImgPath());
             ImageLoader.setImage(this.elementImage, this.card.getElement().getImagePath());
+
+            if (!this.card.isPortrait()) {
+                this.root.setRotate(90);
+            } else {
+                this.root.setRotate(0);
+            }
         } else {
             BackgroundLoader.setBackground(this.back, Settings.cardBackColor);
             this.backLogo.setFill(new Color(45 / 255.0, 184 / 255.0, 255 / 255.0, 1));

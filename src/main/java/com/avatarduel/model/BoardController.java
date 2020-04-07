@@ -24,15 +24,18 @@ public class BoardController implements HasCardController {
     public void init(String player1name, String player2name) {
         this.cardController.init(this);
         this.cardDescController.init(this);
+        this.phaseController.init(this);
         this.player1Controller.init(this, player1name, Settings.player1Color);
         this.player2Controller.init(this, player2name, Settings.player2Color);
-        this.phaseController.init(this);
     }
 
     @Override
     public void setActiveCard(Card c) {
+        boolean tmp = c.isPortrait();
+        c.setOrientation(true);
         this.cardController.setCard(c);
         this.cardDescController.setAttributes(c);
+        c.setOrientation(tmp);
     }
 
     @Override
@@ -43,6 +46,7 @@ public class BoardController implements HasCardController {
     public void startGame() {
         this.player1Controller.drawNCards(Settings.startingCardAmount);
         this.player2Controller.drawNCards(Settings.startingCardAmount);
+
         this.player2Controller.endTurn();
         this.player1Controller.startTurn();
     }
