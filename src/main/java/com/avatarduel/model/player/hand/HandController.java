@@ -61,10 +61,15 @@ public class HandController implements CanShowCard {
         if (this.selectedCard != null) {
             this.getController(this.selectedCard).unlift();
         }
+        if(this.selectedCard == card || card == EmptyCard.getInstance()){
+            this.selectedCard = null;
+            return;
+        }
         this.selectedCard = card;
         if (this.selectedCard != null) {
             this.getController(this.selectedCard).lift();
         }
+
     }
 
     @FXML // on Hover Exit

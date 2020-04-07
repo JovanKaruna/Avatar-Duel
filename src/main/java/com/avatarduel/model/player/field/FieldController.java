@@ -90,12 +90,21 @@ public class FieldController {
                     System.out.println("Success summon card" + selectedCard);
 
                 } catch (FieldCellIsOccupiedException e) {
-                    SummonableCard summonableCard = (SummonableCard) selectedCard;
-                    this.getParent().getInventory().addCurrentPower(summonableCard.getElement(), summonableCard.getPower());
+                    try{
+                        SummonableCard summonableCard = (SummonableCard) selectedCard;
+                        this.getParent().getInventory().addCurrentPower(summonableCard.getElement(), summonableCard.getPower());
+                    } catch (Exception a) {
+                        //do nothing
+                    }
                     this.changeStance(event);
                     System.out.println("Success to change card stance");
 
-                } catch (NotImplementedException | CannotSummonCardException | NotEnoughPowerException | NullPointerException e) {
+                } catch (CannotSummonCardException e){
+                    SummonableCard summonableCard = (SummonableCard) selectedCard;
+                    this.getParent().getInventory().addCurrentPower(summonableCard.getElement(), summonableCard.getPower());
+                    System.out.println(e.getLocalizedMessage());
+
+                } catch (NotImplementedException | NotEnoughPowerException | NullPointerException e) {
                     System.out.println(e.getLocalizedMessage());
                     System.out.println(e.getClass());
                 }
@@ -127,7 +136,7 @@ public class FieldController {
                 throw new AlreadySummonedLand();
             }
         } else {
-//            this.getParent().getInventory().usePower((SummonableCard) selectedCard);
+            this.getParent().getInventory().usePower((SummonableCard) selectedCard);
 
             Integer i = (GridPane.getRowIndex(this.cursorAtNode(event)));
             Integer j = (GridPane.getColumnIndex(this.cursorAtNode(event)));
