@@ -13,10 +13,12 @@ import com.avatarduel.model.element.Element;
 public class SummonedCharacterCard extends SummonedCard{
     ArrayList<SummonedSkillCard> supportCards;
     private boolean isAttackStance;
+    private boolean placedOnThisTurn;
     private Character card;
 
     public SummonedCharacterCard(Character summonableCard) {
         this.card = summonableCard;
+        this.placedOnThisTurn = true;
     }
 
     public boolean canAttack(){
@@ -38,5 +40,9 @@ public class SummonedCharacterCard extends SummonedCard{
     public void changeStance() {
         this.isAttackStance ^= true;
         this.card.changeOrientation();
+    }
+
+    public void setPlacedOnThisTurn(boolean placedOnThisTurn) {
+        this.placedOnThisTurn = placedOnThisTurn;
     }
 }

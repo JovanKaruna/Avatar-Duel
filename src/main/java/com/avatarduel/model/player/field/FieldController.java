@@ -243,6 +243,12 @@ public class FieldController {
         return false;
     }
 
+    public void endTurn(){
+        for (int i = 0; i < ncol; i++) {
+            ((SummonedCharacterCard)this.cards[0][i]).setPlacedOnThisTurn(false);
+        }
+    }
+
     public void setColor(String color) {
         root.getChildren().forEach(node -> CSSLoader.addClass(node, color + "-field-cell"));
     }
