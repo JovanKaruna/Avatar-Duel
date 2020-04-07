@@ -70,45 +70,39 @@ public class FieldController {
 
     @FXML
     public void onHoverEnter(MouseEvent event) {
-        //        System.out.println("Field card hovered");
-        if (this.isActivePlayer()) {
-            Card c = this.cursorAtCard(event);
-            if (c != null) {
-                this.getParent().getParent().setActiveCard(c);
-            }
+        Card c = this.cursorAtCard(event);
+        if (c != null) {
+            this.getParent().getParent().setActiveCard(c);
         }
     }
 
     @FXML
     public void onClick(MouseEvent event) {
-        Phase currentPhase = this.getCurrentPhase();
-        Card selectedCard = this.getParent().getHandController().getSelectedCard();
-        System.out.println(selectedCard);
-        if (selectedCard == null) {
-            this.changeStance(event);
-            return;
-        }
+        if (this.isActivePlayer()) {
+            Phase currentPhase = this.getCurrentPhase();
+            Card selectedCard = this.getParent().getHandController().getSelectedCard();
 
-        if (this.isActivePlayer() && ((currentPhase.equals(Phase.MAIN1)) || currentPhase.equals(Phase.MAIN2))) {
-            try {
-                this.summonCard(event, selectedCard);
-                this.getParent().getHandController().removeCard(selectedCard);
-                this.update();
-                System.out.println("Success summon card" + selectedCard);
+            if (this.isActivePlayer() && ((currentPhase.equals(Phase.MAIN1)) || currentPhase.equals(Phase.MAIN2))) {
+                try {
+                    this.summonCard(event, selectedCard);
+                    this.getParent().getHandController().removeCard(selectedCard);
+                    this.update();
+                    System.out.println("Success summon card" + selectedCard);
 
-            } catch (FieldCellIsOccupiedException e) {
-                SummonableCard summonableCard = (SummonableCard) selectedCard;
-                this.getParent().getInventory().addCurrentPower(summonableCard.getElement(), summonableCard.getPower());
-                this.changeStance(event);
-                System.out.println("Success to change card stance");
+                } catch (FieldCellIsOccupiedException e) {
+                    SummonableCard summonableCard = (SummonableCard) selectedCard;
+                    this.getParent().getInventory().addCurrentPower(summonableCard.getElement(), summonableCard.getPower());
+                    this.changeStance(event);
+                    System.out.println("Success to change card stance");
 
-            } catch (NotImplementedException | CannotSummonCardException | NotEnoughPowerException | NullPointerException e) {
-                System.out.println(e.getLocalizedMessage());
-                System.out.println(e.getClass());
+                } catch (NotImplementedException | CannotSummonCardException | NotEnoughPowerException | NullPointerException e) {
+                    System.out.println(e.getLocalizedMessage());
+                    System.out.println(e.getClass());
+                }
+            } else if (currentPhase.equals(Phase.BATTLE)) {
+                this.selectedCard = (SummonableCard) selectedCard;
+                System.out.println("Card selected for attacking");
             }
-        } else if (currentPhase.equals(Phase.BATTLE)) {
-            this.selectedCard = (SummonableCard) selectedCard;
-            System.out.println("Card selected for attacking");
         }
     }
 
@@ -133,14 +127,13 @@ public class FieldController {
                 throw new AlreadySummonedLand();
             }
         } else {
-            //            this.getParent().getInventory().usePower((SummonableCard) selectedCard);
+//            this.getParent().getInventory().usePower((SummonableCard) selectedCard);
 
             Integer i = (GridPane.getRowIndex(this.cursorAtNode(event)));
             Integer j = (GridPane.getColumnIndex(this.cursorAtNode(event)));
             i = correctRow(i);
             if (this.isEmpty(i, j)) {
                 if (this.isRightRow(i, selectedCard)) {
-                    System.out.println("RIGHT ROW");
                     try {
                         // mau summon destroy
                         Destroy skill = (Destroy) selectedCard;
@@ -213,12 +206,14 @@ public class FieldController {
     private CardController getControllerAtCursor(MouseEvent event) {
         Integer j = (GridPane.getColumnIndex(this.cursorAtNode(event)));
         Integer i = (GridPane.getRowIndex(this.cursorAtNode(event)));
+        i = this.correctRow(i);
         return this.getCardController(i, j);
     }
 
     private SummonedCard getCardAtCursor(MouseEvent event) {
         Integer j = (GridPane.getColumnIndex(this.cursorAtNode(event)));
         Integer i = (GridPane.getRowIndex(this.cursorAtNode(event)));
+        i = this.correctRow(i);
         return this.cards[i][j];
     }
 
