@@ -51,6 +51,13 @@ public class CardController {
         this.card = card;
         this.update();
     }
+    public Card getCard(){
+        return this.card;
+    }
+
+    public VBox getRoot() {
+        return root;
+    }
 
     public void setRoot(StackPane root) {
         this.root = (VBox) root.getChildren().get(0);

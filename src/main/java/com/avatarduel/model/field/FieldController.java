@@ -110,7 +110,6 @@ public class FieldController {
     }
 
     public void update() {
-        this.cardControllers[0][1].setCard(CardDAO.get(2));
         for (int i = 0; i < FieldController.nrow; i++) {
             for (int j = 0; j < FieldController.ncol; j++) {
                 this.cardControllers[i][j].setCard(this.getCard(i));

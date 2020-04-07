@@ -21,7 +21,6 @@ public class Settings {
     public static final Integer startingDeckAmount = 60;
     public static final Integer maximumHandCard = 9;
 
-
     private Settings() {
         throw new AssertionError("This is a utility class.");
     }
