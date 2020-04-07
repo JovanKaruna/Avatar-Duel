@@ -102,7 +102,7 @@ public class FieldController {
     private boolean canSummonCard(Card card, Integer i, Integer j) {
         i += this.getParent().isPlayerOne ? 0 : 1;
         i %= 2;
-        return this.cardControllers[i][j].isEmpty() && (card instanceof Character && (i == 0)) || (card instanceof Skill && (i == 1));
+        return this.cardControllers[i][j].isEmpty() && (card instanceof Character && (i == 0)) || (card instanceof Skill && (i == 1) &&this.thereIsCharacter());
     }
 
     private Node cursorAtNode(MouseEvent event) {
@@ -116,6 +116,16 @@ public class FieldController {
                 this.cardControllers[i][j].setCard(this.getCard(i));
             }
         }
+    }
+
+    public boolean thereIsCharacter(){
+        int i=0;
+        for(int j=0; j< FieldController.ncol; j++){
+            if(!this.cardControllers[i][j].isEmpty()){
+                return true;
+            }
+        }
+        return false;
     }
 
     private Card getCard(Integer index) {
