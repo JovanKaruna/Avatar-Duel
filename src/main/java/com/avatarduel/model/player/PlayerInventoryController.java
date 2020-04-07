@@ -36,6 +36,12 @@ public class PlayerInventoryController implements HasCardController {
     private Integer maxDeckAmount;
     private ArrayList<Card> cards;
     private boolean summonedLandThisTurn;
+    private final Integer characterWeight = 7;
+    private final Integer landWeight = 7;
+    private final Integer auraWeight = 4;
+    private final Integer destroyWeight = 1;
+    private final Integer powerupWeight = 1;
+    private final Integer totalWeight = 20;
 
     @FXML
     public void initialize() {
@@ -50,10 +56,16 @@ public class PlayerInventoryController implements HasCardController {
     public void init(PlayerController playerController) {
         this.parent = playerController;
         this.cards = new ArrayList<>();
-        Collections.shuffle(CardDAO.getCards());
-        for (int i = 0; i < Settings.startingDeckAmount; i++) {
-            this.cards.add(CardDAO.get(i));
-        }
+
+
+        this.cards.addAll(CardDAO.get(Settings.startingDeckAmount * auraWeight / totalWeight, CardDAO.Type.AURA));
+        this.cards.addAll(CardDAO.get(Settings.startingDeckAmount * characterWeight / totalWeight, CardDAO.Type.CHARACTER));
+        this.cards.addAll(CardDAO.get(Settings.startingDeckAmount * landWeight / totalWeight, CardDAO.Type.LAND));
+        this.cards.addAll(CardDAO.get(Settings.startingDeckAmount * destroyWeight / totalWeight, CardDAO.Type.DESTROY));
+        this.cards.addAll(CardDAO.get(Settings.startingDeckAmount * powerupWeight / totalWeight, CardDAO.Type.POWERUP));
+
+        Collections.shuffle(this.cards);
+
         this.graveyardController.setCard(EmptyCard.getInstance());
         this.maxDeckAmount = this.cards.size();
         this.currentDeckAmount = this.maxDeckAmount;

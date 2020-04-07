@@ -3,7 +3,7 @@ package com.avatarduel.model.element;
 import com.avatarduel.Paths;
 import javafx.scene.paint.Color;
 
-public class Water extends Element {
+public final class Water extends Element {
     private static Water singleton;
 
     private Water() {
