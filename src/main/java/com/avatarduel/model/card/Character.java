@@ -2,17 +2,14 @@ package com.avatarduel.model.card;
 
 import com.avatarduel.model.element.Element;
 
-public class Character extends Card implements Summonable {
-    private static final String TYPE_NAME = "CHARACTER";
+public class Character extends SummonableCard {
     private Integer attack;
     private Integer defend;
-    private Integer power;
 
     public Character(String name, String description, Element element, String imgPath, Integer attack, Integer defend, Integer power) {
-        super(name, description, element, imgPath);
+        super(name, description, element, imgPath, power, "CHARACTER");
         this.attack = attack;
         this.defend = defend;
-        this.power = power;
     }
 
     public Integer getAttack() {
@@ -21,10 +18,6 @@ public class Character extends Card implements Summonable {
 
     public Integer getDefend() {
         return defend;
-    }
-
-    public Integer getPower() {
-        return power;
     }
 
     @Override
@@ -39,8 +32,4 @@ public class Character extends Card implements Summonable {
         return "";
     }
 
-    @Override
-    public String getTypeDescription() {
-        return Character.TYPE_NAME;
-    }
 }

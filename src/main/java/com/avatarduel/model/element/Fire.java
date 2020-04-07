@@ -1,9 +1,10 @@
 package com.avatarduel.model.element;
 
 import com.avatarduel.Paths;
+
 import javafx.scene.paint.Color;
 
-public class Fire extends Element {
+public final class Fire extends Element {
     private static Fire singleton;
 
     private Fire() {

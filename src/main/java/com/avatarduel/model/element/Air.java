@@ -4,7 +4,7 @@ import com.avatarduel.Paths;
 
 import javafx.scene.paint.Color;
 
-public class Air extends Element {
+public final class Air extends Element {
     private static Air singleton;
 
     private Air() {

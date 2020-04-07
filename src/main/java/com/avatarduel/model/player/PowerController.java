@@ -12,17 +12,11 @@ public class PowerController {
 
     private PlayerInventoryController parent;
 
-    @FXML
-    private ImageView image;
-
-    @FXML
-    private Text cur;
+    @FXML private ImageView image;
+    @FXML private Text cur;
+    @FXML private Text max;
 
     private Integer curVal;
-
-    @FXML
-    private Text max;
-
     private Integer maxVal;
 
     @FXML
@@ -44,17 +38,25 @@ public class PowerController {
 
     public void resetCurrentPower(){
         this.curVal = this.maxVal;
+        this.updateText();
     }
 
-    public void addCapacity() {
+    void addCapacity() {
         this.maxVal++;
+        this.updateText();
     }
 
-    public void usePower(Integer n) throws NotEnoughPowerException {
+    void addCurrentPower(Integer n){
+        this.curVal += n;
+        this.updateText();
+    }
+
+    void usePower(Integer n) throws NotEnoughPowerException {
         if(this.curVal < n) {
             throw new NotEnoughPowerException();
         } else {
             this.curVal -= n;
+            this.updateText();
         }
     }
 

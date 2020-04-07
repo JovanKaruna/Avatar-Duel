@@ -4,7 +4,7 @@ import com.avatarduel.Paths;
 
 import javafx.scene.paint.Color;
 
-public class Earth extends Element {
+public final class Earth extends Element {
     private static Earth singleton;
 
     private Earth() {

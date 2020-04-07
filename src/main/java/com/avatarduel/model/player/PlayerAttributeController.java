@@ -9,18 +9,11 @@ public class PlayerAttributeController {
 
     private PlayerController parent;
 
-    @FXML
-    private ProgressBar healthBar;
+    @FXML private ProgressBar healthBar;
+    @FXML private Text hp;
+    @FXML private Text name;
 
-    @FXML
-    private Text hp;
-
-    @FXML
     private Integer hpValue;
-
-    @FXML
-    private Text name;
-
     private String nameValue;
 
     public void init(PlayerController playerController) {

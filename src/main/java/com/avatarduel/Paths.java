@@ -20,6 +20,7 @@ public class Paths {
     public static final String destroyCSV = csvFolder + "destroy.csv";
     public static final String powerupCSV = csvFolder + "powerup.csv";
 
+    public static final String emptyImagePath = "Empty.png";
     public static final String earthElementImage = elementFolder + "Earth.png";
     public static final String airElementImage = elementFolder + "Air.png";
     public static final String waterElementImage = elementFolder + "Water.png";

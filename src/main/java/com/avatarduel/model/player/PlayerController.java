@@ -2,9 +2,10 @@ package com.avatarduel.model.player;
 
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.card.Card;
-import com.avatarduel.model.deck.HandController;
+import com.avatarduel.model.hand.HandController;
 import com.avatarduel.model.field.FieldController;
 
+import com.avatarduel.model.phase.Phase;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -19,29 +20,16 @@ public class PlayerController {
     private List<Card> handCard;
     private List<Card> deckCard;
 
-    @FXML
-    private GridPane field;
+    public boolean isPlayerOne;
 
-    @FXML
-    private FieldController fieldController;
-
-    @FXML
-    private HBox hand;
-
-    @FXML
-    private HandController handController;
-
-    @FXML
-    private BorderPane inventory;
-
-    @FXML
-    private PlayerInventoryController inventoryController;
-
-    @FXML
-    private BorderPane attribute;
-
-    @FXML
-    private PlayerAttributeController attributeController;
+    @FXML private GridPane field;
+    @FXML private FieldController fieldController;
+    @FXML private HBox hand;
+    @FXML private HandController handController;
+    @FXML private BorderPane inventory;
+    @FXML private PlayerInventoryController inventoryController;
+    @FXML private BorderPane attribute;
+    @FXML private PlayerAttributeController attributeController;
 
     @FXML
     public void initialize() {
@@ -57,41 +45,62 @@ public class PlayerController {
         this.attributeController.setName(name);
         this.handCard = this.handController.getCards();
         this.deckCard = this.inventoryController.getCards();
+        this.isPlayerOne = this.equals(this.getParent().getActivePlayer());
     }
 
     public void update() {
         this.handController.update();
+        this.fieldController.update();
         this.attributeController.update();
         this.inventoryController.update();
     }
 
     public void startTurn() {
         this.drawNCards(1);
-        this.handCard.forEach(c -> c.open());
+        this.handController.startTurn();
+        this.inventoryController.startTurn();
         this.update();
-    }
 
-    public void drawNCards(Integer n) {
-        this.handController.addNCards(this.inventoryController.takeNCards(n));
-    }
-
-    public void setName(String name) {
-        this.attributeController.setName(name);
-    }
-
-    public FieldController getFieldController() {
-        return fieldController;
-    }
-
-    public BoardController getParent() {
-        return parent;
+        this.getParent().getPhaseController().nextPhase();
     }
 
     public void endTurn() {
         this.handController.endTurn();
     }
 
+    public Phase getCurrentPhase(){
+        return this.getParent().getPhaseController().getPhaseValue();
+    }
+
+    public void setName(String name) {
+        this.attributeController.setName(name);
+    }
+
+    public void drawNCards(Integer n) {
+        this.handController.addNCards(this.inventoryController.takeNCards(n));
+    }
+
+    public FieldController getFieldController() {
+        return fieldController;
+    }
+
+    public HandController getHandController(){
+        return this.handController;
+    }
+
+    public PlayerInventoryController getInventory(){
+        return this.inventoryController;
+    }
+
+    public BoardController getParent() {
+        return parent;
+    }
+
     public boolean isActivePlayer(){
         return this.getParent().getActivePlayer() == this;
+    }
+
+    public void endPhase() {
+        this.handController.endPhase();
     }
 }

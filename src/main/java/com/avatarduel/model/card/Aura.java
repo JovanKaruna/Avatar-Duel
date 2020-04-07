@@ -4,7 +4,6 @@ import com.avatarduel.model.element.Element;
 
 public class Aura extends Skill {
     private static final String TYPE_NAME = "AURA";
-
     private Integer attack;
     private Integer defend;
 
@@ -14,11 +13,11 @@ public class Aura extends Skill {
         this.defend = defend;
     }
 
-    private Integer getAttack() {
+    public Integer getAttack() {
         return attack;
     }
 
-    private Integer getDefend() {
+    public Integer getDefend() {
         return defend;
     }
 

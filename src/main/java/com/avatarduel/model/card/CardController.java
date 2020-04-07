@@ -17,43 +17,40 @@ public class CardController {
 
     private boolean isImageFitted = false;
 
+    private Card card;
+
     private HasCardController parent;
 
-    @FXML
-    private VBox root;
+    @FXML private VBox root;
+    @FXML private HBox title;
+    @FXML private Text name;
+    @FXML private ImageView elementImage;
+    @FXML private HBox subtitle;
+    @FXML private Text effect;
+    @FXML private Text type;
+    @FXML private ImageView image;
+    @FXML private Text descriptionText;
+    @FXML private Text attribute;
+    @FXML private AnchorPane back;
+    @FXML private Ellipse backLogo;
 
-    @FXML
-    private HBox title;
+    public CardController(){
+        this.card = EmptyCard.getInstance();
+    }
 
-    @FXML
-    private Text name;
+    public void init(HasCardController hasCardController) {
+        this.init(hasCardController, EmptyCard.getInstance());
+    }
 
-    @FXML
-    private ImageView elementImage;
+    public void init(HasCardController hasCardController, Card card) {
+        this.parent = hasCardController;
+        this.setCard(card);
+    }
 
-    @FXML
-    private HBox subtitle;
-
-    @FXML
-    private Text effect;
-
-    @FXML
-    private Text type;
-
-    @FXML
-    private ImageView image;
-
-    @FXML
-    private Text descriptionText;
-
-    @FXML
-    private Text attribute;
-
-    @FXML
-    private AnchorPane back;
-
-    @FXML
-    private Ellipse backLogo;
+    public void setCard(Card card) {
+        this.card = card;
+        this.update();
+    }
 
     public void setRoot(StackPane root) {
         this.root = (VBox) root.getChildren().get(0);
@@ -74,13 +71,12 @@ public class CardController {
         this.attribute = (Text) ((HBox) ((VBox) this.root.getChildren().get(3)).getChildren().get(2)).getChildren().get(1);
     }
 
-    @FXML
-    public void init(HasCardController hasCardController) {
-        this.parent = hasCardController;
+    public boolean isEmpty() {
+        return this.card.isEmpty();
     }
 
-    public <T extends Card> void setAttributes(T c) {
-        if (c.isOpen()) {
+    public void update() {
+        if (this.card.isOpen()) {
             this.back.setBackground(Background.EMPTY);
             this.backLogo.setFill(new Color(0, 0, 0, 0));
 
@@ -92,29 +88,29 @@ public class CardController {
             }
 
             // set text
-            this.name.setText(c.getName());
-            this.descriptionText.setText(c.getDescription());
-            this.attribute.setText(c.getAttributeDescription());
-            this.type.setText(c.getTypeDescription());
-            this.effect.setText(c.getEffectDescription());
+            this.name.setText(this.card.getName());
+            this.descriptionText.setText(this.card.getDescription());
+            this.attribute.setText(this.card.getAttributeDescription());
+            this.type.setText(this.card.getTypeDescription());
+            this.effect.setText(this.card.getEffectDescription());
 
             // set image and background
-            this.setBackground(c.getElement().getColor());
-            ImageLoader.setImage(this.image, c.getImgPath());
-            ImageLoader.setImage(this.elementImage, c.getElement().getImagePath());
+            this.setBackground(this.card.getElement().getColor());
+            ImageLoader.setImage(this.image, this.card.getImgPath());
+            ImageLoader.setImage(this.elementImage, this.card.getElement().getImagePath());
         } else {
             BackgroundLoader.setBackground(this.back, Settings.cardBackColor);
             this.backLogo.setFill(new Color(45 / 255.0, 184 / 255.0, 255 / 255.0, 1));
         }
     }
 
-    public void lift(){
+    public void lift() {
         this.root.setTranslateY(-100);
         this.root.setScaleX(1.1);
         this.root.setScaleY(1.1);
     }
 
-    public void unlift(){
+    public void unlift() {
         this.root.setTranslateY(0);
         this.root.setScaleX(1);
         this.root.setScaleY(1);

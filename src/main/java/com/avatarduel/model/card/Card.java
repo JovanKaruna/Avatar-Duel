@@ -3,18 +3,20 @@ package com.avatarduel.model.card;
 import com.avatarduel.model.element.Element;
 
 public abstract class Card {
+    private String typeName;
     private String name;
     private String description;
     private Element element;
     private String imgPath;
     private boolean isOpen;
 
-    public Card(String name, String description, Element element, String imgPath) {
+    public Card(String name, String description, Element element, String imgPath, String typeName) {
         this.name = name;
         this.description = description;
         this.element = element;
         this.imgPath = imgPath;
         this.isOpen = true;
+        this.typeName = typeName;
     }
 
     public String getAttributeDescription() {
@@ -25,7 +27,9 @@ public abstract class Card {
         return "";
     }
 
-    public abstract String getTypeDescription();
+    public String getTypeDescription(){
+        return this.typeName;
+    }
 
     public String getName() {
         return name;
@@ -43,7 +47,7 @@ public abstract class Card {
         return imgPath;
     }
 
-    private boolean isEmpty(){
+    public boolean isEmpty() {
         return element.equals(Element.valueOf("NOELEMENT"));
     }
 
@@ -51,9 +55,11 @@ public abstract class Card {
         return isOpen;
     }
 
-    public void flip(){
-        if(this.isEmpty()) return;
-        if(this.isOpen){
+    public void flip() {
+        if (this.isEmpty()) {
+            return;
+        }
+        if (this.isOpen) {
             this.close();
         } else {
             this.open();

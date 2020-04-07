@@ -2,6 +2,7 @@ package com.avatarduel.model;
 
 import com.avatarduel.Settings;
 import com.avatarduel.model.card.*;
+import com.avatarduel.model.phase.PhaseController;
 import com.avatarduel.model.player.PlayerController;
 
 import javafx.fxml.FXML;
@@ -9,24 +10,18 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class BoardController extends HasCardController {
-    @FXML
-    private PlayerController player1Controller;
-
-    @FXML
-    private PlayerController player2Controller;
-
-    @FXML
-    private CardDescController cardDescController;
-
-    @FXML
-    private PhaseController phaseController;
+public class BoardController implements HasCardController {
+    @FXML private CardController cardController;
+    @FXML private PlayerController player1Controller;
+    @FXML private PlayerController player2Controller;
+    @FXML private CardDescController cardDescController;
+    @FXML private PhaseController phaseController;
 
     public BoardController() throws IOException, URISyntaxException {
         CardDAO.init();
     }
 
-    public void init(String player1name, String player2name){
+    public void init(String player1name, String player2name) {
         this.cardController.init(this);
         this.cardDescController.init(this);
         this.player1Controller.init(this, player1name, Settings.player1Color);
@@ -36,8 +31,13 @@ public class BoardController extends HasCardController {
 
     @Override
     public void setActiveCard(Card c) {
-        super.setActiveCard(c);
+        this.cardController.setCard(c);
         this.cardDescController.setAttributes(c);
+    }
+
+    @Override
+    public CardController getCardController() {
+        return this.cardController;
     }
 
     public void startGame() {
@@ -55,7 +55,15 @@ public class BoardController extends HasCardController {
         this.player1Controller.startTurn();
     }
 
-    public PlayerController getActivePlayer(){
+    public PlayerController getActivePlayer() {
         return this.player1Controller;
+    }
+
+    public PhaseController getPhaseController(){
+        return this.phaseController;
+    }
+
+    public void endPhase() {
+        this.getActivePlayer().endPhase();
     }
 }

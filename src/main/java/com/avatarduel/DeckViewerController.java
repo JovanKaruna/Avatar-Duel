@@ -3,6 +3,7 @@ package com.avatarduel;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
+import com.avatarduel.model.card.EmptyCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
@@ -10,7 +11,10 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
-public class DeckViewerController extends HasCardController {
+public class DeckViewerController implements HasCardController {
+    @FXML
+    protected CardController cardController;
+
     @FXML
     private Text currentIdx;
 
@@ -41,7 +45,7 @@ public class DeckViewerController extends HasCardController {
     void nextCard(ActionEvent event) {
         this.i++;
         this.i %= this.cards.size();
-        this.cardController.setAttributes(this.cards.get(i));
+        this.cardController.setCard(this.cards.get(i));
         this.currentIdx.setText(i.toString());
     }
 
@@ -49,7 +53,7 @@ public class DeckViewerController extends HasCardController {
     void prevCard(ActionEvent event) {
         this.i--;
         this.i %= this.cards.size();
-        this.cardController.setAttributes(this.cards.get(i));
+        this.cardController.setCard(this.cards.get(i));
         this.currentIdx.setText(i.toString());
     }
 
@@ -75,5 +79,15 @@ public class DeckViewerController extends HasCardController {
 
     public void setCardController(CardController cardController) {
         this.cardController = cardController;
+    }
+
+    @Override
+    public void setActiveCard(Card c){
+        this.cardController.setCard(c);
+    }
+
+    @Override
+    public CardController getCardController() {
+        return this.cardController;
     }
 }
