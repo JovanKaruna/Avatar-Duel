@@ -36,7 +36,7 @@
       <HBox scaleX="0.18" scaleY="0.18" BorderPane.alignment="CENTER">
          <children>
             <fx:include fx:id="deck" source="Card.fxml" />
-            <fx:include fx:id="graveyard" source="Card.fxml" />
+            <fx:include fx:id="graveyard" onMouseClicked="#discard" source="Card.fxml" />
          </children>
       </HBox>
    </center>

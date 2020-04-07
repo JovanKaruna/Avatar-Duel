@@ -7,6 +7,7 @@ import com.avatarduel.model.card.*;
 import com.avatarduel.model.element.*;
 
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -63,6 +64,20 @@ public class PlayerInventoryController implements HasCardController {
         this.powerMap.put(Element.valueOf("EARTH"), earthController);
     }
 
+    void update() {
+        this.currentDeck.setText(this.currentDeckAmount.toString());
+        this.maxDeck.setText(this.maxDeckAmount.toString());
+    }
+
+    @FXML
+    public void discard(MouseEvent event){
+        //TODO Daniel
+        System.out.println("card discarded");
+        // cek aktif player
+        // jika ya, cek selected card tidak null
+        // jika ya, remove kartu dari hand, setAtribut graveyardController jadi kartu itu
+        // referensinya liat di field > onClick, mirip
+    }
 
     public void addPowerCapacity(Element element) {
         this.powerMap.get(element).addCapacity();
@@ -76,11 +91,6 @@ public class PlayerInventoryController implements HasCardController {
 
     public void addCurrentPower(Element e, Integer n){
         this.powerMap.get(e).addCurrentPower(n);
-    }
-
-    void update() {
-        this.currentDeck.setText(this.currentDeckAmount.toString());
-        this.maxDeck.setText(this.maxDeckAmount.toString());
     }
 
     public List<Card> takeNCards(Integer n) {
