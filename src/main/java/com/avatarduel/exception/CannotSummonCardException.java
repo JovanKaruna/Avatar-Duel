@@ -4,4 +4,8 @@ public class CannotSummonCardException extends Exception {
     public CannotSummonCardException(String msg){
         super(msg);
     }
+
+    public CannotSummonCardException(){
+        super();
+    }
 }

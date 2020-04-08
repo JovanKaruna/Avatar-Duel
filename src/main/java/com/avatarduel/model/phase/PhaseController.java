@@ -1,6 +1,7 @@
 package com.avatarduel.model.phase;
 
 import com.avatarduel.model.BoardController;
+import com.avatarduel.model.GameInfo;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -15,10 +16,6 @@ public class PhaseController {
     @FXML private Text phase;
     @FXML private Button next;
 
-    private Integer playerTurnValue;
-    private Integer turnValue;
-    private Phase phaseValue;
-
     // on Mouse Click
     @FXML
     public void nextPhase(ActionEvent event) {
@@ -27,27 +24,16 @@ public class PhaseController {
 
     public void nextPhase() {
         this.getParent().endPhase();
-        this.phaseValue = this.phaseValue.next();
-        if (this.phaseValue.equals(Phase.DRAW)) {
+        GameInfo.nextPhase();
+        if (GameInfo.getPhase().equals(Phase.DRAW)) {
             this.nextTurn();
         }
         this.update();
     }
 
     private void nextTurn(){
-        this.playerTurnValue %= 2;
-        this.playerTurnValue++;
-        if (this.playerTurnValue == 1) {
-            this.turnValue++;
-        }
+        GameInfo.nextTurn();
         this.getParent().nextPlayer();
-    }
-
-    @FXML
-    public void initialize() {
-        this.playerTurnValue = 1;
-        this.turnValue = 1;
-        this.phaseValue = Phase.DRAW;
     }
 
     public void init(BoardController boardController) {
@@ -60,13 +46,9 @@ public class PhaseController {
     }
 
     public void update() {
-        this.playerTurn.setText("Player " + this.playerTurnValue.toString());
-        this.turn.setText(this.turnValue.toString());
-        this.phase.setText(this.phaseValue.toString() + " PHASE");
-    }
-
-    public Phase getPhaseValue(){
-        return this.phaseValue;
+        this.playerTurn.setText("Player " + GameInfo.getPlayerTurn().toString());
+        this.turn.setText(GameInfo.getTurn().toString());
+        this.phase.setText(GameInfo.getPhase().toString() + " PHASE");
     }
 }
 

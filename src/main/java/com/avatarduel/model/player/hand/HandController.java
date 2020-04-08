@@ -1,10 +1,10 @@
 package com.avatarduel.model.player.hand;
 
 import com.avatarduel.Settings;
+import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import com.avatarduel.model.card.EmptyCard;
-import com.avatarduel.model.phase.Phase;
 import com.avatarduel.model.player.CanShowCard;
 import com.avatarduel.model.player.PlayerController;
 
@@ -51,8 +51,7 @@ public class HandController implements CanShowCard {
 
     @FXML // on Click
     public void useCard(MouseEvent event) {
-        Phase currentPhase = this.getCurrentPhase();
-        if (this.isActivePlayer() && ((currentPhase.equals(Phase.MAIN1)) || currentPhase.equals(Phase.MAIN2))) {
+        if (this.isActivePlayer() && GameInfo.isMainPhase()) {
             this.select(this.cursorAtCard(event));
         }
     }
@@ -81,10 +80,6 @@ public class HandController implements CanShowCard {
         for (int i = 0; i < Settings.maximumHandCard; i++) {
             this.cardControllers.get(i).setCard(this.getCard(i));
         }
-    }
-
-    public void addCard(Card c) {
-        this.cards.add(c);
     }
 
     public void removeCard(Card c) {
@@ -157,9 +152,5 @@ public class HandController implements CanShowCard {
 
     public Card getSelectedCard() {
         return this.selectedCard;
-    }
-
-    private Phase getCurrentPhase() {
-        return this.getParent().getCurrentPhase();
     }
 }

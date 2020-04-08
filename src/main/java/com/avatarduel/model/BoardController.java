@@ -21,12 +21,12 @@ public class BoardController implements HasCardController {
         CardDAO.init();
     }
 
-    public void init(String player1name, String player2name) {
+    public void init() {
         this.cardController.init(this);
         this.cardDescController.init(this);
         this.phaseController.init(this);
-        this.player1Controller.init(this, player1name, Settings.player1Color);
-        this.player2Controller.init(this, player2name, Settings.player2Color);
+        this.player1Controller.init(this, 1);
+        this.player2Controller.init(this, 2);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class BoardController implements HasCardController {
 
     public void nextPlayer() {
         this.player1Controller.endTurn();
+        GameInfo.nextTurn();
         PlayerController tmp = this.player1Controller;
         this.player1Controller = this.player2Controller;
         this.player2Controller = tmp;

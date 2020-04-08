@@ -29,10 +29,12 @@ public class AvatarDuel extends Application {
         stage.setResizable(false);
         stage.show();
 
-        this.rootController = rootLoader.getController();
+        AvatarDuel.rootController = rootLoader.getController();
 
         BoardController boardController = (BoardController) rootController;
-        boardController.init(Settings.player1Name,Settings.player2Name);
+        GameInfo.addPlayer(1, new PlayerInfo(Settings.player1Name, Settings.player1Color));
+        GameInfo.addPlayer(2, new PlayerInfo(Settings.player2Name, Settings.player2Color));
+        boardController.init();
 
         ((BoardController) rootController).startGame();
     }

@@ -2,47 +2,33 @@ package com.avatarduel.model.card.summonable;
 
 import java.util.ArrayList;
 
-import com.avatarduel.model.card.Card;
-import com.avatarduel.model.card.CardController;
-import com.avatarduel.model.card.EmptyCard;
 import com.avatarduel.model.card.summonable.character.Character;
-import com.avatarduel.model.card.summonable.skill.Skill;
-import com.avatarduel.model.element.Element;
-
 
 public class SummonedCharacterCard extends SummonedCard{
     ArrayList<SummonedSkillCard> supportCards;
     private boolean isAttackStance;
-    private boolean placedOnThisTurn;
-    private Character card;
 
     public SummonedCharacterCard(Character summonableCard) {
-        this.card = summonableCard;
-        this.placedOnThisTurn = true;
+        super(summonableCard, summonableCard.getClass());
     }
 
+    @Override
     public boolean canAttack(){
         return this.isAttackStance;
     }
 
-    private SummonableCard getCard(){
-        return this.card;
-    }
-
+    @Override
     public Integer getAttackValue() {
-        return this.card.getAttack() + this.supportCards.stream().mapToInt(SummonedSkillCard::getAttack).sum();
+        return ((Character)this.card).getAttack() + this.supportCards.stream().mapToInt(SummonedSkillCard::getAttackValue).sum();
     }
 
+    @Override
     public Integer getDefendValue(){
-        return this.card.getDefend() + this.supportCards.stream().mapToInt(SummonedSkillCard::getDefend).sum();
+        return ((Character)this.card).getDefend() + this.supportCards.stream().mapToInt(SummonedSkillCard::getDefendValue).sum();
     }
 
     public void changeStance() {
         this.isAttackStance ^= true;
         this.card.changeOrientation();
-    }
-
-    public void setPlacedOnThisTurn(boolean placedOnThisTurn) {
-        this.placedOnThisTurn = placedOnThisTurn;
     }
 }

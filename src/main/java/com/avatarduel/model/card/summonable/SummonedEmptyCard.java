@@ -2,11 +2,13 @@ package com.avatarduel.model.card.summonable;
 
 import com.avatarduel.model.card.EmptyCard;
 
-public class SummonedEmptyCard extends SummonedCard {
+// Singleton Pattern
+public final class SummonedEmptyCard extends SummonedCard {
     private static SummonedEmptyCard singleton;
     private static final EmptyCard card = EmptyCard.getInstance();
 
     private SummonedEmptyCard() {
+        super(EmptyCard.getInstance(), EmptyCard.class);
     }
 
     public static SummonedEmptyCard getInstance() {

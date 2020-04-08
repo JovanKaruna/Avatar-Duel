@@ -5,6 +5,7 @@ import com.avatarduel.exception.CannotSummonCardException;
 import com.avatarduel.exception.FieldCellIsOccupiedException;
 import com.avatarduel.exception.NotEnoughPowerException;
 import com.avatarduel.exception.NotImplementedException;
+import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.*;
 import com.avatarduel.model.card.summonable.SummonableCard;
@@ -40,7 +41,6 @@ public class PlayerInventoryController implements HasCardController {
     private Integer currentDeckAmount;
     private Integer maxDeckAmount;
     private ArrayList<Card> cards;
-    private boolean summonedLandThisTurn;
     private final Integer characterWeight = 6;
     private final Integer landWeight = 9;
     private final Integer auraWeight = 3;
@@ -88,11 +88,8 @@ public class PlayerInventoryController implements HasCardController {
 
     @FXML
     public void discard(MouseEvent event){
-
         if (this.isActivePlayer()) {
-            Phase currentPhase = this.getCurrentPhase();
-
-            if ((currentPhase.equals(Phase.MAIN1)) || currentPhase.equals(Phase.MAIN2)) {
+            if (GameInfo.isMainPhase()) {
                 Card handSelectedCard = this.getParent().getHandController().getSelectedCard();
                 Card fieldSelectedCard = this.getParent().getFieldController().getSelectedCard();
 
@@ -108,14 +105,9 @@ public class PlayerInventoryController implements HasCardController {
         }
     }
 
-    private Phase getCurrentPhase() {
-        return this.getParent().getCurrentPhase();
-    }
-
     public void addPowerCapacity(Element element) {
         this.powerMap.get(element).addCapacity();
         this.powerMap.get(element).addCurrentPower(1);
-        this.summonedLandThisTurn = true;
     }
 
     public void usePower(SummonableCard c) throws NotEnoughPowerException {
@@ -152,12 +144,7 @@ public class PlayerInventoryController implements HasCardController {
     }
 
     public void startTurn() {
-        this.summonedLandThisTurn = false;
         this.powerMap.forEach((k, v) -> v.resetCurrentPower());
-    }
-
-    public boolean summonedLandThisTurn(){
-        return this.summonedLandThisTurn;
     }
 
     private boolean isActivePlayer() {
