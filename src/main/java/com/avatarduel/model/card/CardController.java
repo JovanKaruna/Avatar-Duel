@@ -52,6 +52,10 @@ public class CardController {
         this.update();
     }
 
+    public void setEmpty(){
+        this.setCard(EmptyCard.getInstance());
+    }
+
     public Card getCard() {
         return this.card;
     }

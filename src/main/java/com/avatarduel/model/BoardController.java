@@ -1,6 +1,7 @@
 package com.avatarduel.model;
 
 import com.avatarduel.Settings;
+import com.avatarduel.event.EventType;
 import com.avatarduel.event.GameEventHandler;
 import com.avatarduel.model.card.*;
 import com.avatarduel.model.phase.PhaseController;
@@ -8,6 +9,7 @@ import com.avatarduel.model.player.PlayerController;
 
 import com.avatarduel.util.CardDAO;
 import javafx.fxml.FXML;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

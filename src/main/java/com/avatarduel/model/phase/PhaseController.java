@@ -1,5 +1,6 @@
 package com.avatarduel.model.phase;
 
+import com.avatarduel.event.GameEventHandler;
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.GameInfo;
 import javafx.event.ActionEvent;
@@ -25,6 +26,7 @@ public class PhaseController {
     public void nextPhase() {
         this.getParent().endPhase();
         GameInfo.nextPhase();
+        this.getParent().getGameEventHandler().getSelectedCard().resetCards();
         if (GameInfo.getPhase().equals(Phase.DRAW)) {
             this.nextTurn();
         }

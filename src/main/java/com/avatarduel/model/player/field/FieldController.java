@@ -1,17 +1,17 @@
 package com.avatarduel.model.player.field;
 
+import com.avatarduel.event.*;
 import com.avatarduel.exception.*;
 
 import com.avatarduel.model.GameInfo;
-import com.avatarduel.model.card.Card;
-import com.avatarduel.model.card.CardController;
+import com.avatarduel.model.Location;
+import com.avatarduel.model.card.*;
 import com.avatarduel.model.card.summonable.*;
 import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Skill;
-import com.avatarduel.model.phase.Phase;
+
 import com.avatarduel.model.player.PlayerController;
 
-import com.avatarduel.model.card.Land;
 import com.avatarduel.util.CSSLoader;
 
 import com.avatarduel.util.Pair;
@@ -22,7 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-public class FieldController {
+public class FieldController implements SummonEvent, DiscardFieldEvent {
 
     private PlayerController parent;
 
@@ -49,6 +49,8 @@ public class FieldController {
         }
         this.summonedLandThisTurn = false;
         this.update();
+
+        this.getGameEventHandler().subscribe(this, EventType.DISCARDFIELD);
     }
 
     public void update() {
@@ -69,9 +71,11 @@ public class FieldController {
 
     @FXML
     public void onClick(MouseEvent event) {
-        if (this.isActivePlayer()) {
-            Card selectedCard = this.getParent().getHandController().getSelectedCard();
+        if (this.isActivePlayer() && !GameInfo.isEndPhase()) {
+            this.getGameEventHandler().getSelectedCard().selectCard(this.cursorAtCard(event), this.getParent().getId(), Location.FIELD);
+
             if (GameInfo.isMainPhase()){
+
                 try {
                     this.summonCard(event, selectedCard);
                     this.getParent().getHandController().removeCard(selectedCard);
@@ -227,12 +231,43 @@ public class FieldController {
         return this.selectedCard;
     }
 
-    //    public void removeCard(Card c) {
-    //        this.getController(this.selectedCard).unlift();
-    //        this.selectedCard = null;
-    //        this.cards.remove(c);
-    //        this.update();
-    //    }
+    public GameEventHandler getGameEventHandler(){
+        return this.getParent().getGameEventHandler();
+    }
+
+    public void removeCard(Card card) {
+        for (int i = 0; i < this.cardControllers.length; i++) {
+            CardController[] ccs = this.cardControllers[i];
+            for (int j = 0; j < ccs.length; j++) {
+                if(ccs[j].getCard() == card){
+                    ccs[j].setEmpty();
+                    this.cards[i][j] = SummonedEmptyCard.getInstance();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onEvent(EventType type, SelectedCard firstCard, SelectedCard secondCard) {
+        if(type.equals(EventType.SUMMON)){
+            this.onSummonEvent(firstCard, secondCard);
+        } else if (type.equals(EventType.DISCARDHAND)){
+            this.onDiscardFieldEvent(firstCard, secondCard);
+        } else {
+            assert false;
+        }
+    }
+
+    @Override
+    public void onSummonEvent(SelectedCard firstCard, SelectedCard secondCard) {
+        // TODO
+    }
+
+    @Override
+    public void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
+        this.removeCard(firstCard.getCard());
+    }
+
     //
     //    private CardController getController(Card c) {
     //        for (int i = 0; i < this.cards.length; i++) {

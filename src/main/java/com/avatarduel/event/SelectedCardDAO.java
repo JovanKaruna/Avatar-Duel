@@ -3,6 +3,7 @@ package com.avatarduel.event;
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.SelectedCard;
+import com.avatarduel.model.card.summonable.skill.Skill;
 
 public final class SelectedCardDAO {
     private final SelectedCard empty = SelectedCard.getEmpty();
@@ -11,11 +12,19 @@ public final class SelectedCardDAO {
 
     /**
      * @param inputCard : card that wanted to be selected
-     * @param ownerid : ownership of inputCard
-     * @param location : location of inputCard
+     * @param ownerid   : ownership of inputCard
+     * @param location  : location of inputCard
      */
     public void selectCard(Card inputCard, Integer ownerid, Location location) {
         SelectedCard card = new SelectedCard(inputCard, ownerid, location);
+        if(card.getLocation().equals(Location.GRAVEYARD) && !card.getCard().getTypeDescription().equals(Skill.typeName)){
+            System.out.println("Cannot discard other than skill");
+            return;
+        }
+        if(this.firstCard.getLocation().equals(Location.GRAVEYARD)){
+            this.firstCard = this.setCard(this.firstCard, card);
+            return;
+        }
         if (this.firstCard.equals(card)) {
             // card = kartu 1
             this.firstCard = this.setCard(this.firstCard, this.empty);
@@ -57,6 +66,8 @@ public final class SelectedCardDAO {
     }
 
     private SelectedCard setCard(SelectedCard cardFrom, SelectedCard cardTo) {
+        System.out.println("From:\n" + cardFrom + "\n");
+        System.out.println("To:\n" + cardTo + "\n");
         if (cardFrom == this.empty && cardTo != this.empty) {
             cardFrom = cardTo;
             cardFrom.getCard().setSelected();
@@ -85,10 +96,12 @@ public final class SelectedCardDAO {
     }
 
     private void triggerEvent() {
-        if (this.firstCard != this.empty) {
-            // TODO
+        if (this.firstCard.getLocation().equals(Location.HAND) && this.secondCard.getLocation().equals(Location.GRAVEYARD)) {
+            GameEventHandler.getInstance().publish(EventType.DISCARDHAND);
+        } else if (this.firstCard.getLocation().equals(Location.FIELD) && this.secondCard.getLocation().equals(Location.GRAVEYARD)) {
+            GameEventHandler.getInstance().publish(EventType.DISCARDFIELD);
         } else {
-            // TODO
+            //TODO
         }
     }
 }

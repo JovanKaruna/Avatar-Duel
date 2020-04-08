@@ -5,9 +5,10 @@ import com.avatarduel.model.element.Element;
 
 public abstract class Skill extends SummonableCard {
     private String type;
+    public static final String typeName = "SKILL";
 
     public Skill(String name, String description, Element element, String imgPath, Integer power, String type) {
-        super(name, description, element, imgPath, power, "SKILL");
+        super(name, description, element, imgPath, power, Skill.typeName);
         this.type = type;
     }
 

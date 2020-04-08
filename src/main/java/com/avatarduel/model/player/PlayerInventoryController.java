@@ -1,9 +1,14 @@
 package com.avatarduel.model.player;
 
 import com.avatarduel.Settings;
+import com.avatarduel.event.DiscardFieldEvent;
+import com.avatarduel.event.DiscardHandEvent;
+import com.avatarduel.event.EventType;
+import com.avatarduel.event.GameEventHandler;
 import com.avatarduel.exception.NotEnoughPowerException;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.HasCardController;
+import com.avatarduel.model.Location;
 import com.avatarduel.model.card.*;
 import com.avatarduel.model.card.summonable.SummonableCard;
 import com.avatarduel.model.element.*;
@@ -16,7 +21,7 @@ import javafx.scene.text.Text;
 
 import java.util.*;
 
-public class PlayerInventoryController implements HasCardController {
+public class PlayerInventoryController implements HasCardController, DiscardHandEvent, DiscardFieldEvent {
 
     private PlayerController parent;
 
@@ -45,20 +50,9 @@ public class PlayerInventoryController implements HasCardController {
     private final Integer powerupWeight = 1;
     private final Integer totalWeight = 20;
 
-    @FXML
-    public void initialize() {
-        this.airController.init(this, Air.getInstance());
-        this.fireController.init(this, Fire.getInstance());
-        this.earthController.init(this, Earth.getInstance());
-        this.waterController.init(this, Water.getInstance());
-        this.graveyardController.init(this);
-        this.deckController.init(this);
-    }
-
     public void init(PlayerController playerController) {
         this.parent = playerController;
         this.cards = new ArrayList<>();
-
 
         this.cards.addAll(CardDAO.get(Settings.startingDeckAmount * auraWeight / totalWeight, CardDAO.Type.AURA));
         this.cards.addAll(CardDAO.get(Settings.startingDeckAmount * characterWeight / totalWeight, CardDAO.Type.CHARACTER));
@@ -71,11 +65,21 @@ public class PlayerInventoryController implements HasCardController {
         this.graveyardController.setCard(EmptyCard.getInstance());
         this.maxDeckAmount = this.cards.size();
         this.currentDeckAmount = this.maxDeckAmount;
+
         this.powerMap = new HashMap<>();
         this.powerMap.put(Element.valueOf("AIR"), airController);
         this.powerMap.put(Element.valueOf("WATER"), waterController);
         this.powerMap.put(Element.valueOf("FIRE"), fireController);
         this.powerMap.put(Element.valueOf("EARTH"), earthController);
+
+        this.airController.init(this, Air.getInstance());
+        this.fireController.init(this, Fire.getInstance());
+        this.earthController.init(this, Earth.getInstance());
+        this.waterController.init(this, Water.getInstance());
+        this.graveyardController.init(this);
+        this.deckController.init(this);
+
+        this.getGameEventHandler().subscribe(this, EventType.DISCARDHAND);
     }
 
     void update() {
@@ -84,21 +88,9 @@ public class PlayerInventoryController implements HasCardController {
     }
 
     @FXML
-    public void discard(MouseEvent event){
-        if (this.isActivePlayer()) {
-            if (GameInfo.isMainPhase()) {
-                Card handSelectedCard = this.getParent().getHandController().getSelectedCard();
-                Card fieldSelectedCard = this.getParent().getFieldController().getSelectedCard();
-
-                if (handSelectedCard != null) {
-                    this.getParent().getHandController().removeCard(handSelectedCard);
-                    setActiveCard(handSelectedCard);
-
-                } else if (fieldSelectedCard != null) {
-//                    this.getParent().getFieldController().removeCard(fieldSelectedCard);
-                    setActiveCard(fieldSelectedCard);
-                }
-            }
+    public void discard(MouseEvent event) {
+        if (this.isActivePlayer() && GameInfo.isMainPhase()) {
+            this.getParent().getGameEventHandler().getSelectedCard().selectCard(EmptyCard.getInstance(), this.getParent().getId(), Location.GRAVEYARD);
         }
     }
 
@@ -111,7 +103,7 @@ public class PlayerInventoryController implements HasCardController {
         this.powerMap.get(c.getElement()).usePower(c.getPower());
     }
 
-    public void addCurrentPower(Element e, Integer n){
+    public void addCurrentPower(Element e, Integer n) {
         this.powerMap.get(e).addCurrentPower(n);
     }
 
@@ -132,6 +124,7 @@ public class PlayerInventoryController implements HasCardController {
 
     @Override
     public void setActiveCard(Card c) {
+        c.setNotSelected();
         this.graveyardController.setCard(c);
     }
 
@@ -152,4 +145,28 @@ public class PlayerInventoryController implements HasCardController {
         return parent;
     }
 
+    private GameEventHandler getGameEventHandler() {
+        return this.getParent().getGameEventHandler();
+    }
+
+    @Override
+    public void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
+        this.setActiveCard(firstCard.getCard());
+    }
+
+    @Override
+    public void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
+        this.setActiveCard(firstCard.getCard());
+    }
+
+    @Override
+    public void onEvent(EventType type, SelectedCard firstCard, SelectedCard secondCard) {
+        if (type.equals(EventType.DISCARDFIELD)) {
+            this.onDiscardFieldEvent(firstCard, secondCard);
+        } else if (type.equals(EventType.DISCARDHAND)) {
+            this.onDiscardHandEvent(firstCard, secondCard);
+        } else {
+            assert false;
+        }
+    }
 }

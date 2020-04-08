@@ -1,12 +1,16 @@
 package com.avatarduel.model.player.hand;
 
 import com.avatarduel.Settings;
+import com.avatarduel.event.DiscardHandEvent;
+import com.avatarduel.event.EventType;
 import com.avatarduel.event.GameEventHandler;
+import com.avatarduel.event.Subscriber;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import com.avatarduel.model.card.EmptyCard;
+import com.avatarduel.model.card.SelectedCard;
 import com.avatarduel.model.player.CanShowCard;
 import com.avatarduel.model.player.PlayerController;
 
@@ -20,7 +24,7 @@ import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HandController implements CanShowCard {
+public class HandController implements CanShowCard, DiscardHandEvent {
 
     private PlayerController parent;
 
@@ -28,7 +32,6 @@ public class HandController implements CanShowCard {
 
     private List<Card> cards;
     private ArrayList<CardController> cardControllers;
-    private Card selectedCard;
 
     public void init(PlayerController playerController) {
         this.parent = playerController;
@@ -39,6 +42,8 @@ public class HandController implements CanShowCard {
             cc.setRoot((StackPane) ((Pane) this.container.getChildren().get(i)).getChildren().get(0));
             this.cardControllers.add(cc);
         }
+
+        this.getGameEventHandler().subscribe(this, EventType.DISCARDHAND);
     }
 
     @FXML // on Hover Enter
@@ -68,8 +73,6 @@ public class HandController implements CanShowCard {
     }
 
     public void removeCard(Card c) {
-        this.getController(this.selectedCard).unlift();
-        this.selectedCard = null;
         this.cards.remove(c);
         this.update();
     }
@@ -135,11 +138,21 @@ public class HandController implements CanShowCard {
         return null;
     }
 
-    public Card getSelectedCard() {
-        return this.selectedCard;
-    }
-
     public GameEventHandler getGameEventHandler(){
         return this.getParent().getGameEventHandler();
+    }
+
+    @Override
+    public void onEvent(EventType type, SelectedCard firstCard, SelectedCard secondCard) {
+        if(type.equals(EventType.DISCARDHAND)){
+            this.onDiscardHandEvent(firstCard, secondCard);
+        } else {
+            assert false;
+        }
+    }
+
+    @Override
+    public void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
+        this.removeCard(firstCard.getCard());
     }
 }

@@ -103,5 +103,15 @@ public abstract class Card {
     public boolean isSelected() {
         return isSelected;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                ", name='" + name + '\'' +
+                ", isOpen=" + isOpen +
+                ", isPortrait=" + isPortrait +
+                ", isSelected=" + isSelected +
+                '}';
+    }
 }
 

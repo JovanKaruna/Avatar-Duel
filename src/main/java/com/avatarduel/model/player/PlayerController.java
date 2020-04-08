@@ -1,5 +1,6 @@
 package com.avatarduel.model.player;
 
+import com.avatarduel.event.EventType;
 import com.avatarduel.event.GameEventHandler;
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.GameInfo;
@@ -33,14 +34,6 @@ public class PlayerController {
     @FXML private BorderPane attribute;
     @FXML private PlayerAttributeController attributeController;
 
-    @FXML
-    public void initialize() {
-        this.handController.init(this);
-        this.inventoryController.init(this);
-        this.attributeController.init(this);
-        this.fieldController.init(this);
-    }
-
     public void init(BoardController boardController, Integer id) {
         this.id = id;
         this.parent = boardController;
@@ -49,6 +42,11 @@ public class PlayerController {
         this.handCard = this.handController.getCards();
         this.deckCard = this.inventoryController.getCards();
         this.isPlayerOne = this.equals(this.getParent().getActivePlayer());
+
+        this.handController.init(this);
+        this.inventoryController.init(this);
+        this.attributeController.init(this);
+        this.fieldController.init(this);
     }
 
     public void update() {

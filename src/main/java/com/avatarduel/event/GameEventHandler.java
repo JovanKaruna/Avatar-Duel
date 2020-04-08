@@ -21,40 +21,6 @@ public final class GameEventHandler {
 
     private GameEventHandler(){
         this.selectedCard = new SelectedCardDAO();
-        this.subscribe((type, firstCard, secondCard) -> {
-            System.out.println(firstCard);
-            System.out.println(secondCard);
-        }, EventType.SUMMON);
-
-        this.subscribe((type, firstCard, secondCard) -> {
-            System.out.println(firstCard);
-            System.out.println(secondCard);
-        }, EventType.ATTACHSKILL);
-
-        this.subscribe((type, firstCard, secondCard) -> {
-            System.out.println(firstCard);
-            System.out.println(secondCard);
-        }, EventType.ATTACKCARD);
-
-        this.subscribe((type, firstCard, secondCard) -> {
-            System.out.println(firstCard);
-            System.out.println(secondCard);
-        }, EventType.ATTACKENEMY);
-
-        this.subscribe((type, firstCard, secondCard) -> {
-            System.out.println(firstCard);
-            System.out.println(secondCard);
-        }, EventType.CHANGESTANCE);
-
-        this.subscribe((type, firstCard, secondCard) -> {
-            System.out.println(firstCard);
-            System.out.println(secondCard);
-        }, EventType.DISCARDHAND);
-
-        this.subscribe((type, firstCard, secondCard) -> {
-            System.out.println(firstCard);
-            System.out.println(secondCard);
-        }, EventType.DISCARDFIELD);
     }
 
     public static GameEventHandler getInstance() {
@@ -71,6 +37,7 @@ public final class GameEventHandler {
     public void publish(EventType type){
         System.out.println("Event " + type + " has subscribers:");
         this.subscriber.get(type).forEach(s -> s.onEvent(type, this.selectedCard.getFirstCard(), this.selectedCard.getSecondCard()));
+        this.getSelectedCard().resetCards();
     }
 
     public SelectedCardDAO getSelectedCard() {

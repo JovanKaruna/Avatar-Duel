@@ -43,4 +43,13 @@ public class SelectedCard <T extends Card> {
     public boolean equals(SelectedCard other) {
         return this.card.equals(other.card) && this.ownerId.equals(other.ownerId) && this.location == other.location;
     }
+
+    @Override
+    public String toString() {
+        return "SelectedCard{" +
+                "card=" + card +
+                ", ownerId=" + ownerId +
+                ", location=" + location +
+                '}';
+    }
 }
