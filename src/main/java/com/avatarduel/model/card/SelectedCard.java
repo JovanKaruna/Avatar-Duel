@@ -27,13 +27,20 @@ public class SelectedCard <T extends Card> {
         return SelectedCard.empty;
     }
 
-
     public Integer getOwnerId() {
         return ownerId;
     }
 
     public Location getLocation() {
         return location;
+    }
+
+    public boolean isAt(Location location){
+        return this.getLocation().equals(location);
+    }
+
+    public boolean isType(CardType cardType){
+        return this.getCard().getCardType().equals(cardType);
     }
 
     public T getCard() {

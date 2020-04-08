@@ -1,5 +1,6 @@
 package com.avatarduel.model.card.summonable.skill;
 
+import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.element.Element;
 
 public class Destroy extends Skill{
@@ -7,5 +8,6 @@ public class Destroy extends Skill{
 
     public Destroy(String name, String description, Element element, String imgPath, Integer power) {
         super(name, description, element, imgPath, power, Destroy.TYPE_NAME);
+        this.cardType = CardType.DESTROY;
     }
 }

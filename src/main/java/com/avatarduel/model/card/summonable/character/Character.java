@@ -1,5 +1,6 @@
 package com.avatarduel.model.card.summonable.character;
 
+import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.card.summonable.SummonableCard;
 import com.avatarduel.model.element.Element;
 
@@ -11,6 +12,7 @@ public class Character extends SummonableCard {
         super(name, description, element, imgPath, power, "CHARACTER");
         this.attack = attack;
         this.defend = defend;
+        this.cardType = CardType.CHARACTER;
     }
 
     public Integer getAttack() {

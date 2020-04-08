@@ -1,5 +1,6 @@
 package com.avatarduel.model.card.summonable.skill;
 
+import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.element.Element;
 
 public class Aura extends Skill {
@@ -11,6 +12,7 @@ public class Aura extends Skill {
         super(name, description, element, imgPath, power, Aura.TYPE_NAME);
         this.attack = attack;
         this.defend = defend;
+        this.cardType = CardType.AURA;
     }
 
     public Integer getAttack() {

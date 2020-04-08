@@ -17,6 +17,8 @@ public final class SelectedCardDAO {
      */
     public void selectCard(Card inputCard, Integer ownerid, Location location) {
         SelectedCard card = new SelectedCard(inputCard, ownerid, location);
+
+        
         if(card.getLocation().equals(Location.GRAVEYARD) && !card.getCard().getTypeDescription().equals(Skill.typeName)){
             System.out.println("Cannot discard other than skill");
             return;
