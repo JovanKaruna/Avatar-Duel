@@ -1,13 +1,14 @@
-package com.avatarduel.model.card;
+package com.avatarduel.util;
 
 
 import com.avatarduel.Paths;
+import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.Land;
 import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Aura;
 import com.avatarduel.model.card.summonable.skill.Destroy;
 import com.avatarduel.model.card.summonable.skill.PowerUp;
 import com.avatarduel.model.element.Element;
-import com.avatarduel.util.CSVReader;
 
 import java.io.File;
 import java.io.IOException;

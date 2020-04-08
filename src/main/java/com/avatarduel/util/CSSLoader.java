@@ -3,6 +3,10 @@ package com.avatarduel.util;
 import javafx.scene.Node;
 
 public class CSSLoader {
+    private CSSLoader(){
+        throw new AssertionError("This is a utility class");
+    }
+
     public static void addClass(Node node, String newClass){
         node.getStyleClass().add(newClass);
     }

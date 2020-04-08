@@ -1,5 +1,6 @@
 package com.avatarduel.model.player;
 
+import com.avatarduel.event.GameEventHandler;
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.card.Card;
@@ -97,5 +98,13 @@ public class PlayerController {
 
     public boolean isActivePlayer(){
         return this.id.equals(GameInfo.getTurn());
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public GameEventHandler getGameEventHandler() {
+        return this.getParent().getGameEventHandler();
     }
 }

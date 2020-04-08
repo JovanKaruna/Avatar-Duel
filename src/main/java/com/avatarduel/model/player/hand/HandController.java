@@ -1,7 +1,9 @@
 package com.avatarduel.model.player.hand;
 
 import com.avatarduel.Settings;
+import com.avatarduel.event.GameEventHandler;
 import com.avatarduel.model.GameInfo;
+import com.avatarduel.model.Location;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import com.avatarduel.model.card.EmptyCard;
@@ -28,13 +30,10 @@ public class HandController implements CanShowCard {
     private ArrayList<CardController> cardControllers;
     private Card selectedCard;
 
-    public HandController() {
-        this.cardControllers = new ArrayList<>();
-    }
-
     public void init(PlayerController playerController) {
         this.parent = playerController;
         this.cards = new ArrayList<>();
+        this.cardControllers = new ArrayList<>();
         for (Integer i = 0; i < Settings.maximumHandCard; i++) {
             CardController cc = new CardController();
             cc.setRoot((StackPane) ((Pane) this.container.getChildren().get(i)).getChildren().get(0));
@@ -52,23 +51,9 @@ public class HandController implements CanShowCard {
     @FXML // on Click
     public void useCard(MouseEvent event) {
         if (this.isActivePlayer() && GameInfo.isMainPhase()) {
-            this.select(this.cursorAtCard(event));
+            this.getGameEventHandler().getSelectedCard().selectCard(this.cursorAtCard(event), this.getParent().getId(), Location.HAND);
+            this.update();
         }
-    }
-
-    private void select(Card card) {
-        if (this.selectedCard != null) {
-            this.getController(this.selectedCard).unlift();
-        }
-        if(this.selectedCard == card || card == EmptyCard.getInstance()){
-            this.selectedCard = null;
-            return;
-        }
-        this.selectedCard = card;
-        if (this.selectedCard != null) {
-            this.getController(this.selectedCard).lift();
-        }
-
     }
 
     @FXML // on Hover Exit
@@ -128,7 +113,7 @@ public class HandController implements CanShowCard {
     }
 
     public void endTurn() {
-        this.select(null);
+        this.getGameEventHandler().getSelectedCard().resetCards();
         this.cards.forEach(Card::close);
         this.update();
     }
@@ -152,5 +137,9 @@ public class HandController implements CanShowCard {
 
     public Card getSelectedCard() {
         return this.selectedCard;
+    }
+
+    public GameEventHandler getGameEventHandler(){
+        return this.getParent().getGameEventHandler();
     }
 }

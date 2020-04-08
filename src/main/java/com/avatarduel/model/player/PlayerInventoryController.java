@@ -1,17 +1,14 @@
 package com.avatarduel.model.player;
 
 import com.avatarduel.Settings;
-import com.avatarduel.exception.CannotSummonCardException;
-import com.avatarduel.exception.FieldCellIsOccupiedException;
 import com.avatarduel.exception.NotEnoughPowerException;
-import com.avatarduel.exception.NotImplementedException;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.*;
 import com.avatarduel.model.card.summonable.SummonableCard;
 import com.avatarduel.model.element.*;
 
-import com.avatarduel.model.phase.Phase;
+import com.avatarduel.util.CardDAO;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;

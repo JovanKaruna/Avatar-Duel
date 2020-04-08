@@ -10,6 +10,7 @@ public abstract class Card {
     private String imgPath;
     private boolean isOpen;
     private boolean isPortrait;
+    private boolean isSelected;
 
     public Card(String name, String description, Element element, String imgPath, String typeName) {
         this.name = name;
@@ -18,6 +19,7 @@ public abstract class Card {
         this.imgPath = imgPath;
         this.isOpen = true;
         this.isPortrait = true;
+        this.isSelected = false;
         this.typeName = typeName;
     }
 
@@ -86,6 +88,20 @@ public abstract class Card {
 
     public boolean isPortrait() {
         return isPortrait;
+    }
+
+    public void setSelected(){
+        this.isSelected = true;
+        System.out.println(this.name + " selected");
+    }
+
+    public void setNotSelected(){
+        this.isSelected = false;
+        System.out.println(this.name + " not selected");
+    }
+
+    public boolean isSelected() {
+        return isSelected;
     }
 }
 

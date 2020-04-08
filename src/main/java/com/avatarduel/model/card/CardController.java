@@ -107,10 +107,16 @@ public class CardController {
             ImageLoader.setImage(this.image, this.card.getImgPath());
             ImageLoader.setImage(this.elementImage, this.card.getElement().getImagePath());
 
-            if (!this.card.isPortrait()) {
-                this.root.setRotate(90);
-            } else {
+            if (this.card.isPortrait()) {
                 this.root.setRotate(0);
+            } else {
+                this.root.setRotate(90);
+            }
+
+            if(this.card.isSelected()){
+                this.lift();
+            } else {
+                this.unlift();
             }
         } else {
             BackgroundLoader.setBackground(this.back, Settings.cardBackColor);

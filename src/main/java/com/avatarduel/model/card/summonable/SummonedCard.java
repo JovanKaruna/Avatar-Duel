@@ -2,19 +2,20 @@ package com.avatarduel.model.card.summonable;
 
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.CardType;
 
 public abstract class SummonedCard<T extends Card> {
     T card;
-    Class<T> type;
+    CardType type;
     Integer summonedOn;
 
-    SummonedCard(T card, Class<T> type) {
+    SummonedCard(T card, CardType type) {
         this.card = card;
         this.type = type;
     }
 
     public T getCard() {
-        return this.type.cast(this.card);
+        return this.card;
     }
 
     public boolean canAttack() {

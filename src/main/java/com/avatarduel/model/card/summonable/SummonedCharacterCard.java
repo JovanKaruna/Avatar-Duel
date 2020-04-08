@@ -2,6 +2,7 @@ package com.avatarduel.model.card.summonable;
 
 import java.util.ArrayList;
 
+import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.card.summonable.character.Character;
 
 public class SummonedCharacterCard extends SummonedCard{
@@ -9,7 +10,7 @@ public class SummonedCharacterCard extends SummonedCard{
     private boolean isAttackStance;
 
     public SummonedCharacterCard(Character summonableCard) {
-        super(summonableCard, summonableCard.getClass());
+        super(summonableCard, CardType.CHARACTER);
     }
 
     @Override
