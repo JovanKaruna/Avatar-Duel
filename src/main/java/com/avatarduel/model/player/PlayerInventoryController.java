@@ -1,12 +1,16 @@
 package com.avatarduel.model.player;
 
 import com.avatarduel.Settings;
+import com.avatarduel.exception.CannotSummonCardException;
+import com.avatarduel.exception.FieldCellIsOccupiedException;
 import com.avatarduel.exception.NotEnoughPowerException;
+import com.avatarduel.exception.NotImplementedException;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.*;
 import com.avatarduel.model.card.summonable.SummonableCard;
 import com.avatarduel.model.element.*;
 
+import com.avatarduel.model.phase.Phase;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -84,12 +88,28 @@ public class PlayerInventoryController implements HasCardController {
 
     @FXML
     public void discard(MouseEvent event){
-        //TODO Daniel
-        System.out.println("card discarded");
-        // cek aktif player
-        // jika ya, cek selected card tidak null
-        // jika ya, remove kartu dari hand, setAtribut graveyardController jadi kartu itu
-        // referensinya liat di field > onClick, mirip
+
+        if (this.isActivePlayer()) {
+            Phase currentPhase = this.getCurrentPhase();
+
+            if ((currentPhase.equals(Phase.MAIN1)) || currentPhase.equals(Phase.MAIN2)) {
+                Card handSelectedCard = this.getParent().getHandController().getSelectedCard();
+                Card fieldSelectedCard = this.getParent().getFieldController().getSelectedCard();
+
+                if (handSelectedCard != null) {
+                    this.getParent().getHandController().removeCard(handSelectedCard);
+                    setActiveCard(handSelectedCard);
+
+                } else if (fieldSelectedCard != null) {
+//                    this.getParent().getFieldController().removeCard(fieldSelectedCard);
+                    setActiveCard(fieldSelectedCard);
+                }
+            }
+        }
+    }
+
+    private Phase getCurrentPhase() {
+        return this.getParent().getCurrentPhase();
     }
 
     public void addPowerCapacity(Element element) {
@@ -139,4 +159,13 @@ public class PlayerInventoryController implements HasCardController {
     public boolean summonedLandThisTurn(){
         return this.summonedLandThisTurn;
     }
+
+    private boolean isActivePlayer() {
+        return this.getParent().isActivePlayer();
+    }
+
+    public PlayerController getParent() {
+        return parent;
+    }
+
 }

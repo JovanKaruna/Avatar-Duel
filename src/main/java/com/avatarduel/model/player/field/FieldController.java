@@ -82,7 +82,7 @@ public class FieldController {
             Phase currentPhase = this.getCurrentPhase();
             Card selectedCard = this.getParent().getHandController().getSelectedCard();
 
-            if (this.isActivePlayer() && ((currentPhase.equals(Phase.MAIN1)) || currentPhase.equals(Phase.MAIN2))) {
+            if ((currentPhase.equals(Phase.MAIN1)) || currentPhase.equals(Phase.MAIN2)) {
                 try {
                     this.summonCard(event, selectedCard);
                     this.getParent().getHandController().removeCard(selectedCard);
@@ -265,4 +265,34 @@ public class FieldController {
     public PlayerController getParent() {
         return parent;
     }
+
+    public Card getSelectedCard() {
+        return this.selectedCard;
+    }
+
+//    public void removeCard(Card c) {
+//        this.getController(this.selectedCard).unlift();
+//        this.selectedCard = null;
+//        this.cards.remove(c);
+//        this.update();
+//    }
+//
+//    private CardController getController(Card c) {
+//        for (int i = 0; i < this.cards.length; i++) {
+//            for (int j = 0; j < this.cards[i].length; j++) {
+//                if (this.getCard(i, j) == c) {
+//                    return this.cardControllers.get(i);
+//                }
+//            }
+//        }
+//        return null;
+//    }
+//
+//    private Card getCard(Integer i, Integer j) {
+//        try {
+//            return this.cards[i][j];
+//        } catch (IndexOutOfBoundsException e) {
+//            return EmptyCard.getInstance();
+//        }
+//    }
 }
