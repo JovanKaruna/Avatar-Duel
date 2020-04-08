@@ -3,7 +3,7 @@ package com.avatarduel.util;
 
 import com.avatarduel.Paths;
 import com.avatarduel.model.card.Card;
-import com.avatarduel.model.card.Land;
+import com.avatarduel.model.card.land.Land;
 import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Aura;
 import com.avatarduel.model.card.summonable.skill.Destroy;

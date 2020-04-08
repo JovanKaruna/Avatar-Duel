@@ -1,7 +1,6 @@
 package com.avatarduel.model.card.summonable;
 
 import com.avatarduel.model.card.CardType;
-import com.avatarduel.model.card.EmptyCard;
 
 // Singleton Pattern
 public final class SummonedEmptyCard extends SummonedCard {

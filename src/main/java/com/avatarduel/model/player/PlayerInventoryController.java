@@ -10,6 +10,7 @@ import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.*;
+import com.avatarduel.model.card.summonable.EmptyCard;
 import com.avatarduel.model.card.summonable.SummonableCard;
 import com.avatarduel.model.element.*;
 

@@ -6,6 +6,7 @@ import com.avatarduel.exception.*;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.*;
+import com.avatarduel.model.card.land.Land;
 import com.avatarduel.model.card.summonable.*;
 import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Skill;

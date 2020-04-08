@@ -2,6 +2,7 @@ package com.avatarduel.event;
 
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.card.SelectedCard;
 import com.avatarduel.model.card.summonable.skill.Skill;
 
@@ -19,11 +20,11 @@ public final class SelectedCardDAO {
         SelectedCard card = new SelectedCard(inputCard, ownerid, location);
 
         
-        if(card.getLocation().equals(Location.GRAVEYARD) && !card.getCard().getTypeDescription().equals(Skill.typeName)){
+        if(card.isAt(Location.GRAVEYARD) && !(card.isType(CardType.AURA) || card.isType(CardType.DESTROY) || card.isType(CardType.POWERUP))){
             System.out.println("Cannot discard other than skill");
             return;
         }
-        if(this.firstCard.getLocation().equals(Location.GRAVEYARD)){
+        if(this.firstCard.isAt(Location.GRAVEYARD)){
             this.firstCard = this.setCard(this.firstCard, card);
             return;
         }
@@ -38,7 +39,7 @@ public final class SelectedCardDAO {
                 this.firstCard = this.setCard(this.firstCard, card);
             } else {
                 // no 1 kosong, geser no2 ke 1, trus isi no 2
-                if (this.secondCard.getLocation().equals(Location.HAND) && card.getLocation().equals(Location.HAND)) {
+                if (this.secondCard.isAt(Location.HAND) && card.isAt(Location.HAND)) {
                     // kecuali kalo sama2 kartu tangan
                     this.secondCard = this.setCard(this.secondCard, this.empty);
                     this.firstCard = this.setCard(this.firstCard, card);
@@ -53,7 +54,7 @@ public final class SelectedCardDAO {
                 this.secondCard = this.setCard(this.secondCard, this.empty);
                 return;
             } else if (this.secondCard == this.empty) {
-                if (this.firstCard.getLocation().equals(Location.HAND) && card.getLocation().equals(Location.HAND)) {
+                if (this.firstCard.isAt(Location.HAND) && card.isAt(Location.HAND)) {
                     // maks 1 kartu tangan
                     this.firstCard = this.setCard(this.firstCard, this.empty);
                     this.firstCard = this.setCard(this.firstCard, card);
@@ -98,9 +99,9 @@ public final class SelectedCardDAO {
     }
 
     private void triggerEvent() {
-        if (this.firstCard.getLocation().equals(Location.HAND) && this.secondCard.getLocation().equals(Location.GRAVEYARD)) {
+        if (this.firstCard.isAt(Location.HAND) && this.secondCard.isAt(Location.GRAVEYARD)) {
             GameEventHandler.getInstance().publish(EventType.DISCARDHAND);
-        } else if (this.firstCard.getLocation().equals(Location.FIELD) && this.secondCard.getLocation().equals(Location.GRAVEYARD)) {
+        } else if (this.firstCard.isAt(Location.FIELD) && this.secondCard.isAt(Location.GRAVEYARD)) {
             GameEventHandler.getInstance().publish(EventType.DISCARDFIELD);
         } else {
             //TODO

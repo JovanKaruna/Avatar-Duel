@@ -3,7 +3,6 @@ package com.avatarduel;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
-import com.avatarduel.model.card.EmptyCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;

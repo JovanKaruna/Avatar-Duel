@@ -1,6 +1,7 @@
 package com.avatarduel.model.card;
 
 import com.avatarduel.model.Location;
+import com.avatarduel.model.card.summonable.EmptyCard;
 
 public class SelectedCard <T extends Card> {
     private T card;

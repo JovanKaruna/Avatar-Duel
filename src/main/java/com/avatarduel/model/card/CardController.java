@@ -1,6 +1,7 @@
 package com.avatarduel.model.card;
 
 import com.avatarduel.Settings;
+import com.avatarduel.model.card.summonable.EmptyCard;
 import com.avatarduel.util.BackgroundLoader;
 import com.avatarduel.model.HasCardController;
 import com.avatarduel.util.ImageLoader;

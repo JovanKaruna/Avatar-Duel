@@ -1,5 +1,6 @@
-package com.avatarduel.model.card;
+package com.avatarduel.model.card.land;
 
+import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.element.Element;
 

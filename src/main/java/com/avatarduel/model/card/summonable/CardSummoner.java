@@ -4,7 +4,6 @@ import com.avatarduel.exception.CannotSummonCardException;
 import com.avatarduel.exception.NoCharaterOnFieldException;
 import com.avatarduel.exception.NotImplementedException;
 import com.avatarduel.model.card.Card;
-import com.avatarduel.model.card.EmptyCard;
 import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Aura;
 import com.avatarduel.model.card.summonable.skill.Destroy;

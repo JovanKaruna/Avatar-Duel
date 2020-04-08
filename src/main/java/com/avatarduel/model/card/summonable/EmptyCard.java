@@ -1,6 +1,5 @@
-package com.avatarduel.model.card;
+package com.avatarduel.model.card.summonable;
 
-import com.avatarduel.model.card.summonable.SummonableCard;
 import com.avatarduel.model.element.Element;
 
 // Null Object Pattern, Singleton Pattern
