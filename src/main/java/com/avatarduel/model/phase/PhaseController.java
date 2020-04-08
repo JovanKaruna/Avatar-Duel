@@ -1,8 +1,10 @@
 package com.avatarduel.model.phase;
 
+import com.avatarduel.Settings;
 import com.avatarduel.event.GameEventHandler;
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.GameInfo;
+
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -20,7 +22,12 @@ public class PhaseController {
     // on Mouse Click
     @FXML
     public void nextPhase(ActionEvent event) {
-        this.nextPhase();
+        if ((GameInfo.isEndPhase()) && (this.getParent().getActivePlayer().getHandController().getCards().size() == Settings.maximumHandCard)) {
+            System.out.println("You must discard 1 card from your hand!");
+        }
+        else {
+            this.nextPhase();
+        }
     }
 
     public void nextPhase() {
