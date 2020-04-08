@@ -1,25 +1,25 @@
-id,name,element,description,imagepath
-1,Eastern Air Temple,AIR,One of the two temples exclusively housing female airbenders.,land/Eastern Air Temple.png
-2,Western Air Temple,AIR,One of the two temples exclusively housing female airbenders.,land/Western Air Temple.png
-3,Southern Air Temple,AIR,One of the two temples exclusively housing male airbenders. Childhood home of Avatar Aang.,land/Southern Air Temple.png
-4,Northern Air Temple,AIR,One of the two temples exclusively housing male airbenders.,land/Northern Air Temple.png
-5,Lion Turtle,AIR,The largest known animal in the world served as protectors of mankind by housing human cities on their backs.,land/Lion Turtle.png
-6,Air Temple Island,AIR,A small isle located off the coast of Republic City in Yue Bay.,land/Air Temple Island.png
-7,Foggy Swamp,WATER,Place for immigrants of the Southern Water Tribe with an extensive array of fauna and flora.,land/Foggy Swamp.png
-8,Spirit Oasis,WATER,A verdant and lush garden located in a cave in the Northern Water Tribe's capital city at the North Pole.,land/Spirit Oasis.png
-9,Northern Water Tribe,WATER,The largest division of its nation and is located on an island situated near the North Pole.,land/Northern Water Tribe.png
-10,Southern Water Tribe,WATER,Minor division of the Water Tribe. Its people are scattered in tiny villages and settlements located on an island by the South Pole.,land/Southern Water Tribe.png
-11,Southern Water Tribe Compound,WATER,"A small encampment that lies deep within the South Pole, near the harbor city in the Southern Water Tribe.",land/Southern Water Tribe Compound.png
-12,Shipwreck,WATER,"A massive Fire Nation naval vessel tilted and uprooted by the waterbenders of the Southern Water Tribe, marking one of the first of a series of attacks known as the Southern Water Tribe raids.",land/Shipwreck.png
-13,Si Wong Desert,EARTH,The largest desert in the world.,land/Si Wong Desert.png
-14,Ba Sing Se,EARTH,The monolithic capital of the Earth Kingdom.,land/Ba Sing Se.png
-15,Kyoshi Island,EARTH,Famous as the birthplace of Avatar Kyoshi and as the home of the elite Kyoshi Warriors.,land/Kyoshi Island.png
-16,Omashu,EARTH,The second largest city in the Earth Kingdom and the capital of one of its provinces ruled by King Bumi.,land/Omashu.png
-17,Gaoling,EARTH,A large town located within a mountain range in the southern Earth Kingdom.,land/Gaoling.png
-18,Plains Village,EARTH,"Located in the arid grasslands of the southern Earth Kingdom, to the west of the Si Wong Desert.",land/Plains Village.png
-19,Fire Nation Capital,FIRE,The seat of the government for the Fire Nation.,land/Fire Nation Capital.png
-20,Boiling Rock,FIRE,A massive Fire Nation prison.,land/Boiling Rock.png
-21,Sun Warriors' Ancient City,FIRE,"Large, historic settlement located on an island north of the Fire Nation mainland.",land/Sun Warriors' Ancient City.png
-22,Fire Fountain City,FIRE,A large industrial city located in the Fire Nation.,land/Fire Fountain City.png
-23,Ember Island,FIRE,"A small resort, home to many luxurious resorts and vacation homes for the wealthy and powerful.",land/Ember Island.png
-24,Shu Jing,FIRE,"Situated on a cliff above a river and waterfalls and surrounded by beautiful mountains, this is one of the many small, peaceful villages that are tucked away throughout the Fire Nation islands.",land/Shu Jing.png
+id	name	element	description	imagepath
+1	Eastern Water Temple	AIR	One of the two temples exclusively housing female airbenders.	land/Eastern Air Temple.png
+2	Western Water Temple	AIR	One of the two temples exclusively housing female airbenders.	land/Western Air Temple.png
+3	Southern Water Temple	AIR	One of the two temples exclusively housing male airbenders. Childhood home of Avatar Aang.	land/Southern Air Temple.png
+4	Northern Water Temple	AIR	One of the two temples exclusively housing male airbenders.	land/Northern Air Temple.png
+5	Foggy Swamp	WATER	Place for immigrants of the Southern Water Tribe with an extensive array of fauna and flora.	land/Foggy Swamp.png
+6	Spirit Oasis	WATER	A verdant and lush garden located in a cave in the Northern Water Tribe's capital city at the North Pole.	land/Spirit Oasis.png
+7	Northern Water Tribe	WATER	The largest division of its nation and is located on an island situated near the North Pole.	land/Northern Water Tribe.png
+8	Southern Water Tribe	WATER	Minor division of the Water Tribe. Its people are scattered in tiny villages and settlements located on an island by the South Pole.	land/Southern Water Tribe.png
+9	Si Wong Desert	EARTH	The largest desert in the world.	land/Si Wong Desert.png
+10	Ba Sing Se	EARTH	The monolithic capital of the Earth Kingdom.	land/Ba Sing Se.png
+11	Kyoshi Island	EARTH	"Famous as the birthplace of Avatar Kyoshi and as the home of the elite Kyoshi Warriors."	land/Kyoshi Island.png
+12	Omashu	EARTH	"The second largest city in the Earth Kingdom and the capital of one of its provinces ruled by King Bumi."	land/Omashu.png
+13	Fire Nation Capital	FIRE	The seat of the government for the Fire Nation	land/Fire Nation Capital.png
+14	Boiling Rock	FIRE	A massive Fire Nation prison.	land/Boiling Rock.png
+15	Sun Warriors' Ancient City	FIRE	Large, historic settlement located on an island north of the Fire Nation mainland.	land/Sun Warriors' Ancient City.png
+16	Fire Fountain City	FIRE	A large industrial city located in the Fire Nation.	land/Fire Fountain City.png
+105	Lion Turtle	AIR	The largest known animal in the world served as protectors of mankind by housing human cities on their backs.	land/Lion Turtle.png
+106	Air Temple Island	AIR	A small isle located off the coast of Republic City in Yue Bay.	land/Air Temple Island.png
+107	Southern Water Tribe Compound	WATER	A small encampment that lies deep within the South Pole, near the harbor city in the Southern Water Tribe.	land/Southern Water Tribe Compound.png
+108	Shipwreck	WATER	A massive Fire Nation naval vessel tilted and uprooted by the waterbenders of the Southern Water Tribe.	land/Shipwreck.png
+109	Gaoling	EARTH	A large town located within a mountain range in the southern Earth Kingdom.	land/Gaoling.png
+110	Plains Village	EARTH	Located in the arid grasslands of the southern Earth Kingdom, to the west of the Si Wong Desert.	land/Plains Village.png
+111	Ember Island	FIRE	A small resort, home to many luxurious resorts and vacation homes for the wealthy and powerful.	land/Ember Island.png
+112	Shu Jing	FIRE	Situated on a cliff above a river and waterfalls and surrounded by beautiful mountains.	land/Shu Jing.png

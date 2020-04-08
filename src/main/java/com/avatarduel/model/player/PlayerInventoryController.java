@@ -44,8 +44,8 @@ public class PlayerInventoryController implements HasCardController, DiscardHand
     private Integer currentDeckAmount;
     private Integer maxDeckAmount;
     private ArrayList<Card> cards;
-    private final Integer characterWeight = 6;
-    private final Integer landWeight = 9;
+    private final Integer characterWeight = 7;
+    private final Integer landWeight = 8;
     private final Integer auraWeight = 3;
     private final Integer destroyWeight = 1;
     private final Integer powerupWeight = 1;

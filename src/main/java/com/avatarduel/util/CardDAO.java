@@ -44,10 +44,8 @@ public class CardDAO {
 
     // Factory Pattern
     public static void init() throws IOException, URISyntaxException {
-        for (String[] row : loadCards(Paths.landCSV)) {
+        for (String[] row : loadCards(Paths.landCSV))
             CardDAO.getCards(Type.LAND).add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));
-            CardDAO.getCards(Type.LAND).add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));
-        }
         for (String[] row : loadCards(Paths.characterCSV))
             CardDAO.getCards(Type.CHARACTER).add(new Character(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5]), Integer.valueOf(row[6]), Integer.valueOf(row[7])));
         for (String[] row : loadCards(Paths.auraCSV))

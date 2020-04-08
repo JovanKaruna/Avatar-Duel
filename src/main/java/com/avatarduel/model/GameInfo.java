@@ -52,6 +52,10 @@ public final class GameInfo {
         return GameInfo.phase.equals(Phase.MAIN1) || GameInfo.phase.equals(Phase.MAIN2);
     }
 
+    public static boolean isMain2Phase(){
+        return GameInfo.phase.equals(Phase.MAIN2);
+    }
+
     public static boolean isBattlePhase(){
         return GameInfo.phase.equals(Phase.BATTLE);
     }
