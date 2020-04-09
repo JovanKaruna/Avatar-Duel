@@ -39,10 +39,13 @@ public class BoardController implements HasCardController {
     @Override
     public void setActiveCard(Card c) {
         boolean tmp = c.isPortrait();
+        boolean tmp2 = c.isSelected();
         c.setOrientation(true);
+        c.setNotSelected();
         this.cardController.setCard(c);
         this.cardDescController.setAttributes(c);
         c.setOrientation(tmp);
+        c.setSelection(tmp2);
     }
 
     @Override

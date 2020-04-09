@@ -95,12 +95,14 @@ public abstract class Card {
 
     public void setSelected(){
         this.isSelected = true;
-        System.out.println(this.name + " selected");
     }
 
     public void setNotSelected(){
         this.isSelected = false;
-        System.out.println(this.name + " not selected");
+    }
+
+    public void setSelection(boolean selection){
+        this.isSelected = selection;
     }
 
     public boolean isSelected() {

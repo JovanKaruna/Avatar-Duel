@@ -55,8 +55,11 @@ public class HandController implements CanShowCard, DiscardHandEvent {
     @FXML // on Click
     public void useCard(MouseEvent event) {
         if (this.isActivePlayer() && GameInfo.isMainPhase()) {
-            this.getGameEventHandler().getSelectedCard().selectCard(this.cursorAtCard(event), this.getParent().getId(), Location.HAND);
-            this.update();
+            Card c = this.cursorAtCard(event);
+            if(!c.isEmpty()){
+                this.getGameEventHandler().getSelectedCard().selectCard(this.cursorAtCard(event), this.getParent().getId(), Location.HAND);
+                this.update();
+            }
         }
     }
 
