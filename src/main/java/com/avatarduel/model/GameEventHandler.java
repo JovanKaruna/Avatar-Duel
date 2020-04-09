@@ -80,6 +80,9 @@ public final class GameEventHandler {
                         } else if (this.firstCard.isAt(Location.HAND)) {
                             this.triggerEvent(event, EventType.DISCARDHAND);
                         }
+                    } else {
+                        this.resetCards();
+                        System.out.println("Cannot discard other than skill");
                     }
                 }
                 return;
@@ -140,6 +143,8 @@ public final class GameEventHandler {
     }
 
     private void triggerEvent(MouseEvent event, EventType type) {
+        this.firstCard.getCard().setNotSelected();
+        this.secondCard.getCard().setNotSelected();
         GameEventHandler.getInstance().publish(event, type);
         this.resetCards();
     }

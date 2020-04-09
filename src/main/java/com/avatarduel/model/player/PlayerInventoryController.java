@@ -62,7 +62,7 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
 
         Collections.shuffle(this.cards);
 
-        this.graveyardController.setCard(EmptyCard.getInstance());
+        this.graveyardController.setCard(EmptyCard.getInstance(), Location.GRAVEYARD);
         this.maxDeckAmount = this.cards.size();
         this.currentDeckAmount = this.maxDeckAmount;
 
@@ -80,17 +80,24 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
         this.deckController.init(this);
 
         this.getGameEventHandler().subscribe(this, EventType.DISCARDHAND);
+        this.getGameEventHandler().subscribe(this, EventType.DISCARDFIELD);
+        this.getGameEventHandler().subscribe(this, EventType.SUMMONFAILBUTENOUGHPOWER);
     }
 
     void update() {
         this.currentDeck.setText(this.currentDeckAmount.toString());
         this.maxDeck.setText(this.maxDeckAmount.toString());
-        boolean tmp = this.graveyardController.getCard().isSelected();
-        boolean tmp2 = this.graveyardController.getCard().isPortrait();
-        this.graveyardController.getCard().setNotSelected();
-        this.graveyardController.update();
-        this.graveyardController.getCard().setSelection(tmp);
-        this.graveyardController.getCard().setOrientation(tmp2);
+        this.graveyardController.show(Location.GRAVEYARD);
+    }
+
+    @FXML
+    public void onHoverEnter(MouseEvent event){
+        this.getParent().getParent().setActiveCard(this.graveyardController.getCard());
+    }
+
+    @FXML
+    public void onHoverExit(MouseEvent event){
+        this.getParent().getParent().setActiveCard(EmptyCard.getInstance());
     }
 
     @FXML
@@ -109,11 +116,11 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
         this.powerMap.get(c.getElement()).usePower(c.getPower());
     }
 
-    public void addCurrentPower(Element e, Integer n) {
+    private void addCurrentPower(Element e, Integer n) {
         this.powerMap.get(e).addCurrentPower(n);
     }
 
-    public List<Card> takeNCards(Integer n) {
+    List<Card> takeNCards(Integer n) {
         List<Card> tmp = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             tmp.add(this.cards.get(0));
@@ -124,13 +131,13 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
         return tmp;
     }
 
-    public ArrayList<Card> getCards() {
+    ArrayList<Card> getCards() {
         return cards;
     }
 
     @Override
     public void setActiveCard(Card c) {
-        this.graveyardController.setCard(c);
+        this.graveyardController.setCard(c, Location.GRAVEYARD);
     }
 
     @Override
@@ -138,7 +145,7 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
         return this.graveyardController;
     }
 
-    public void startTurn() {
+    void startTurn() {
         this.powerMap.forEach((k, v) -> v.resetCurrentPower());
     }
 
@@ -163,17 +170,24 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
                 case DISCARDHAND:
                     this.onDiscardHandEvent(firstCard, secondCard);
                     break;
+                case SUMMONFAILBUTENOUGHPOWER:
+                    this.onNotEnoughPowerEvent(firstCard);
+                    break;
                 default:
                     assert false;
             }
         }
     }
 
-    public void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    private void onNotEnoughPowerEvent(SelectedCard firstCard) {
+        this.addCurrentPower(firstCard.getCard().getElement(), ((SummonableCard)firstCard.getCard()).getPower());
+    }
+
+    private void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.setActiveCard(firstCard.getCard());
     }
 
-    public void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    private void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.setActiveCard(firstCard.getCard());
     }
 }

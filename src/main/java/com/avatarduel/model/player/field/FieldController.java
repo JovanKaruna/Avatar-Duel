@@ -60,7 +60,7 @@ public class FieldController implements Subscriber {
     public void update() {
         for (int i = 0; i < FieldController.nrow; i++) {
             for (int j = 0; j < FieldController.ncol; j++) {
-                this.getCardController(i, j).update();
+                this.getCardController(i, j).show(Location.FIELD);
             }
         }
     }
@@ -82,7 +82,7 @@ public class FieldController implements Subscriber {
             //                try {
             //                    this.summonCard(event, selectedCard);
             //                    this.getParent().getHandController().removeCard(selectedCard);
-            //                    this.update();
+            //                    this.show();
             //                    System.out.println("Success summon card" + selectedCard);
             //
             //                } catch (FieldCellIsOccupiedException e) {
@@ -162,7 +162,7 @@ public class FieldController implements Subscriber {
         if (this.isEmpty(i, j)) {
             if (this.isRightRow(i, summonedCard)) {
                 this.cards[i][j] = new CardSummoner<>(summonedCard).summon(this, i, j);
-                this.getCardController(i, j).setCard(summonedCard);
+                this.getCardController(i, j).setCard(summonedCard, Location.FIELD);
             } else {
                 throw new WrongRowException();
             }
@@ -239,7 +239,7 @@ public class FieldController implements Subscriber {
             CardController[] ccs = this.cardControllers[i];
             for (int j = 0; j < ccs.length; j++) {
                 if (ccs[j].getCard() == card) {
-                    ccs[j].setEmpty();
+                    ccs[j].setEmpty(Location.FIELD);
                     this.cards[i][j] = SummonedEmptyCard.getInstance();
                 }
             }
@@ -254,7 +254,6 @@ public class FieldController implements Subscriber {
             } else if (type.equals(EventType.DISCARDHAND)) {
                 this.onDiscardFieldEvent(firstCard, secondCard);
             } else if (type.equals(EventType.CHANGESTANCE)) {
-                System.out.println("PING");
                 this.onChangeStanceEvent(event);
             }
         } else {
@@ -271,13 +270,22 @@ public class FieldController implements Subscriber {
     }
 
     private void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
-        // TODO
         try {
             this.summonCard(event, firstCard.getCard());
             this.getGameEventHandler().publish(event, EventType.SUMMONSUCCESS);
-        } catch (NotEnoughPowerException | NotImplementedException | CannotSummonCardException e) {
-            this.getGameEventHandler().resetCards();
+
+        } catch (NotEnoughPowerException e) {
             this.getGameEventHandler().publish(event, EventType.SUMMONFAIL);
+            System.out.println(e.getMessage());
+
+        } catch (AlreadySummonedLand e){
+            firstCard.getCard().setNotSelected();
+            this.getGameEventHandler().publish(event, EventType.ALREADYSUMMONEDLAND);
+            System.out.println(e.getMessage());
+
+        } catch (NotImplementedException | CannotSummonCardException e) {
+            firstCard.getCard().setNotSelected();
+            this.getGameEventHandler().publish(event, EventType.SUMMONFAILBUTENOUGHPOWER);
             System.out.println(e.getMessage());
         }
         this.update();

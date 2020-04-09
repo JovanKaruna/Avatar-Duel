@@ -12,7 +12,7 @@ public abstract class Card {
     private boolean isOpen;
     private boolean isPortrait;
     private boolean isSelected;
-    public CardType cardType;
+    protected CardType cardType;
 
     public Card(String name, String description, Element element, String imgPath, String typeName) {
         this.name = name;
@@ -34,7 +34,7 @@ public abstract class Card {
         return "";
     }
 
-    public String getTypeDescription(){
+    String getTypeDescription(){
         return this.typeName;
     }
 
@@ -50,7 +50,7 @@ public abstract class Card {
         return description;
     }
 
-    public String getImgPath() {
+    String getImgPath() {
         return imgPath;
     }
 
@@ -58,7 +58,7 @@ public abstract class Card {
         return element.equals(Element.valueOf("NOELEMENT"));
     }
 
-    public boolean isOpen() {
+    boolean isOpen() {
         return isOpen;
     }
 
@@ -81,15 +81,19 @@ public abstract class Card {
         this.isOpen = true;
     }
 
+    public void setOpen(boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
     public void changeOrientation(){
         this.isPortrait ^= true;
     }
 
-    public void setOrientation(boolean isPortrait){
+    void setOrientation(boolean isPortrait){
         this.isPortrait = isPortrait;
     }
 
-    public boolean isPortrait() {
+    boolean isPortrait() {
         return isPortrait;
     }
 

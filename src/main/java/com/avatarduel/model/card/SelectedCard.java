@@ -10,7 +10,6 @@ public class SelectedCard<T extends Card> {
     private Location location;
     private static SelectedCard<Card> empty;
 
-
     private SelectedCard() {
         this((T) EmptyCard.getInstance(), 0, Location.UNKNOWN);
     }
@@ -23,22 +22,14 @@ public class SelectedCard<T extends Card> {
 
     public static SelectedCard<Card> getEmpty() {
         if (SelectedCard.empty == null) {
-            SelectedCard.empty = new SelectedCard();
+            SelectedCard.empty = new SelectedCard<>();
         }
 
         return SelectedCard.empty;
     }
 
-    public Integer getOwnerId() {
-        return ownerId;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
     public boolean isAt(Location location) {
-        return this.getLocation().equals(location);
+        return this.location.equals(location);
     }
 
     public boolean isType(CardType cardType) {
@@ -50,7 +41,7 @@ public class SelectedCard<T extends Card> {
     }
 
     public boolean isOurCard(){
-        return this.getOwnerId().equals(GameInfo.getPlayerTurn());
+        return this.ownerId.equals(GameInfo.getPlayerTurn());
     }
 
     public T getCard() {

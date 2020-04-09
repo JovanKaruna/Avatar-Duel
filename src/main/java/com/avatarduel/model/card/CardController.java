@@ -1,6 +1,7 @@
 package com.avatarduel.model.card;
 
 import com.avatarduel.Settings;
+import com.avatarduel.model.Location;
 import com.avatarduel.model.card.summonable.EmptyCard;
 import com.avatarduel.util.BackgroundLoader;
 import com.avatarduel.model.HasCardController;
@@ -45,16 +46,16 @@ public class CardController {
 
     public void init(HasCardController hasCardController, Card card) {
         this.parent = hasCardController;
-        this.setCard(card);
+        this.setCard(card, Location.UNKNOWN);
     }
 
-    public void setCard(Card card) {
+    public void setCard(Card card, Location location) {
         this.card = card;
-        this.update();
+        this.show(location);
     }
 
-    public void setEmpty(){
-        this.setCard(EmptyCard.getInstance());
+    public void setEmpty(Location location){
+        this.setCard(EmptyCard.getInstance(), location);
     }
 
     public Card getCard() {
@@ -88,7 +89,20 @@ public class CardController {
         return this.card.isEmpty();
     }
 
-    public void update() {
+    public void show(Location location) {
+        boolean tmp = this.getCard().isSelected();
+        boolean tmp2 = this.getCard().isPortrait();
+        boolean tmp3 = this.getCard().isOpen();
+        if(location.equals(Location.GRAVEYARD)) {
+            this.getCard().setOrientation(true);
+            this.getCard().setNotSelected();
+            this.getCard().open();
+        } else if (location.equals(Location.HAND)){
+            this.getCard().setOrientation(true);
+        } else if (location.equals(Location.FIELD)){
+            this.getCard().open();
+        }
+
         if (this.card.isOpen()) {
             this.back.setBackground(Background.EMPTY);
             this.backLogo.setFill(new Color(0, 0, 0, 0));
@@ -127,15 +141,19 @@ public class CardController {
             BackgroundLoader.setBackground(this.back, Settings.cardBackColor);
             this.backLogo.setFill(new Color(45 / 255.0, 184 / 255.0, 255 / 255.0, 1));
         }
+
+        this.getCard().setSelection(tmp);
+        this.getCard().setOrientation(tmp2);
+        this.getCard().setOpen(tmp3);
     }
 
-    public void lift() {
+    private void lift() {
         this.root.setTranslateY(-100);
         this.root.setScaleX(1.1);
         this.root.setScaleY(1.1);
     }
 
-    public void unlift() {
+    private void unlift() {
         this.root.setTranslateY(0);
         this.root.setScaleX(1);
         this.root.setScaleY(1);

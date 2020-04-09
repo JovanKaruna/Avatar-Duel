@@ -44,6 +44,8 @@ public class HandController implements CanShowCard, Subscriber {
         this.getGameEventHandler().subscribe(this, EventType.DISCARDHAND);
         this.getGameEventHandler().subscribe(this, EventType.SUMMONSUCCESS);
         this.getGameEventHandler().subscribe(this, EventType.SUMMONFAIL);
+        this.getGameEventHandler().subscribe(this, EventType.SUMMONFAILBUTENOUGHPOWER);
+        this.getGameEventHandler().subscribe(this, EventType.ALREADYSUMMONEDLAND);
     }
 
     @FXML // on Hover Enter
@@ -57,7 +59,7 @@ public class HandController implements CanShowCard, Subscriber {
     public void useCard(MouseEvent event) {
         if (this.isActivePlayer() && GameInfo.isMainPhase()) {
             Card c = this.cursorAtCard(event);
-            if(!c.isEmpty()){
+            if (!c.isEmpty()) {
                 this.getGameEventHandler().selectCard(event, this.cursorAtCard(event), this.getParent().getId(), Location.HAND);
                 this.update();
             }
@@ -71,11 +73,11 @@ public class HandController implements CanShowCard, Subscriber {
 
     public void update() {
         for (int i = 0; i < Settings.maximumHandCard; i++) {
-            this.cardControllers.get(i).setCard(this.getCard(i));
+            this.cardControllers.get(i).setCard(this.getCard(i), Location.HAND);
         }
     }
 
-    public void removeCard(Card c) {
+    private void removeCard(Card c) {
         this.cards.remove(c);
         this.update();
     }
@@ -127,7 +129,8 @@ public class HandController implements CanShowCard, Subscriber {
     public void endPhase() {
         for (Card card : this.cards) {
             if (card != null) {
-                this.getController(card).unlift();
+                card.setNotSelected();
+                this.getController(card).show(Location.HAND);
             }
         }
     }
@@ -141,31 +144,33 @@ public class HandController implements CanShowCard, Subscriber {
         return null;
     }
 
-    public GameEventHandler getGameEventHandler(){
+    private GameEventHandler getGameEventHandler() {
         return this.getParent().getGameEventHandler();
     }
 
     public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if(this.isActivePlayer()) {
+        if (this.isActivePlayer()) {
             if (type.equals(EventType.DISCARDHAND)) {
                 this.onDiscardHandEvent(firstCard, secondCard);
-            } else if(type.equals(EventType.SUMMONSUCCESS)){
+            } else if (type.equals(EventType.SUMMONSUCCESS)) {
                 this.onSummonSuccessEvent(firstCard, secondCard);
-            } else if(type.equals(EventType.SUMMONFAIL)){
+            } else if (type.equals(EventType.SUMMONFAIL) || type.equals(EventType.SUMMONFAILBUTENOUGHPOWER) || type.equals(EventType.ALREADYSUMMONEDLAND)) {
                 this.onSummonFailEvent(event, firstCard, secondCard);
+            } else {
+                assert false;
             }
         }
     }
 
-    public void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    private void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.removeCard(firstCard.getCard());
     }
 
-    public void onSummonSuccessEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    private void onSummonSuccessEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.removeCard(firstCard.getCard());
     }
 
-    public void onSummonFailEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
+    private void onSummonFailEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
         this.update();
     }
 }

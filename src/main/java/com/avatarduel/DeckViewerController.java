@@ -1,6 +1,7 @@
 package com.avatarduel;
 
 import com.avatarduel.model.HasCardController;
+import com.avatarduel.model.Location;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardController;
 import javafx.fxml.FXML;
@@ -44,7 +45,7 @@ public class DeckViewerController implements HasCardController {
     void nextCard(ActionEvent event) {
         this.i++;
         this.i %= this.cards.size();
-        this.cardController.setCard(this.cards.get(i));
+        this.cardController.setCard(this.cards.get(i), Location.GRAVEYARD);
         this.currentIdx.setText(i.toString());
     }
 
@@ -52,7 +53,7 @@ public class DeckViewerController implements HasCardController {
     void prevCard(ActionEvent event) {
         this.i--;
         this.i %= this.cards.size();
-        this.cardController.setCard(this.cards.get(i));
+        this.cardController.setCard(this.cards.get(i), Location.GRAVEYARD);
         this.currentIdx.setText(i.toString());
     }
 
@@ -82,7 +83,7 @@ public class DeckViewerController implements HasCardController {
 
     @Override
     public void setActiveCard(Card c){
-        this.cardController.setCard(c);
+        this.cardController.setCard(c, Location.GRAVEYARD);
     }
 
     @Override

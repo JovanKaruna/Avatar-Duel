@@ -21,8 +21,8 @@ public class PowerController {
 
     @FXML
     public void initialize(){
-        this.curVal = 0;
-        this.maxVal = 0;
+        this.curVal = 5;
+        this.maxVal = 5;
         this.updateText();
     }
 
