@@ -1,7 +1,7 @@
 package com.avatarduel.model.phase;
 
 public enum Phase {
-    DRAW, MAIN1, BATTLE, MAIN2, END;
+    DRAW, MAIN, BATTLE, END;
 
     private static Phase[] phases = values();
     public Phase next(){

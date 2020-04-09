@@ -49,11 +49,11 @@ public final class GameInfo {
     }
 
     public static boolean isMainPhase(){
-        return GameInfo.phase.equals(Phase.MAIN1) || GameInfo.phase.equals(Phase.MAIN2);
+        return GameInfo.phase.equals(Phase.MAIN);
     }
 
     public static boolean isMain2Phase(){
-        return GameInfo.phase.equals(Phase.MAIN2);
+        return GameInfo.phase.equals(Phase.MAIN);
     }
 
     public static boolean isBattlePhase(){
