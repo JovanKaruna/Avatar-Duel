@@ -3,14 +3,14 @@ package com.avatarduel.model.card;
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.summonable.EmptyCard;
 
-public class SelectedCard <T extends Card> {
+public class SelectedCard<T extends Card> {
     private T card;
     private Integer ownerId;
     private Location location;
     private static SelectedCard<Card> empty;
 
 
-    private SelectedCard(){
+    private SelectedCard() {
         this((T) EmptyCard.getInstance(), 0, Location.UNKNOWN);
     }
 
@@ -20,8 +20,8 @@ public class SelectedCard <T extends Card> {
         this.location = location;
     }
 
-    public static SelectedCard<Card> getEmpty(){
-        if(SelectedCard.empty == null){
+    public static SelectedCard<Card> getEmpty() {
+        if (SelectedCard.empty == null) {
             SelectedCard.empty = new SelectedCard();
         }
 
@@ -36,11 +36,11 @@ public class SelectedCard <T extends Card> {
         return location;
     }
 
-    public boolean isAt(Location location){
+    public boolean isAt(Location location) {
         return this.getLocation().equals(location);
     }
 
-    public boolean isType(CardType cardType){
+    public boolean isType(CardType cardType) {
         return this.getCard().getCardType().equals(cardType);
     }
 

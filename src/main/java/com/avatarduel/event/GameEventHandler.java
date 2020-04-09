@@ -1,5 +1,7 @@
 package com.avatarduel.event;
 
+import javafx.scene.input.MouseEvent;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,6 +12,8 @@ public final class GameEventHandler {
     private final HashMap<EventType, ArrayList<Subscriber>> subscriber = new HashMap<EventType, ArrayList<Subscriber>>(){
         {
             put(EventType.SUMMON, new ArrayList<>());
+            put(EventType.SUMMONFAIL, new ArrayList<>());
+            put(EventType.SUMMONSUCCESS, new ArrayList<>());
             put(EventType.ATTACHSKILL, new ArrayList<>());
             put(EventType.ATTACKCARD, new ArrayList<>());
             put(EventType.ATTACKENEMY, new ArrayList<>());
@@ -34,10 +38,9 @@ public final class GameEventHandler {
         this.subscriber.get(type).add(subscriber);
     }
 
-    public void publish(EventType type){
+    public void publish(MouseEvent event, EventType type){
         System.out.println("Event " + type + " has subscribers:");
-        this.subscriber.get(type).forEach(s -> s.onEvent(type, this.selectedCard.getFirstCard(), this.selectedCard.getSecondCard()));
-        this.getSelectedCard().resetCards();
+        this.subscriber.get(type).forEach(s -> s.onEvent(event, type, this.selectedCard.getFirstCard(), this.selectedCard.getSecondCard()));
     }
 
     public SelectedCardDAO getSelectedCard() {

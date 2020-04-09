@@ -95,7 +95,7 @@ public class PlayerController {
     }
 
     public boolean isActivePlayer(){
-        return this.id.equals(GameInfo.getTurn());
+        return this.id.equals(GameInfo.getPlayerTurn());
     }
 
     public Integer getId() {

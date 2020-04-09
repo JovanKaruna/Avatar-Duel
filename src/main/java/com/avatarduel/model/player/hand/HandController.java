@@ -1,9 +1,7 @@
 package com.avatarduel.model.player.hand;
 
 import com.avatarduel.Settings;
-import com.avatarduel.event.DiscardHandEvent;
-import com.avatarduel.event.EventType;
-import com.avatarduel.event.GameEventHandler;
+import com.avatarduel.event.*;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.Card;
@@ -23,7 +21,7 @@ import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HandController implements CanShowCard, DiscardHandEvent {
+public class HandController implements CanShowCard, DiscardHandEvent, SummonSuccessEvent, SummonFailEvent {
 
     private PlayerController parent;
 
@@ -43,6 +41,8 @@ public class HandController implements CanShowCard, DiscardHandEvent {
         }
 
         this.getGameEventHandler().subscribe(this, EventType.DISCARDHAND);
+        this.getGameEventHandler().subscribe(this, EventType.SUMMONSUCCESS);
+        this.getGameEventHandler().subscribe(this, EventType.SUMMONFAIL);
     }
 
     @FXML // on Hover Enter
@@ -57,7 +57,7 @@ public class HandController implements CanShowCard, DiscardHandEvent {
         if (this.isActivePlayer() && GameInfo.isMainPhase()) {
             Card c = this.cursorAtCard(event);
             if(!c.isEmpty()){
-                this.getGameEventHandler().getSelectedCard().selectCard(this.cursorAtCard(event), this.getParent().getId(), Location.HAND);
+                this.getGameEventHandler().getSelectedCard().selectCard(event, this.cursorAtCard(event), this.getParent().getId(), Location.HAND);
                 this.update();
             }
         }
@@ -145,16 +145,30 @@ public class HandController implements CanShowCard, DiscardHandEvent {
     }
 
     @Override
-    public void onEvent(EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if(type.equals(EventType.DISCARDHAND)){
-            this.onDiscardHandEvent(firstCard, secondCard);
-        } else {
-            assert false;
+    public void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
+        this.removeCard(firstCard.getCard());
+    }
+
+    @Override
+    public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
+        if(this.isActivePlayer()) {
+            if (type.equals(EventType.DISCARDHAND)) {
+                this.onDiscardHandEvent(firstCard, secondCard);
+            } else if(type.equals(EventType.SUMMONSUCCESS)){
+                this.onSummonSuccessEvent(firstCard, secondCard);
+            } else if(type.equals(EventType.SUMMONFAIL)){
+                this.onSummonFailEvent(event, firstCard, secondCard);
+            }
         }
     }
 
     @Override
-    public void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    public void onSummonSuccessEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.removeCard(firstCard.getCard());
+    }
+
+    @Override
+    public void onSummonFailEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
+        this.update();
     }
 }

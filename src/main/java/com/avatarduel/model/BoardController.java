@@ -62,7 +62,6 @@ public class BoardController implements HasCardController {
 
     public void nextPlayer() {
         this.player1Controller.endTurn();
-        GameInfo.nextTurn();
         PlayerController tmp = this.player1Controller;
         this.player1Controller = this.player2Controller;
         this.player2Controller = tmp;

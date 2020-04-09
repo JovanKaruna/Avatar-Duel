@@ -63,4 +63,8 @@ public final class GameInfo {
     public static boolean isEndPhase(){
         return GameInfo.phase.equals(Phase.END);
     }
+
+    public static boolean isDrawPhase() {
+        return GameInfo.phase.equals(Phase.DRAW);
+    }
 }

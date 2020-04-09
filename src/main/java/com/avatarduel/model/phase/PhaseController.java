@@ -34,7 +34,7 @@ public class PhaseController {
         this.getParent().endPhase();
         GameInfo.nextPhase();
         this.getParent().getGameEventHandler().getSelectedCard().resetCards();
-        if (GameInfo.getPhase().equals(Phase.DRAW)) {
+        if (GameInfo.isDrawPhase()) {
             this.nextTurn();
         }
         this.update();

@@ -86,12 +86,18 @@ public class PlayerInventoryController implements HasCardController, DiscardHand
     void update() {
         this.currentDeck.setText(this.currentDeckAmount.toString());
         this.maxDeck.setText(this.maxDeckAmount.toString());
+        boolean tmp = this.graveyardController.getCard().isSelected();
+        boolean tmp2 = this.graveyardController.getCard().isPortrait();
+        this.graveyardController.getCard().setNotSelected();
+        this.graveyardController.update();
+        this.graveyardController.getCard().setSelection(tmp);
+        this.graveyardController.getCard().setOrientation(tmp2);
     }
 
     @FXML
     public void discard(MouseEvent event) {
         if (this.isActivePlayer() && GameInfo.isMainPhase()) {
-            this.getParent().getGameEventHandler().getSelectedCard().selectCard(EmptyCard.getInstance(), this.getParent().getId(), Location.GRAVEYARD);
+            this.getParent().getGameEventHandler().getSelectedCard().selectCard(event, EmptyCard.getInstance(), this.getParent().getId(), Location.GRAVEYARD);
         }
     }
 
@@ -125,7 +131,6 @@ public class PlayerInventoryController implements HasCardController, DiscardHand
 
     @Override
     public void setActiveCard(Card c) {
-        c.setNotSelected();
         this.graveyardController.setCard(c);
     }
 
@@ -161,13 +166,13 @@ public class PlayerInventoryController implements HasCardController, DiscardHand
     }
 
     @Override
-    public void onEvent(EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if (type.equals(EventType.DISCARDFIELD)) {
-            this.onDiscardFieldEvent(firstCard, secondCard);
-        } else if (type.equals(EventType.DISCARDHAND)) {
-            this.onDiscardHandEvent(firstCard, secondCard);
-        } else {
-            assert false;
+    public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
+        if(this.isActivePlayer()) {
+            if (type.equals(EventType.DISCARDFIELD)) {
+                this.onDiscardFieldEvent(firstCard, secondCard);
+            } else if (type.equals(EventType.DISCARDHAND)) {
+                this.onDiscardHandEvent(firstCard, secondCard);
+            }
         }
     }
 }

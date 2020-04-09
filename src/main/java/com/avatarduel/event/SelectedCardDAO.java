@@ -5,7 +5,7 @@ import com.avatarduel.model.Location;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.card.SelectedCard;
-import com.avatarduel.model.card.summonable.skill.Skill;
+import javafx.scene.input.MouseEvent;
 
 public final class SelectedCardDAO {
     private final SelectedCard empty = SelectedCard.getEmpty();
@@ -17,7 +17,7 @@ public final class SelectedCardDAO {
      * @param ownerid   : ownership of inputCard
      * @param location  : location of inputCard
      */
-    public void selectCard(Card inputCard, Integer ownerid, Location location) {
+    public void selectCard(MouseEvent event, Card inputCard, Integer ownerid, Location location) {
         SelectedCard card = new SelectedCard(inputCard, ownerid, location);
 
         if (GameInfo.isMainPhase()) {
@@ -32,7 +32,7 @@ public final class SelectedCardDAO {
 
                         } else if (card.isType(CardType.CHARACTER)) {
                             this.firstCard = this.setCard(this.firstCard, card);
-                            this.triggerEvent();
+                            this.triggerEvent(event);
                             this.resetCards();                // ubah stance card
                         }
                     }
@@ -124,25 +124,21 @@ public final class SelectedCardDAO {
         }
 
         if (this.secondCard != this.empty) {
-            this.triggerEvent();
+            this.triggerEvent(event);
             this.resetCards();
         }
     }
 
     private SelectedCard setCard(SelectedCard cardFrom, SelectedCard cardTo) {
-        System.out.println("From:\n" + cardFrom + "\n");
-        System.out.println("To:\n" + cardTo + "\n");
-        if (cardFrom == this.empty && cardTo != this.empty) {
-            cardFrom = cardTo;
-            cardFrom.getCard().setSelected();
-        } else if (cardFrom != this.empty && cardTo == this.empty) {
+        if(!(cardFrom == this.empty || cardFrom.isType(CardType.EMPTY))){
             cardFrom.getCard().setNotSelected();
-            cardFrom = cardTo;
-        } else if (cardFrom != this.empty && cardTo != this.empty) {
-            cardFrom.getCard().setNotSelected();
-            cardFrom = cardTo;
-            cardFrom.getCard().setSelected();
+            System.out.println("From:" + cardFrom);
         }
+        if(!(cardTo == this.empty || cardTo.isType(CardType.EMPTY))){
+            cardTo.getCard().setSelected();
+            System.out.println("To:" + cardTo + "\n");
+        }
+        cardFrom = cardTo;
         return cardFrom;
     }
 
@@ -155,37 +151,38 @@ public final class SelectedCardDAO {
     }
 
     public void resetCards() {
-        this.firstCard = this.empty;
-        this.secondCard = this.empty;
+        this.firstCard = this.setCard(this.firstCard, this.empty);
+        this.secondCard = this.setCard(this.secondCard, this.empty);
     }
 
-    private void triggerEvent() {
+    private void triggerEvent(MouseEvent event) {
         if (GameInfo.isMainPhase()) {
             if (this.firstCard.isAt(Location.HAND) && this.secondCard.isAt(Location.FIELD)) {
                 // summon cards
-                GameEventHandler.getInstance().publish(EventType.SUMMON);
+                GameEventHandler.getInstance().publish(event, EventType.SUMMON);
             } else if (this.firstCard.isAt(Location.FIELD) && this.secondCard.isAt(Location.FIELD)) {
                 // attach skill
-                GameEventHandler.getInstance().publish(EventType.ATTACHSKILL);
+                GameEventHandler.getInstance().publish(event, EventType.ATTACHSKILL);
             } else if (this.firstCard.isAt(Location.HAND) && this.secondCard.isAt(Location.GRAVEYARD)) {
                 // discard hand
-                GameEventHandler.getInstance().publish(EventType.DISCARDHAND);
+                GameEventHandler.getInstance().publish(event, EventType.DISCARDHAND);
             } else if (this.firstCard.isAt(Location.FIELD) && this.secondCard.isAt(Location.GRAVEYARD)){
                 // discard field
-                GameEventHandler.getInstance().publish(EventType.DISCARDFIELD);
+                GameEventHandler.getInstance().publish(event, EventType.DISCARDFIELD);
             } else if (this.firstCard.isAt(Location.FIELD) && this.secondCard.isType(CardType.EMPTY)) {
                 // change stance
-                GameEventHandler.getInstance().publish(EventType.CHANGESTANCE);
+                GameEventHandler.getInstance().publish(event, EventType.CHANGESTANCE);
             }
 
         } else if (GameInfo.isBattlePhase()) {
             if (this.secondCard.isType(CardType.CHARACTER)) {
                 // attack card
-                GameEventHandler.getInstance().publish(EventType.ATTACKCARD);
+                GameEventHandler.getInstance().publish(event, EventType.ATTACKCARD);
             } else if (this.secondCard.isType(CardType.EMPTY)) {
                 // attack enemy
-                GameEventHandler.getInstance().publish(EventType.ATTACKENEMY);
+                GameEventHandler.getInstance().publish(event, EventType.ATTACKENEMY);
             }
         }
+        this.resetCards();
     }
 }
