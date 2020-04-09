@@ -23,7 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-public class FieldController implements SummonEvent, DiscardFieldEvent, AttackEnemyEvent, AttackCardEvent, AttachSkillEvent {
+public class FieldController implements SummonEvent, DiscardFieldEvent, AttackEnemyEvent, AttackCardEvent, AttachSkillEvent, ChangeStanceEvent {
 
     private PlayerController parent;
 
@@ -54,6 +54,7 @@ public class FieldController implements SummonEvent, DiscardFieldEvent, AttackEn
         this.getGameEventHandler().subscribe(this, EventType.SUMMON);
         this.getGameEventHandler().subscribe(this, EventType.ATTACKENEMY);
         this.getGameEventHandler().subscribe(this, EventType.ATTACKCARD);
+        this.getGameEventHandler().subscribe(this, EventType.CHANGESTANCE);
     }
 
     public void update() {
@@ -252,6 +253,9 @@ public class FieldController implements SummonEvent, DiscardFieldEvent, AttackEn
                 this.onSummonEvent(event, firstCard, secondCard);
             } else if (type.equals(EventType.DISCARDHAND)) {
                 this.onDiscardFieldEvent(firstCard, secondCard);
+            } else if (type.equals(EventType.CHANGESTANCE)) {
+                System.out.println("PING");
+                this.onChangeStanceEvent(event);
             }
         } else {
             if (type.equals((EventType.ATTACKCARD))) {
@@ -260,6 +264,11 @@ public class FieldController implements SummonEvent, DiscardFieldEvent, AttackEn
                 this.onAttackEnemyEvent(firstCard, secondCard);
             }
         }
+    }
+
+    @Override
+    public void onChangeStanceEvent(MouseEvent event) {
+        this.changeStance(event);
     }
 
     @Override
