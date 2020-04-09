@@ -9,7 +9,6 @@ import com.avatarduel.model.player.PlayerController;
 
 import com.avatarduel.util.CardDAO;
 import javafx.fxml.FXML;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
