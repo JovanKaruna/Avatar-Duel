@@ -1,7 +1,6 @@
 package com.avatarduel;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import com.avatarduel.model.*;
 
@@ -16,7 +15,7 @@ public class AvatarDuel extends Application {
     private static HasCardController rootController;
 
     @Override
-    public void start(Stage stage) throws IOException, URISyntaxException {
+    public void start(Stage stage) throws IOException {
         FXMLLoader rootLoader = new FXMLLoader(getClass().getResource(Paths.appFXML));
 
         Parent root = rootLoader.load();

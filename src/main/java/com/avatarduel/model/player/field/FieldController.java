@@ -1,5 +1,6 @@
 package com.avatarduel.model.player.field;
 
+import com.avatarduel.model.GameEventHandler;
 import com.avatarduel.event.*;
 import com.avatarduel.exception.*;
 
@@ -12,10 +13,9 @@ import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Skill;
 
 import com.avatarduel.model.player.PlayerController;
-
 import com.avatarduel.util.CSSLoader;
-
 import com.avatarduel.util.Pair;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-public class FieldController implements SummonEvent, DiscardFieldEvent, AttackEnemyEvent, AttackCardEvent, AttachSkillEvent {
+public class FieldController implements Subscriber {
 
     private PlayerController parent;
 
@@ -75,7 +75,7 @@ public class FieldController implements SummonEvent, DiscardFieldEvent, AttackEn
     @FXML
     public void onClick(MouseEvent event) {
         if (this.isActivePlayer() && !GameInfo.isEndPhase()) {
-            this.getGameEventHandler().getSelectedCard().selectCard(event, this.cursorAtCard(event), this.getParent().getId(), Location.FIELD);
+            this.getGameEventHandler().selectCard(event, this.cursorAtCard(event), this.getParent().getId(), Location.FIELD);
 
             //            if (GameInfo.isMainPhase()){
             //                try {
@@ -262,36 +262,31 @@ public class FieldController implements SummonEvent, DiscardFieldEvent, AttackEn
         }
     }
 
-    @Override
     public void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
         // TODO
         try {
             this.summonCard(event, firstCard.getCard());
             this.getGameEventHandler().publish(event, EventType.SUMMONSUCCESS);
         } catch (NotEnoughPowerException | NotImplementedException | CannotSummonCardException e) {
-            this.getGameEventHandler().getSelectedCard().resetCards();
+            this.getGameEventHandler().resetCards();
             this.getGameEventHandler().publish(event, EventType.SUMMONFAIL);
             System.out.println(e.getMessage());
         }
         this.update();
     }
 
-    @Override
     public void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.removeCard(firstCard.getCard());
     }
 
-    @Override
     public void onAttachSkillEvent(SelectedCard firstCard, SelectedCard secondCard) {
         // TODO
     }
 
-    @Override
     public void onAttackCardEvent(SelectedCard firstCard, SelectedCard secondCard) {
         // TODO
     }
 
-    @Override
     public void onAttackEnemyEvent(SelectedCard firstCard, SelectedCard secondCard) {
         // TODO
     }

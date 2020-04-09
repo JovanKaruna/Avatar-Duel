@@ -1,10 +1,9 @@
 package com.avatarduel.model.player;
 
 import com.avatarduel.Settings;
-import com.avatarduel.event.DiscardFieldEvent;
-import com.avatarduel.event.DiscardHandEvent;
 import com.avatarduel.event.EventType;
-import com.avatarduel.event.GameEventHandler;
+import com.avatarduel.model.GameEventHandler;
+import com.avatarduel.event.Subscriber;
 import com.avatarduel.exception.NotEnoughPowerException;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.HasCardController;
@@ -22,7 +21,7 @@ import javafx.scene.text.Text;
 
 import java.util.*;
 
-public class PlayerInventoryController implements HasCardController, DiscardHandEvent, DiscardFieldEvent {
+public class PlayerInventoryController implements HasCardController, Subscriber {
 
     private PlayerController parent;
 
@@ -97,7 +96,7 @@ public class PlayerInventoryController implements HasCardController, DiscardHand
     @FXML
     public void discard(MouseEvent event) {
         if (this.isActivePlayer() && GameInfo.isMainPhase()) {
-            this.getParent().getGameEventHandler().getSelectedCard().selectCard(event, EmptyCard.getInstance(), this.getParent().getId(), Location.GRAVEYARD);
+            this.getParent().getGameEventHandler().selectCard(event, EmptyCard.getInstance(), this.getParent().getId(), Location.GRAVEYARD);
         }
     }
 
@@ -155,24 +154,26 @@ public class PlayerInventoryController implements HasCardController, DiscardHand
         return this.getParent().getGameEventHandler();
     }
 
-    @Override
+    public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
+        if (this.isActivePlayer()) {
+            switch (type) {
+                case DISCARDFIELD:
+                    this.onDiscardFieldEvent(firstCard, secondCard);
+                    break;
+                case DISCARDHAND:
+                    this.onDiscardHandEvent(firstCard, secondCard);
+                    break;
+                default:
+                    assert false;
+            }
+        }
+    }
+
     public void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.setActiveCard(firstCard.getCard());
     }
 
-    @Override
     public void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.setActiveCard(firstCard.getCard());
-    }
-
-    @Override
-    public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if(this.isActivePlayer()) {
-            if (type.equals(EventType.DISCARDFIELD)) {
-                this.onDiscardFieldEvent(firstCard, secondCard);
-            } else if (type.equals(EventType.DISCARDHAND)) {
-                this.onDiscardHandEvent(firstCard, secondCard);
-            }
-        }
     }
 }

@@ -1,7 +1,6 @@
 package com.avatarduel.model.player;
 
-import com.avatarduel.event.EventType;
-import com.avatarduel.event.GameEventHandler;
+import com.avatarduel.model.GameEventHandler;
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.card.Card;

@@ -1,5 +1,6 @@
 package com.avatarduel.model.card;
 
+import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.summonable.EmptyCard;
 
@@ -42,6 +43,14 @@ public class SelectedCard<T extends Card> {
 
     public boolean isType(CardType cardType) {
         return this.getCard().getCardType().equals(cardType);
+    }
+
+    public boolean isSkill() {
+        return this.isType(CardType.AURA) || this.isType(CardType.POWERUP) || this.isType(CardType.DESTROY);
+    }
+
+    public boolean isOurCard(){
+        return this.getOwnerId().equals(GameInfo.getPlayerTurn());
     }
 
     public T getCard() {

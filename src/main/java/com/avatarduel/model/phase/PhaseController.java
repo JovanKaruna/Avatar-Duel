@@ -1,7 +1,6 @@
 package com.avatarduel.model.phase;
 
 import com.avatarduel.Settings;
-import com.avatarduel.event.GameEventHandler;
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.GameInfo;
 
@@ -33,7 +32,7 @@ public class PhaseController {
     public void nextPhase() {
         this.getParent().endPhase();
         GameInfo.nextPhase();
-        this.getParent().getGameEventHandler().getSelectedCard().resetCards();
+        this.getParent().getGameEventHandler().resetCards();
         if (GameInfo.isDrawPhase()) {
             this.nextTurn();
         }

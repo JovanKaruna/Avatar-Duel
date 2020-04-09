@@ -15,6 +15,14 @@ repositories {
     mavenCentral()
 }
 
+run {
+    enableAssertions = true
+}
+
+task avatarDocs(type: Javadoc) {
+    source = sourceSets.main.allJava
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
