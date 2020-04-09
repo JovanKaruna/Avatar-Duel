@@ -54,6 +54,7 @@ public class FieldController implements Subscriber {
         this.getGameEventHandler().subscribe(this, EventType.SUMMON);
         this.getGameEventHandler().subscribe(this, EventType.ATTACKENEMY);
         this.getGameEventHandler().subscribe(this, EventType.ATTACKCARD);
+        this.getGameEventHandler().subscribe(this, EventType.CHANGESTANCE);
     }
 
     public void update() {
@@ -229,11 +230,11 @@ public class FieldController implements Subscriber {
         return parent;
     }
 
-    public GameEventHandler getGameEventHandler() {
+    private GameEventHandler getGameEventHandler() {
         return this.getParent().getGameEventHandler();
     }
 
-    public void removeCard(Card card) {
+    private void removeCard(Card card) {
         for (int i = 0; i < this.cardControllers.length; i++) {
             CardController[] ccs = this.cardControllers[i];
             for (int j = 0; j < ccs.length; j++) {
@@ -252,6 +253,9 @@ public class FieldController implements Subscriber {
                 this.onSummonEvent(event, firstCard, secondCard);
             } else if (type.equals(EventType.DISCARDHAND)) {
                 this.onDiscardFieldEvent(firstCard, secondCard);
+            } else if (type.equals(EventType.CHANGESTANCE)) {
+                System.out.println("PING");
+                this.onChangeStanceEvent(event);
             }
         } else {
             if (type.equals((EventType.ATTACKCARD))) {
@@ -262,7 +266,11 @@ public class FieldController implements Subscriber {
         }
     }
 
-    public void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
+    private void onChangeStanceEvent(MouseEvent event) {
+        this.changeStance(event);
+    }
+
+    private void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
         // TODO
         try {
             this.summonCard(event, firstCard.getCard());
@@ -275,7 +283,7 @@ public class FieldController implements Subscriber {
         this.update();
     }
 
-    public void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    private void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.removeCard(firstCard.getCard());
     }
 
@@ -283,11 +291,11 @@ public class FieldController implements Subscriber {
         // TODO
     }
 
-    public void onAttackCardEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    private void onAttackCardEvent(SelectedCard firstCard, SelectedCard secondCard) {
         // TODO
     }
 
-    public void onAttackEnemyEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    private void onAttackEnemyEvent(SelectedCard firstCard, SelectedCard secondCard) {
         // TODO
     }
 }
