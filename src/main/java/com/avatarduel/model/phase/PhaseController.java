@@ -21,13 +21,12 @@ public class PhaseController {
     // on Mouse Click
     @FXML
     public void nextPhase(ActionEvent event) {
-//        if ((GameInfo.isMainPhase()) && (this.getParent().getActivePlayer().getHandController().getCards().size() == Settings.maximumHandCard)) {
-//            System.out.println("You must discard 1 card from your hand!");
-//        }
-//        else {
-//            this.nextPhase();
-//        }
-        this.nextPhase();
+        if ((GameInfo.isMainPhase()) && (this.getParent().getActivePlayer().getHandController().getCards().size() == Settings.maximumHandCard)) {
+            System.out.println("You must discard 1 card from your hand!");
+        }
+        else {
+            this.nextPhase();
+        }
     }
 
     public void nextPhase() {
