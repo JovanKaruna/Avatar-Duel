@@ -30,7 +30,7 @@ public class FieldController implements Subscriber {
     @FXML private GridPane root;
 
     private static final Integer nrow = 2;
-    private static final Integer ncol = 8;
+    private static final Integer ncol = 6;
     private SummonedCard[][] cards;
     private CardController[][] cardControllers;
     private boolean summonedLandThisTurn;
