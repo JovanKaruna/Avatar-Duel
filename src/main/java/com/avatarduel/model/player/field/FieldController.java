@@ -134,18 +134,28 @@ public class FieldController implements Subscriber {
             Integer j = (GridPane.getColumnIndex(this.cursorAtNode(event)));
 
             SummonedCard summonedCard = new CardSummoner<>(summonCard).summon(this, i, j);
-            Card card = summonedCard.getCard();
-            this.setCard(i, j, (SummonableCard) card);
+            if (this.isEmpty(i, j)) {
+                if (this.isRightRow(i, summonedCard)) {
+                    this.cards[i][j] = summonedCard;
+                    this.getCardController(i, j).setCard(summonedCard.getCard(), Location.FIELD);
+                } else {
+                    throw new WrongRowException();
+                }
+            } else {
+                throw new FieldCellIsOccupiedException();
+            }
         }
     }
 
-    private boolean isRightRow(Integer i, SummonableCard c) {
+    private boolean isRightRow(Integer i, SummonedCard card) {
+        Card c = card.getCard();
         if (c instanceof Character) {
             return i == 0;
         } else if (c instanceof Skill) {
             return i == 1;
+        } else {
+            return true;
         }
-        return false;
     }
 
     private Integer correctRow(Integer i) {
@@ -156,19 +166,6 @@ public class FieldController implements Subscriber {
 
     private boolean isEmpty(Integer i, Integer j) {
         return this.getCardController(i, j).isEmpty();
-    }
-
-    private void setCard(Integer i, Integer j, SummonableCard summonedCard) throws CannotSummonCardException, NotImplementedException {
-        if (this.isEmpty(i, j)) {
-            if (this.isRightRow(i, summonedCard)) {
-                this.cards[i][j] = new CardSummoner<>(summonedCard).summon(this, i, j);
-                this.getCardController(i, j).setCard(summonedCard, Location.FIELD);
-            } else {
-                throw new WrongRowException();
-            }
-        } else {
-            throw new FieldCellIsOccupiedException();
-        }
     }
 
     private boolean isActivePlayer() {
