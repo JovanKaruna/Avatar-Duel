@@ -30,11 +30,15 @@ public class SummonedCharacterCard extends SummonedCard{
 
     public void changeStance() {
         this.isAttackStance ^= true;
-        this.card.changeOrientation();
+        this.card.changeOrientation(); 
     }
 
-    public void attachSkill(SummonedCard summonedCard) {
-        // TODO byan
-        // cast ke skill, masukin ke array
+    public void attachSkill(SummonedCard summonedCard){
+        try{
+            this.supportCards.add(((SummonedSkillCard) summonedCard));
+        } catch (Exception ClassCastException){
+            
+        }
+        
     }
 }
