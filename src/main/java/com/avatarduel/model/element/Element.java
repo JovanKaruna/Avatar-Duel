@@ -6,7 +6,7 @@ import java.util.EnumMap;
 
 public abstract class Element {
     enum Type {
-        WATER, FIRE, AIR, EARTH, NOELEMENT
+        WATER, FIRE, AIR, EARTH, ENERGY, NOELEMENT
     }
 
     private static EnumMap<Type, Element> classMap = new EnumMap<Type, Element>(Type.class) {
@@ -15,6 +15,7 @@ public abstract class Element {
             put(Type.WATER, Water.getInstance());
             put(Type.AIR, Air.getInstance());
             put(Type.EARTH, Earth.getInstance());
+            put(Type.ENERGY, Energy.getInstance());
             put(Type.NOELEMENT, NoElement.getInstance());
         }
     };

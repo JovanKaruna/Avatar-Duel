@@ -15,11 +15,19 @@ id	name	element	description	imagepath
 14	Boiling Rock	FIRE	A massive Fire Nation prison.	land/Boiling Rock.png
 15	Sun Warriors' Ancient City	FIRE	Large, historic settlement located on an island north of the Fire Nation mainland.	land/Sun Warriors' Ancient City.png
 16	Fire Fountain City	FIRE	A large industrial city located in the Fire Nation.	land/Fire Fountain City.png
-105	Lion Turtle	AIR	The largest known animal in the world served as protectors of mankind by housing human cities on their backs.	land/Lion Turtle.png
-106	Air Temple Island	AIR	A small isle located off the coast of Republic City in Yue Bay.	land/Air Temple Island.png
-107	Southern Water Tribe Compound	WATER	A small encampment that lies deep within the South Pole, near the harbor city in the Southern Water Tribe.	land/Southern Water Tribe Compound.png
-108	Shipwreck	WATER	A massive Fire Nation naval vessel tilted and uprooted by the waterbenders of the Southern Water Tribe.	land/Shipwreck.png
-109	Gaoling	EARTH	A large town located within a mountain range in the southern Earth Kingdom.	land/Gaoling.png
-110	Plains Village	EARTH	Located in the arid grasslands of the southern Earth Kingdom, to the west of the Si Wong Desert.	land/Plains Village.png
-111	Ember Island	FIRE	A small resort, home to many luxurious resorts and vacation homes for the wealthy and powerful.	land/Ember Island.png
-112	Shu Jing	FIRE	Situated on a cliff above a river and waterfalls and surrounded by beautiful mountains.	land/Shu Jing.png
+17	Lion Turtle	AIR	The largest known animal in the world served as protectors of mankind by housing human cities on their backs.	land/Lion Turtle.png
+18	Air Temple Island	AIR	A small isle located off the coast of Republic City in Yue Bay.	land/Air Temple Island.png
+19	Southern Water Tribe Compound	WATER	A small encampment that lies deep within the South Pole, near the harbor city in the Southern Water Tribe.	land/Southern Water Tribe Compound.png
+20	Shipwreck	WATER	A massive Fire Nation naval vessel tilted and uprooted by the waterbenders of the Southern Water Tribe.	land/Shipwreck.png
+21	Gaoling	EARTH	A large town located within a mountain range in the southern Earth Kingdom.	land/Gaoling.png
+22	Plains Village	EARTH	Located in the arid grasslands of the southern Earth Kingdom, to the west of the Si Wong Desert.	land/Plains Village.png
+23	Ember Island	FIRE	A small resort, home to many luxurious resorts and vacation homes for the wealthy and powerful.	land/Ember Island.png
+24	Shu Jing	FIRE	Situated on a cliff above a river and waterfalls and surrounded by beautiful mountains.	land/Shu Jing.png
+25	Wulong Forest	ENERGY	The location of the final battle of the Hundred Year War between Fire Lord Ozai and Avatar Aang.	land/Wulong Forest.png
+26	Spirit World	ENERGY	A parallel plane of reality that coexist alongside the physical world inhabited by humans.	land/Spirit World.png
+27	Scorched Forest	ENERGY	A region of hilly and expansive woodland located in the vicinity of Senlin Village in the southern United Republic of Nations.	land/Scorched Forest.png
+28	Avatar Korra Park	ENERGY	A large recreational area located in Republic City's central peninsula.	land/Avatar Korra Park.png
+29	United Republic of Nations	ENERGY	A sovereign state created by Avatar Aang and Fire Lord Zuko after the end of the Hundred Year War.	land/United Republic of Nations.png
+30	Aang Memorial Island	ENERGY	A small island located in Yue Bay that its statue stands as a symbol of peace and goodwill.	land/Aang Memorial Island.png
+31	Fog of Lost Souls	ENERGY	A boundless prison for humans located within the Spirit World.	land/Fog of Lost Souls.png
+32	Spirit Portal	ENERGY	A gateway that connects the physical world and Spirit World.	land/Spirit Portal.png

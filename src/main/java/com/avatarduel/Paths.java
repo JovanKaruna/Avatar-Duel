@@ -25,6 +25,7 @@ public class Paths {
     public static final String airElementImage = elementFolder + "Air.png";
     public static final String waterElementImage = elementFolder + "Water.png";
     public static final String fireElementImage = elementFolder + "Fire.png";
+    public static final String energyElementImage = elementFolder + "Energy.png";
 
     private Paths() {
         throw new AssertionError("This is a utility class.");

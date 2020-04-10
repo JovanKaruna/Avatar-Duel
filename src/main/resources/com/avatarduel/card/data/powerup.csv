@@ -1,9 +1,9 @@
 id	name	element	description	imagepath	power
-97	Meditate	AIR	Is a practice where an individual uses a technique such as mindfulness, or focusing the mind on a particular object.	powerup/Meditation.png	2
-98	Pearl Dagger	FIRE	Taken by Iroh from a defeated general in the Siege of Ba Sing Se and passed on to Zuko.	powerup/Pearl_dagger.png	2
-99	Compression	EARTH	It is possible for earthbenders to compress large chunks of rock into smaller, denser chunks, or to compress several smaller chunks into one big piece of rock.	powerup/Compression.png	2
-100	Healing	WATER	A sub-skill of waterbending that allows the bender to heal wounds by using water as a catalyst.	powerup/Healing.png	2
-101	Avatar State	AIR	Is a defense mechanism, designed to empower you with the skills and knowledge of all the past Avatars.	powerup/AvatarState.png	2
-102	Lightning Redirection	FIRE	A sub-skill of firebending that allows a firebender to absorb lightning into their body as energy and release it in a more desirable direction.	powerup/Lightningredirection.png	2
-103	Seismic Sense	EARTH	A unique ability to perceive an environment by feeling acute vibrations through the ground.	powerup/SeismicSense.png	2
-104	Energy Bending	WATER	Is the ability to bend another person's life energy.	powerup/EnergyBending.png	2
+126	Meditate	AIR	Is a practice where an individual uses a technique such as mindfulness, or focusing the mind on a particular object.	powerup/Meditation.png	2
+127	Pearl Dagger	FIRE	Taken by Iroh from a defeated general in the Siege of Ba Sing Se and passed on to Zuko.	powerup/Pearl_dagger.png	2
+128	Compression	EARTH	It is possible for earthbenders to compress large chunks of rock into smaller, denser chunks, or to compress several smaller chunks into one big piece of rock.	powerup/Compression.png	2
+129	Healing	WATER	A sub-skill of waterbending that allows the bender to heal wounds by using water as a catalyst.	powerup/Healing.png	2
+130	Avatar State	AIR	Is a defense mechanism, designed to empower you with the skills and knowledge of all the past Avatars.	powerup/AvatarState.png	2
+131	Lightning Redirection	FIRE	A sub-skill of firebending that allows a firebender to absorb lightning into their body as energy and release it in a more desirable direction.	powerup/Lightningredirection.png	2
+132	Seismic Sense	EARTH	A unique ability to perceive an environment by feeling acute vibrations through the ground.	powerup/SeismicSense.png	2
+133	Energy Bending	WATER	Is the ability to bend another person's life energy.	powerup/EnergyBending.png	2
