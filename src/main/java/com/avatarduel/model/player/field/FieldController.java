@@ -113,8 +113,8 @@ public class FieldController implements Subscriber {
         }
     }
 
-    private void changeStance(MouseEvent event) throws ClassCastException {
-        ((SummonedCharacterCard) this.getCardAtCursor(event)).changeStance();
+    private void changeStance(SelectedCard firstCard) throws ClassCastException {
+        ((SummonedCharacterCard)this.getSummonedCard(firstCard.getCard())).changeStance();
         this.update();
     }
 
@@ -145,6 +145,22 @@ public class FieldController implements Subscriber {
                 throw new FieldCellIsOccupiedException();
             }
         }
+    }
+
+    private void attachSkill(SelectedCard firstCard, SelectedCard secondCard){
+        ((SummonedCharacterCard)this.getSummonedCard(firstCard.getCard())).attachSkill(this.getSummonedCard(secondCard.getCard()));
+    }
+
+    private SummonedCard getSummonedCard(Card card){
+        for (SummonedCard[] summonedCards : this.cards) {
+            for (SummonedCard summonedCard : summonedCards) {
+                if(summonedCard.getCard().equals(card)){
+                    return summonedCard;
+                }
+            }
+        }
+        assert false;
+        return null;
     }
 
     private boolean isRightRow(Integer i, SummonedCard card) {
@@ -251,7 +267,7 @@ public class FieldController implements Subscriber {
             } else if (type.equals(EventType.DISCARDHAND)) {
                 this.onDiscardFieldEvent(firstCard, secondCard);
             } else if (type.equals(EventType.CHANGESTANCE)) {
-                this.onChangeStanceEvent(event);
+                this.onChangeStanceEvent(firstCard);
             }
         } else {
             if (type.equals((EventType.ATTACKCARD))) {
@@ -260,10 +276,6 @@ public class FieldController implements Subscriber {
                 this.onAttackEnemyEvent(firstCard, secondCard);
             }
         }
-    }
-
-    private void onChangeStanceEvent(MouseEvent event) {
-        this.changeStance(event);
     }
 
     private void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
@@ -288,12 +300,16 @@ public class FieldController implements Subscriber {
         this.update();
     }
 
+    private void onChangeStanceEvent(SelectedCard firstCard) {
+        this.changeStance(firstCard);
+    }
+
     private void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.removeCard(firstCard.getCard());
     }
 
     public void onAttachSkillEvent(SelectedCard firstCard, SelectedCard secondCard) {
-        // TODO
+        this.attachSkill(firstCard, secondCard);
     }
 
     private void onAttackCardEvent(SelectedCard firstCard, SelectedCard secondCard) {

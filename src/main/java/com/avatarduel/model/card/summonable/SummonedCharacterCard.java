@@ -32,4 +32,9 @@ public class SummonedCharacterCard extends SummonedCard{
         this.isAttackStance ^= true;
         this.card.changeOrientation();
     }
+
+    public void attachSkill(SummonedCard summonedCard) {
+        // TODO byan
+        // cast ke skill, masukin ke array
+    }
 }

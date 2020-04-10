@@ -4,6 +4,7 @@ import com.avatarduel.exception.CannotSummonCardException;
 import com.avatarduel.exception.NoCharaterOnFieldException;
 import com.avatarduel.exception.NotImplementedException;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.land.Land;
 import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Aura;
 import com.avatarduel.model.card.summonable.skill.Destroy;
@@ -17,7 +18,7 @@ public class CardSummoner<T extends Card> {
         this.card = card;
     }
 
-    public SummonedCard summon(FieldController field, Integer i, Integer j) throws CannotSummonCardException, NotImplementedException {
+    public SummonedCard summon(FieldController field, Integer i, Integer j) throws NotImplementedException, NoCharaterOnFieldException {
         if (card instanceof EmptyCard) {
             return SummonedEmptyCard.getInstance();
 
@@ -38,7 +39,12 @@ public class CardSummoner<T extends Card> {
             throw new NotImplementedException();
             //            return new SummonedPowerUpCard((PowerUp) card);
 
+        } else if(card instanceof Land){
+            throw new NotImplementedException();
+//            return new SummonedLandCard((Land) card);
+        } else{
+            assert false;
+            return null;
         }
-        throw new CannotSummonCardException();
     }
 }
