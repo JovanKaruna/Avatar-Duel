@@ -31,20 +31,18 @@ public class FieldController implements Subscriber {
 
     private static final Integer nrow = 2;
     private static final Integer ncol = 6;
-    private SummonedCard[][] cards;
-    private CardController[][] cardControllers;
+    private SummonedCardController[][] cardControllers;
     private boolean summonedLandThisTurn;
 
     @FXML
     public void init(PlayerController playerController) {
         this.parent = playerController;
-        this.cards = new SummonedCard[nrow][ncol];
-        this.cardControllers = new CardController[nrow][ncol];
+        this.cardControllers = new SummonedCardController[nrow][ncol];
         for (Integer i = 0; i < FieldController.nrow; i++) {
             for (Integer j = 0; j < FieldController.ncol; j++) {
-                this.cardControllers[i][j] = new CardController();
+                this.cardControllers[i][j] = new SummonedCardController();
                 this.cardControllers[i][j].setRoot((StackPane) ((Pane) this.root.getChildren().get(i * ncol + j)).getChildren().get(0));
-                this.cards[i][j] = SummonedEmptyCard.getInstance();
+                this.cardControllers[i][j].setSummonedCard(SummonedEmptyCard.getInstance());
             }
         }
         this.summonedLandThisTurn = false;
@@ -52,14 +50,15 @@ public class FieldController implements Subscriber {
 
         this.getGameEventHandler().subscribe(this, EventType.DISCARDFIELD);
         this.getGameEventHandler().subscribe(this, EventType.SUMMON);
-        this.getGameEventHandler().subscribe(this, EventType.ATTACKENEMY);
-        this.getGameEventHandler().subscribe(this, EventType.ATTACKCARD);
+        this.getGameEventHandler().subscribe(this, EventType.ATTACK);
         this.getGameEventHandler().subscribe(this, EventType.CHANGESTANCE);
+        this.getGameEventHandler().subscribe(this, EventType.ATTACHSKILL);
     }
 
     public void update() {
         for (int i = 0; i < FieldController.nrow; i++) {
             for (int j = 0; j < FieldController.ncol; j++) {
+                System.out.println(this.getCardController(i, j).getSummonedCard().getCard());
                 this.getCardController(i, j).show(Location.FIELD);
             }
         }
@@ -67,54 +66,44 @@ public class FieldController implements Subscriber {
 
     @FXML
     public void onHoverEnter(MouseEvent event) {
-        Card c = this.cursorAtCard(event);
+        SummonedCard c = this.cursorAtCard(event);
         if (c != null) {
-            this.getParent().getParent().setActiveCard(c);
+            this.getParent().getParent().setActiveCard(c.getCard());
         }
     }
 
     @FXML
     public void onClick(MouseEvent event) {
-        if (this.isActivePlayer() && !GameInfo.isEndPhase()) {
-            this.getGameEventHandler().selectCard(event, this.cursorAtCard(event), this.getParent().getId(), Location.FIELD);
-
-            //            if (GameInfo.isMainPhase()){
-            //                try {
-            //                    this.summonCard(event, selectedCard);
-            //                    this.getParent().getHandController().removeCard(selectedCard);
-            //                    this.show();
-            //                    System.out.println("Success summon card" + selectedCard);
-            //
-            //                } catch (FieldCellIsOccupiedException e) {
-            //                    try {
-            //                        SummonableCard summonableCard = (SummonableCard) selectedCard;
-            //                        this.getParent().getInventory().addCurrentPower(summonableCard.getElement(), summonableCard.getPower());
-            //                    } catch (Exception a) {
-            //                        //do nothing
-            //                    }
-            //                    this.changeStance(event);
-            //                    System.out.println("Success to change card stance");
-            //
-            //                } catch (AlreadySummonedLand | NotImplementedException | NotEnoughPowerException | NullPointerException e){
-            //                    System.out.println(e.getLocalizedMessage());
-            //
-            //                } catch (CannotSummonCardException e) {
-            //                    SummonableCard summonableCard = (SummonableCard) selectedCard;
-            //                    this.getParent().getInventory().addCurrentPower(summonableCard.getElement(), summonableCard.getPower());
-            //                    System.out.println(e.getLocalizedMessage());
-            //
-            //                }
-            //            } else if (GameInfo.isBattlePhase()) {
-            //                this.selectedCard = (SummonableCard) selectedCard;
-            //                if(selectedCard instanceof Character) {
-            //                    System.out.println("Card selected for attacking");
-            //                }
-            //            }
+        if (!GameInfo.isEndPhase()) {
+            if (this.isActivePlayer()) {
+                if (GameInfo.isMainPhase()) {
+                    if (!(this.cursorAtCard(event).getCard() instanceof Skill && ((SummonedSkillCard) this.getSummonedCard(this.cursorAtCard(event).getCard())).isAttached())) {
+                        this.getGameEventHandler().selectCard(event, this.cursorAtCard(event).getCard(), this.getParent().getId(), Location.FIELD);
+                    }
+                } else if (!this.cursorAtCard(event).getCard().isEmpty()) {
+                    if (((SummonedCharacterCard) this.cursorAtCard(event)).isAttackStance()) {
+                        this.getGameEventHandler().selectCard(event, this.cursorAtCard(event).getCard(), this.getParent().getId(), Location.FIELD);
+                    }
+                }
+            } else {
+                // enemy's card
+                // no character = can attack directly
+                if (!this.thereIsCharacter()) {
+                    this.getGameEventHandler().selectCard(event, this.cursorAtCard(event).getCard(), this.getParent().getId(), Location.FIELD);
+                } else {
+                    // must attack character
+                    Integer i = this.correctRow(this.getIndexFromCursor(event).first());
+                    if (i == 0 && !this.cursorAtCard(event).getCard().isEmpty()) {
+                        this.getGameEventHandler().selectCard(event, this.cursorAtCard(event).getCard(), this.getParent().getId(), Location.FIELD);
+                    }
+                }
+            }
         }
+        this.getControllerAtCursor(event).show(Location.FIELD);
     }
 
     private void changeStance(SelectedCard firstCard) throws ClassCastException {
-        ((SummonedCharacterCard)this.getSummonedCard(firstCard.getCard())).changeStance();
+        ((SummonedCharacterCard) this.getSummonedCard(firstCard.getCard())).changeStance();
         this.update();
     }
 
@@ -131,13 +120,12 @@ public class FieldController implements Subscriber {
             this.getParent().getInventory().usePower(summonCard);
 
             Integer i = this.correctRow(GridPane.getRowIndex(this.cursorAtNode(event)));
-            Integer j = (GridPane.getColumnIndex(this.cursorAtNode(event)));
+            Integer j = GridPane.getColumnIndex(this.cursorAtNode(event));
 
             SummonedCard summonedCard = new CardSummoner<>(summonCard).summon(this, i, j);
             if (this.isEmpty(i, j)) {
                 if (this.isRightRow(i, summonedCard)) {
-                    this.cards[i][j] = summonedCard;
-                    this.getCardController(i, j).setCard(summonedCard.getCard(), Location.FIELD);
+                    this.getCardController(i, j).setSummonedCard(summonedCard);
                 } else {
                     throw new WrongRowException();
                 }
@@ -147,15 +135,15 @@ public class FieldController implements Subscriber {
         }
     }
 
-    private void attachSkill(SelectedCard firstCard, SelectedCard secondCard){
-        ((SummonedCharacterCard)this.getSummonedCard(firstCard.getCard())).attachSkill(this.getSummonedCard(secondCard.getCard()));
+    private void attachSkill(SelectedCard firstCard, SelectedCard secondCard) {
+        ((SummonedCharacterCard) this.getSummonedCard(secondCard.getCard())).attachSkill((SummonedSkillCard) this.getSummonedCard(firstCard.getCard()));
     }
 
-    private SummonedCard getSummonedCard(Card card){
-        for (SummonedCard[] summonedCards : this.cards) {
-            for (SummonedCard summonedCard : summonedCards) {
-                if(summonedCard.getCard().equals(card)){
-                    return summonedCard;
+    private SummonedCard getSummonedCard(Card card) {
+        for (SummonedCardController[] summonedCards : this.cardControllers) {
+            for (SummonedCardController summonedCard : summonedCards) {
+                if (summonedCard.getCard().equals(card)) {
+                    return summonedCard.getSummonedCard();
                 }
             }
         }
@@ -195,7 +183,7 @@ public class FieldController implements Subscriber {
 
     private SummonedCard getCardAtCursor(MouseEvent event) {
         Pair<Integer, Integer> idx = this.getIndexFromCursor(event);
-        return this.cards[idx.first()][idx.second()];
+        return this.getCardController(idx.first(), idx.second()).getSummonedCard();
     }
 
     private Pair<Integer, Integer> getIndexFromCursor(MouseEvent event) {
@@ -204,7 +192,7 @@ public class FieldController implements Subscriber {
         return new Pair<>(i, j);
     }
 
-    private CardController getCardController(Integer i, Integer j) {
+    private SummonedCardController getCardController(Integer i, Integer j) {
         return this.cardControllers[this.correctRow(i)][j];
     }
 
@@ -212,11 +200,11 @@ public class FieldController implements Subscriber {
         return (Node) event.getSource();
     }
 
-    private Card cursorAtCard(MouseEvent event) {
+    private SummonedCard cursorAtCard(MouseEvent event) {
         int i = GridPane.getRowIndex(this.cursorAtNode(event));
         int j = GridPane.getColumnIndex(this.cursorAtNode(event));
         i = correctRow(i);
-        return this.getCardController(i, j).getCard();
+        return this.getCardController(i, j).getSummonedCard();
     }
 
     public boolean thereIsCharacter() {
@@ -230,9 +218,13 @@ public class FieldController implements Subscriber {
     }
 
     public void endTurn() {
-        for (int i = 0; i < ncol; i++) {
-            this.summonedLandThisTurn = false;
+        this.summonedLandThisTurn = false;
+        for (SummonedCardController[] card : this.cardControllers) {
+            for (SummonedCardController summonedCard : card) {
+                summonedCard.getCard().setNotSelected();
+            }
         }
+        this.update();
     }
 
     public void setColor(String color) {
@@ -253,7 +245,7 @@ public class FieldController implements Subscriber {
             for (int j = 0; j < ccs.length; j++) {
                 if (ccs[j].getCard() == card) {
                     ccs[j].setEmpty(Location.FIELD);
-                    this.cards[i][j] = SummonedEmptyCard.getInstance();
+                    this.getCardController(i, j).setSummonedCard(SummonedEmptyCard.getInstance());
                 }
             }
         }
@@ -261,62 +253,80 @@ public class FieldController implements Subscriber {
 
     @Override
     public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if (this.isActivePlayer()) {
-            if (type.equals(EventType.SUMMON)) {
+        switch (type) {
+            case SUMMON:
                 this.onSummonEvent(event, firstCard, secondCard);
-            } else if (type.equals(EventType.DISCARDHAND)) {
+                break;
+            case DISCARDHAND:
                 this.onDiscardFieldEvent(firstCard, secondCard);
-            } else if (type.equals(EventType.CHANGESTANCE)) {
+                break;
+            case CHANGESTANCE:
                 this.onChangeStanceEvent(firstCard);
-            }
-        } else {
-            if (type.equals((EventType.ATTACKCARD))) {
-                this.onAttackCardEvent(firstCard, secondCard);
-            } else if (type.equals(EventType.ATTACKENEMY)) {
-                this.onAttackEnemyEvent(firstCard, secondCard);
-            }
+                break;
+            case ATTACK:
+                this.onAttackEvent(event, firstCard, secondCard);
+                break;
+            case ATTACHSKILL:
+                this.onAttachSkillEvent(firstCard, secondCard);
+                break;
         }
-    }
-
-    private void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
-        try {
-            this.summonCard(event, firstCard.getCard());
-            this.getGameEventHandler().publish(event, EventType.SUMMONSUCCESS);
-
-        } catch (NotEnoughPowerException e) {
-            this.getGameEventHandler().publish(event, EventType.SUMMONFAIL);
-            System.out.println(e.getMessage());
-
-        } catch (AlreadySummonedLand e){
-            firstCard.getCard().setNotSelected();
-            this.getGameEventHandler().publish(event, EventType.ALREADYSUMMONEDLAND);
-            System.out.println(e.getMessage());
-
-        } catch (NotImplementedException | CannotSummonCardException e) {
-            firstCard.getCard().setNotSelected();
-            this.getGameEventHandler().publish(event, EventType.SUMMONFAILBUTENOUGHPOWER);
-            System.out.println(e.getMessage());
-        }
+        firstCard.getCard().setNotSelected();
+        secondCard.getCard().setNotSelected();
         this.update();
     }
 
+    private void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
+        if (this.isActivePlayer()) {
+            try {
+                this.summonCard(event, firstCard.getCard());
+                this.getGameEventHandler().publish(event, EventType.SUMMONSUCCESS);
+
+            } catch (NotEnoughPowerException e) {
+                this.getGameEventHandler().publish(event, EventType.SUMMONFAIL);
+                System.out.println(e.getMessage());
+
+            } catch (AlreadySummonedLand e) {
+                firstCard.getCard().setNotSelected();
+                this.getGameEventHandler().publish(event, EventType.ALREADYSUMMONEDLAND);
+                System.out.println(e.getMessage());
+
+            } catch (NotImplementedException | CannotSummonCardException e) {
+                firstCard.getCard().setNotSelected();
+                this.getGameEventHandler().publish(event, EventType.SUMMONFAILBUTENOUGHPOWER);
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     private void onChangeStanceEvent(SelectedCard firstCard) {
-        this.changeStance(firstCard);
+        if (this.isActivePlayer()) {
+            this.changeStance(firstCard);
+        }
     }
 
     private void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
-        this.removeCard(firstCard.getCard());
+        if (this.isActivePlayer()) {
+            this.removeCard(firstCard.getCard());
+        }
     }
 
     public void onAttachSkillEvent(SelectedCard firstCard, SelectedCard secondCard) {
-        this.attachSkill(firstCard, secondCard);
+        if (this.isActivePlayer()) {
+            this.attachSkill(firstCard, secondCard);
+        }
     }
 
-    private void onAttackCardEvent(SelectedCard firstCard, SelectedCard secondCard) {
-        // TODO
-    }
-
-    private void onAttackEnemyEvent(SelectedCard firstCard, SelectedCard secondCard) {
-        // TODO
+    private void onAttackEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
+        firstCard.getCard().setNotSelected();
+        if (!this.isActivePlayer()) {
+            Integer attack = this.getParent().getParent().getActivePlayer().getFieldController().getSummonedCard(firstCard.getCard()).getAttackValue();
+            Integer defend = secondCard.getCard().isEmpty() ? 0 : this.getSummonedCard(secondCard.getCard()).getDefendValue();
+            if (attack > defend) {
+                // trigger discard field with card = secondCard
+                this.getGameEventHandler().setFirstCard(secondCard);
+                this.getGameEventHandler().publish(event, EventType.DISCARDFIELD);
+                // dmg enemy (sudah ada di attribute controller)
+            }
+        }
     }
 }

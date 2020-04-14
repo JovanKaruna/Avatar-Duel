@@ -1,14 +1,12 @@
 package com.avatarduel.model.card.summonable;
 
-import com.avatarduel.exception.CannotSummonCardException;
 import com.avatarduel.exception.NoCharaterOnFieldException;
-import com.avatarduel.exception.NotImplementedException;
 import com.avatarduel.model.card.Card;
-import com.avatarduel.model.card.land.Land;
 import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Aura;
 import com.avatarduel.model.card.summonable.skill.Destroy;
 import com.avatarduel.model.card.summonable.skill.PowerUp;
+import com.avatarduel.model.card.summonable.skill.Skill;
 import com.avatarduel.model.player.field.FieldController;
 
 public class CardSummoner<T extends Card> {
@@ -18,33 +16,29 @@ public class CardSummoner<T extends Card> {
         this.card = card;
     }
 
-    public SummonedCard summon(FieldController field, Integer i, Integer j) throws NotImplementedException, NoCharaterOnFieldException {
+    public SummonedCard summon(FieldController field, Integer i, Integer j) throws NoCharaterOnFieldException {
         if (card instanceof EmptyCard) {
             return SummonedEmptyCard.getInstance();
 
         } else if (card instanceof Character) {
             return new SummonedCharacterCard((Character) card);
 
-        } else if (card instanceof Aura) {
+        } else if (card instanceof Skill) {
             if (!field.thereIsCharacter()) {
                 throw new NoCharaterOnFieldException();
             }
-            return new SummonedAuraCard((Aura) card);
 
-        } else if (card instanceof Destroy) {
-            throw new NotImplementedException();
-            //            return new SummonedDestroyCard((Destroy) card);
+            if (card instanceof Aura) {
+                return new SummonedAuraCard((Aura) card);
 
-        } else if (card instanceof PowerUp) {
-            throw new NotImplementedException();
-            //            return new SummonedPowerUpCard((PowerUp) card);
+            } else if (card instanceof Destroy) {
+                return new SummonedDestroyCard((Destroy) card);
 
-        } else if(card instanceof Land){
-            throw new NotImplementedException();
-//            return new SummonedLandCard((Land) card);
-        } else{
-            assert false;
-            return null;
+            } else if (card instanceof PowerUp) {
+                return new SummonedPowerUpCard((PowerUp) card);
+            }
         }
+        assert false;
+        return null;
     }
 }

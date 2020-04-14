@@ -8,10 +8,12 @@ public abstract class SummonedCard<T extends Card> {
     T card;
     CardType type;
     Integer summonedOn;
+    protected boolean isPortrait;
 
     SummonedCard(T card, CardType type) {
         this.card = card;
         this.type = type;
+        this.isPortrait = true;
     }
 
     public T getCard() {
@@ -32,5 +34,9 @@ public abstract class SummonedCard<T extends Card> {
 
     public boolean isSummonedThisTurn(){
         return this.summonedOn.equals(GameInfo.getTurn());
+    }
+
+    public boolean isPortrait() {
+        return isPortrait;
     }
 }

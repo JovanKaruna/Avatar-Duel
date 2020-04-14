@@ -64,6 +64,10 @@ public class BoardController implements HasCardController {
         return this.player1Controller;
     }
 
+    public PlayerController getOtherPlayer() {
+        return this.player2Controller;
+    }
+
     public PhaseController getPhaseController(){
         return this.phaseController;
     }

@@ -98,7 +98,7 @@ public final class GameEventHandler {
 
         if (GameInfo.isBattlePhase()) {
             // cuma bisa attack,
-            // kartu 1 harus kartu field karakter sendiri
+            // kartu 1 harus kartu field karakter sendiri, prekondisi : kartu sendiri kondisi meneyerang
             if (this.firstCard == this.empty) {
                 if (card.isOurCard() && card.isAt(Location.FIELD) && card.isType(CardType.CHARACTER)) {
                     this.firstCard = this.setCard(this.firstCard, card);
@@ -111,7 +111,6 @@ public final class GameEventHandler {
             if (card.isOurCard()) {
                 if (card.isAt(Location.FIELD) && card.isType(CardType.CHARACTER)) {
                     this.firstCard = this.setCard(this.firstCard, card);
-                    this.triggerEvent(event, EventType.ATTACKCARD);
                 }
                 return;
             }
@@ -119,7 +118,7 @@ public final class GameEventHandler {
             // punya musuh, mau serang, boleh karakter boleh kosong (prekondisi: ga ada karakter lain di field)
             if (card.isAt(Location.FIELD) && !card.isSkill()) {
                 this.secondCard = this.setCard(this.secondCard, card);
-                this.triggerEvent(event, EventType.ATTACKENEMY);
+                this.triggerEvent(event, EventType.ATTACK);
             }
             return;
         }
@@ -135,6 +134,14 @@ public final class GameEventHandler {
         }
         cardFrom = cardTo;
         return cardFrom;
+    }
+
+    public void setFirstCard(SelectedCard firstCard) {
+        this.firstCard = firstCard;
+    }
+
+    public void setSecondCard(SelectedCard secondCard) {
+        this.secondCard = secondCard;
     }
 
     public void resetCards() {
@@ -169,6 +176,10 @@ public final class GameEventHandler {
 
     public void publish(MouseEvent event, EventType type) {
         System.out.println("Event " + type + " triggered:");
-        this.subscriber.get(type).forEach(s -> s.onEvent(event, type, this.firstCard, this.secondCard));
+        if(this.subscriber != null){
+            this.subscriber.get(type).forEach(s -> s.onEvent(event, type, this.firstCard, this.secondCard));
+        } else {
+            System.out.println("No subscribers :(");
+        }
     }
 }
