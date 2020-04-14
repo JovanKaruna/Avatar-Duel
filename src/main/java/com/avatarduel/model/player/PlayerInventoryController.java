@@ -31,10 +31,12 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
     @FXML private HBox water;
     @FXML private HBox fire;
     @FXML private HBox earth;
+    @FXML private HBox energy;
     @FXML private PowerController airController;
     @FXML private PowerController waterController;
     @FXML private PowerController fireController;
     @FXML private PowerController earthController;
+    @FXML private PowerController energyController;
     @FXML private Text currentDeck;
     @FXML private Text maxDeck;
     @FXML private CardController deckController;
@@ -71,11 +73,13 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
         this.powerMap.put(Element.valueOf("WATER"), waterController);
         this.powerMap.put(Element.valueOf("FIRE"), fireController);
         this.powerMap.put(Element.valueOf("EARTH"), earthController);
+        this.powerMap.put(Element.valueOf("ENERGY"), energyController);
 
         this.airController.init(this, Air.getInstance());
         this.fireController.init(this, Fire.getInstance());
         this.earthController.init(this, Earth.getInstance());
         this.waterController.init(this, Water.getInstance());
+        this.energyController.init(this, Energy.getInstance());
         this.graveyardController.init(this);
         this.deckController.init(this);
 

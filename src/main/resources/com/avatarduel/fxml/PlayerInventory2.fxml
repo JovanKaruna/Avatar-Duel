@@ -11,14 +11,16 @@
    <bottom>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <Region prefHeight="21.0" />
+            <Region prefHeight="19.0" />
             <fx:include fx:id="air" source="Power2.fxml" />
-            <Region prefHeight="10.0" />
+            <Region prefHeight="8.0" />
             <fx:include fx:id="water" source="Power2.fxml" />
-            <Region prefHeight="10.0" />
+            <Region prefHeight="8.0" />
             <fx:include fx:id="earth" source="Power2.fxml" />
-            <Region prefHeight="10.0" />
+            <Region prefHeight="8.0" />
             <fx:include fx:id="fire" source="Power2.fxml" />
+            <Region prefHeight="8.0" />
+            <fx:include fx:id="energy" source="Power2.fxml" />
          </children>
       </VBox>
    </bottom>
