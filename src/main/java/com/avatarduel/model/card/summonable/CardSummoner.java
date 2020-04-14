@@ -24,7 +24,8 @@ public class CardSummoner<T extends Card> {
             return new SummonedCharacterCard((Character) card);
 
         } else if (card instanceof Skill) {
-            if (!field.thereIsCharacter()) {
+            // no character on field (own and enemy's)
+            if (!field.thereIsCharacter() && !field.getParent().getParent().getOtherPlayer().getFieldController().thereIsCharacter()) {
                 throw new NoCharaterOnFieldException();
             }
 

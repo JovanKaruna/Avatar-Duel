@@ -136,7 +136,8 @@ public class FieldController implements Subscriber {
     }
 
     private void attachSkill(SelectedCard firstCard, SelectedCard secondCard) {
-        ((SummonedCharacterCard) this.getSummonedCard(secondCard.getCard())).attachSkill((SummonedSkillCard) this.getSummonedCard(firstCard.getCard()));
+        FieldController field = secondCard.isOurCard() ? this : this.getParent().getParent().getOtherPlayer().getFieldController();
+        ((SummonedCharacterCard) field.getSummonedCard(secondCard.getCard())).attachSkill((SummonedSkillCard) this.getSummonedCard(firstCard.getCard()));
     }
 
     private SummonedCard getSummonedCard(Card card) {
