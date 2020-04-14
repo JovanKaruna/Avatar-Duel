@@ -284,17 +284,17 @@ public class FieldController implements Subscriber {
 
             } catch (NotEnoughPowerException e) {
                 this.getGameEventHandler().publish(event, EventType.SUMMONFAIL);
-                System.out.println(e.getMessage());
+                this.getParent().getParent().setMessage(e.getMessage());
 
             } catch (AlreadySummonedLand e) {
                 firstCard.getCard().setNotSelected();
                 this.getGameEventHandler().publish(event, EventType.ALREADYSUMMONEDLAND);
-                System.out.println(e.getMessage());
+                this.getParent().getParent().setMessage(e.getMessage());
 
             } catch (NotImplementedException | CannotSummonCardException e) {
                 firstCard.getCard().setNotSelected();
                 this.getGameEventHandler().publish(event, EventType.SUMMONFAILBUTENOUGHPOWER);
-                System.out.println(e.getMessage());
+                this.getParent().getParent().setMessage(e.getMessage());
             }
         }
     }

@@ -7,6 +7,7 @@ import com.avatarduel.model.player.PlayerController;
 
 import com.avatarduel.util.CardDAO;
 import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -17,6 +18,7 @@ public class BoardController implements HasCardController {
     @FXML private PlayerController player2Controller;
     @FXML private CardDescController cardDescController;
     @FXML private PhaseController phaseController;
+    @FXML private Text message;
 
     private GameEventHandler gameEventHandler;
 
@@ -78,5 +80,9 @@ public class BoardController implements HasCardController {
 
     public GameEventHandler getGameEventHandler() {
         return gameEventHandler;
+    }
+
+    public void setMessage(String message) {
+        this.message.setText(message);
     }
 }
