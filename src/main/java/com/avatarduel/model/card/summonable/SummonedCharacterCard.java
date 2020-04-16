@@ -8,11 +8,13 @@ import com.avatarduel.model.card.summonable.character.Character;
 public class SummonedCharacterCard extends SummonedCard {
     ArrayList<SummonedSkillCard> supportCards;
     private boolean isAttackStance;
+    private boolean hasAttacked;
 
     public SummonedCharacterCard(Character summonableCard) {
         super(summonableCard, CardType.CHARACTER);
         this.supportCards = new ArrayList<>();
         this.isAttackStance = true;
+        this.hasAttacked = false;
     }
 
     @Override
@@ -48,5 +50,17 @@ public class SummonedCharacterCard extends SummonedCard {
 
     public boolean isAttackStance() {
         return isAttackStance;
+    }
+
+    public void changeToHasAttacked() {
+        hasAttacked = true;
+    }
+
+    public void changeToHasNotAttacked() {
+        hasAttacked = false;
+    }
+
+    public boolean isHasAttacked() {
+        return this.hasAttacked;
     }
 }

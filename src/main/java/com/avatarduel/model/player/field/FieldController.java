@@ -317,16 +317,93 @@ public class FieldController implements Subscriber {
         }
     }
 
+    public void setAllHasNotAttacked() {
+//        for (SummonedCardController[] card : this.cardControllers) {
+//            for (SummonedCardController summonedCard : card) {
+//                if (summonedCard.getSummonedCard() instanceof SummonedCharacterCard) {
+//                    ((SummonedCharacterCard) summonedCard.getSummonedCard()).changeToHasNotAttacked();
+//                }
+//            }
+//        }
+        for (SummonedCardController[] card : this.cardControllers) {
+            for (SummonedCardController summonedCard : card) {
+                if (summonedCard.getSummonedCard() instanceof SummonedCharacterCard) {
+                    ((SummonedCharacterCard) summonedCard.getSummonedCard()).changeToHasNotAttacked();
+                }
+            }
+        }
+    }
+
+    private void onAttack(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) throws NotInAttackStanceException, JustSummonedException, JustAttackedException, CannotAttackEmptyException, NotEnoughStrongException{
+        SummonedCharacterCard summonedFirstCard = (SummonedCharacterCard) this.getParent().getParent().getActivePlayer().getFieldController().getSummonedCard(firstCard.getCard());
+
+        if ((summonedFirstCard.isAttackStance())) {
+            if (!summonedFirstCard.isSummonedThisTurn()) {
+                if (!summonedFirstCard.isHasAttacked()) {
+                    if (thereIsCharacter()) { //In enemy's field
+                        if (!secondCard.getCard().isEmpty()) { //GameEventHandler has already set to be empty or character
+                            Integer attack = summonedFirstCard.getAttackValue();
+                            SummonedCharacterCard summonedSecondCard = (SummonedCharacterCard) this.getSummonedCard(secondCard.getCard());
+
+                            if (summonedSecondCard.isAttackStance()) {
+                                Integer defense = summonedSecondCard.getAttackValue();
+                                if (attack >= defense) {
+
+                                    summonedFirstCard.changeToHasAttacked();
+                                    this.getGameEventHandler().setFirstCard(secondCard);
+                                    this.getGameEventHandler().publish(event, EventType.DISCARDFIELD);
+                                    this.getGameEventHandler().publish(event, EventType.ATTACKHPSUCCESS);
+                                } else {
+                                    throw new NotEnoughStrongException();
+                                }
+                            } else {
+                                Integer defense = summonedSecondCard.getDefendValue();
+                                if (attack >= defense) {
+                                    summonedFirstCard.changeToHasAttacked();
+                                    this.getGameEventHandler().setFirstCard(secondCard);
+                                    this.getGameEventHandler().publish(event, EventType.DISCARDFIELD);
+                                } else {
+                                    throw new NotEnoughStrongException();
+                                }
+                            }
+                        } else {
+                            throw new CannotAttackEmptyException();
+                        }
+                    } else {
+                        summonedFirstCard.changeToHasAttacked();
+                        this.getGameEventHandler().publish(event, EventType.ATTACKHPSUCCESS);
+                    }
+                } else {
+                    throw new JustAttackedException();
+                }
+            } else {
+                throw new JustSummonedException();
+            }
+        } else {
+            throw new NotInAttackStanceException();
+        }
+    }
+
     private void onAttackEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
         firstCard.getCard().setNotSelected();
         if (!this.isActivePlayer()) {
-            Integer attack = this.getParent().getParent().getActivePlayer().getFieldController().getSummonedCard(firstCard.getCard()).getAttackValue();
-            Integer defend = secondCard.getCard().isEmpty() ? 0 : this.getSummonedCard(secondCard.getCard()).getDefendValue();
-            if (attack > defend) {
-                // trigger discard field with card = secondCard
-                this.getGameEventHandler().setFirstCard(secondCard);
-                this.getGameEventHandler().publish(event, EventType.DISCARDFIELD);
-                // dmg enemy (sudah ada di attribute controller)
+            try {
+                this.onAttack(event, firstCard, secondCard);
+
+            } catch (NotInAttackStanceException e) {
+                this.getParent().getParent().setMessage(e.getMessage());
+
+            } catch (JustSummonedException e) {
+                this.getParent().getParent().setMessage(e.getMessage());
+
+            } catch (JustAttackedException e) {
+                this.getParent().getParent().setMessage(e.getMessage());
+
+            } catch (CannotAttackEmptyException e) {
+                this.getParent().getParent().setMessage(e.getMessage());
+
+            } catch (NotEnoughStrongException e) {
+                this.getParent().getParent().setMessage(e.getMessage());
             }
         }
     }

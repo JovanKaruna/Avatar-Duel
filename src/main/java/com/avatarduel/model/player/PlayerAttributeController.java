@@ -29,7 +29,7 @@ public class PlayerAttributeController implements Subscriber {
         this.hpValue = Settings.startingHealthAmount;
         this.update();
 
-        this.getGameEventHandler().subscribe(this, EventType.ATTACK);
+        this.getGameEventHandler().subscribe(this, EventType.ATTACKHPSUCCESS);
     }
 
     private GameEventHandler getGameEventHandler() {
@@ -48,7 +48,7 @@ public class PlayerAttributeController implements Subscriber {
 
     @Override
     public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if (!this.isActivePlayer() && type == EventType.ATTACK) {
+        if (!this.isActivePlayer() && type == EventType.ATTACKHPSUCCESS) {
             this.onAttackEvent(firstCard, secondCard);
             this.update();
         }
@@ -56,13 +56,12 @@ public class PlayerAttributeController implements Subscriber {
 
     private void onAttackEvent(SelectedCard firstCard, SelectedCard secondCard) {
         Integer attack = ((Character) firstCard.getCard()).getAttack();
-        Integer defend = secondCard.getCard().isEmpty() ? 0 : ((Character) firstCard.getCard()).getAttack();
-        if (attack > defend) {
-            this.hpValue -= (attack - defend);
-            this.update();
-            if (this.hpValue < 0) {
-                // TODO trigger defeat
-            }
+        Integer defend = secondCard.getCard().isEmpty() ? 0 : ((Character) secondCard.getCard()).getAttack();
+
+        this.hpValue -= (attack - defend);
+        this.update();
+        if (this.hpValue < 0) {
+            // TODO trigger defeat
         }
     }
 

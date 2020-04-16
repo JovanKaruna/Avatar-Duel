@@ -25,6 +25,9 @@ public class PhaseController {
             System.out.println("You must discard 1 card from your hand!");
         }
         else {
+            if (GameInfo.isBattlePhase()) {
+                this.getParent().getActivePlayer().getFieldController().setAllHasNotAttacked();
+            }
             this.nextPhase();
         }
     }

@@ -13,6 +13,7 @@ public abstract class SummonedCard<T extends Card> {
     SummonedCard(T card, CardType type) {
         this.card = card;
         this.type = type;
+        this.summonedOn = GameInfo.getTurn();
         this.isPortrait = true;
     }
 
