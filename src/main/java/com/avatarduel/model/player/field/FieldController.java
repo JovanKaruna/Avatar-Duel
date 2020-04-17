@@ -69,7 +69,16 @@ public class FieldController implements Subscriber {
         SummonedCard c = this.cursorAtCard(event);
         if (c != null) {
             this.getParent().getParent().setActiveCard(c.getCard());
+            if(c.getType().equals(CardType.CHARACTER)){
+                this.getParent().getParent().getCardDescController().setSkills(c);
+            }
         }
+
+    }
+    @FXML
+    public void onHoverExit(MouseEvent event){
+        this.getParent().getParent().setActiveCard(EmptyCard.getInstance());
+        this.getParent().getParent().getCardDescController().clearSkill();
     }
 
     @FXML

@@ -1,6 +1,7 @@
 package com.avatarduel.model.card.summonable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.card.summonable.character.Character;
@@ -15,6 +16,9 @@ public class SummonedCharacterCard extends SummonedCard {
         this.supportCards = new ArrayList<>();
         this.isAttackStance = true;
         this.hasAttacked = false;
+    }
+    public ArrayList<SummonedSkillCard> getSupportCard(){
+        return supportCards;
     }
 
     @Override

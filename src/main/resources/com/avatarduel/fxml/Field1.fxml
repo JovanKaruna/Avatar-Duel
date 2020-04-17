@@ -23,7 +23,7 @@
         <Insets />
     </opaqueInsets>
     <children>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" prefHeight="89.0" prefWidth="86.0" stylesheets="@../css/root.css" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="89.0" prefWidth="86.0" stylesheets="@../css/root.css" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -31,7 +31,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="1" GridPane.rowIndex="0">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -39,7 +39,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="2" GridPane.rowIndex="0">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="2" GridPane.rowIndex="0">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -47,7 +47,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="3" GridPane.rowIndex="0">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="3" GridPane.rowIndex="0">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -55,7 +55,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="4" GridPane.rowIndex="0">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="4" GridPane.rowIndex="0">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -63,7 +63,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="5" GridPane.rowIndex="0">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="5" GridPane.rowIndex="0">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -71,7 +71,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="0" GridPane.rowIndex="1">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -79,7 +79,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -87,7 +87,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -95,7 +95,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -103,7 +103,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>
@@ -111,7 +111,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </Pane>
-        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" stylesheets="@../css/root.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
+        <Pane onMouseClicked="#onClick" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" stylesheets="@../css/root.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
             <children>
                 <fx:include layoutX="17.0" scaleX="0.1" scaleY="0.1" source="Card.fxml" translateX="-205.0" translateY="-305.0" />
             </children>

@@ -35,6 +35,10 @@ public class BoardController implements HasCardController {
         this.player2Controller.init(this, 2);
     }
 
+    public CardDescController getCardDescController(){
+        return this.cardDescController;
+    }
+
     @Override
     public void setActiveCard(Card c){
         this.cardController.setCard(c, Location.GRAVEYARD);

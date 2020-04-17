@@ -21,6 +21,10 @@ public abstract class SummonedCard<T extends Card> {
         return this.card;
     }
 
+    public CardType getType(){
+        return this.type;
+    }
+
     public boolean canAttack() {
         return false;
     }
