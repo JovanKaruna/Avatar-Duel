@@ -6,7 +6,6 @@ import com.avatarduel.event.Subscriber;
 import com.avatarduel.model.GameEventHandler;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.card.SelectedCard;
-import com.avatarduel.model.card.summonable.character.Character;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
@@ -48,7 +47,7 @@ public class PlayerAttributeController implements Subscriber {
 
     @Override
     public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if (!this.isActivePlayer() && type == EventType.ATTACKHPSUCCESS) {
+        if (this.isActivePlayer() && type.equals(EventType.ATTACKHPSUCCESS)) {
             this.onAttackHpSuccessEvent(firstCard, secondCard);
             this.update();
         }
@@ -57,13 +56,14 @@ public class PlayerAttributeController implements Subscriber {
     private void onAttackHpSuccessEvent(SelectedCard firstCard, SelectedCard secondCard) {
         if (!this.isActivePlayer()) {
             this.parent.getParent().setMessage("HAHAHA2");
-            Integer attack = ((Character) firstCard.getCard()).getAttack();
-            Integer defend = secondCard.getCard().isEmpty() ? 0 : ((Character) secondCard.getCard()).getAttack();
+            Integer attack = this.parent.getFieldController().getSummonedCard(firstCard.getCard()).getAttackValue();
+            Integer defend = secondCard.getCard().isEmpty() ? 0 : this.parent.getParent().getOtherPlayer().getFieldController().getSummonedCard(firstCard.getCard()).getDefendValue();
 
             this.hpValue -= (attack - defend);
             this.update();
             if (this.hpValue < 0) {
                 // TODO trigger defeat
+                this.parent.getParent().setMessage("YOU WIN");
             }
         }
     }

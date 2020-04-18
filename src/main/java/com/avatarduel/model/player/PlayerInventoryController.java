@@ -95,12 +95,12 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
     }
 
     @FXML
-    public void onHoverEnter(MouseEvent event){
+    public void onHoverEnter(MouseEvent event) {
         this.getParent().getParent().setActiveCard(this.graveyardController.getCard());
     }
 
     @FXML
-    public void onHoverExit(MouseEvent event){
+    public void onHoverExit(MouseEvent event) {
         this.getParent().getParent().setActiveCard(EmptyCard.getInstance());
     }
 
@@ -166,7 +166,9 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
     }
 
     public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if (this.isActivePlayer()) {
+        if (GameInfo.isBattlePhase() && !this.isActivePlayer() && type == EventType.DISCARDFIELD) {
+            this.onDiscardFieldEvent(firstCard, secondCard);
+        } else if (GameInfo.isMainPhase() && this.isActivePlayer()) {
             switch (type) {
                 case DISCARDFIELD:
                     this.onDiscardFieldEvent(firstCard, secondCard);
@@ -184,7 +186,7 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
     }
 
     private void onNotEnoughPowerEvent(SelectedCard firstCard) {
-        this.addCurrentPower(firstCard.getCard().getElement(), ((SummonableCard)firstCard.getCard()).getPower());
+        this.addCurrentPower(firstCard.getCard().getElement(), ((SummonableCard) firstCard.getCard()).getPower());
     }
 
     private void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {

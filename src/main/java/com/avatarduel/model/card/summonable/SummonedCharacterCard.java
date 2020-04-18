@@ -67,4 +67,8 @@ public class SummonedCharacterCard extends SummonedCard {
     public boolean isHasAttacked() {
         return this.hasAttacked;
     }
+
+    public boolean hasPowerUp(){
+        return this.supportCards.stream().map(SummonedCard::getType).anyMatch(cardType -> cardType.equals(CardType.POWERUP));
+    }
 }

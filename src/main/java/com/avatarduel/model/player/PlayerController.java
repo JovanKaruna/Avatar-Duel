@@ -40,7 +40,7 @@ public class PlayerController {
         this.attributeController.setName(GameInfo.getPlayer(id).getName());
         this.handCard = this.handController.getCards();
         this.deckCard = this.inventoryController.getCards();
-        this.isPlayerOne = this.equals(this.getParent().getActivePlayer());
+        this.isPlayerOne = this.id.equals(1);
 
         this.handController.init(this);
         this.inventoryController.init(this);
