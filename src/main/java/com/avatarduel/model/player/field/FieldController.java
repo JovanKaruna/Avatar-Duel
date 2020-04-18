@@ -101,7 +101,7 @@ public class FieldController implements Subscriber {
                     this.getGameEventHandler().selectCard(event, this.cursorAtCard(event).getCard(), this.getParent().getId(), Location.FIELD);
                 } else {
                     // must attack character
-                    Integer i = this.correctRow(this.getIndexFromCursor(event).first());
+                    Integer i = this.getIndexFromCursor(event).first();
                     if (i == 0 && !this.cursorAtCard(event).getCard().isEmpty()) {
                         this.getGameEventHandler().selectCard(event, this.cursorAtCard(event).getCard(), this.getParent().getId(), Location.FIELD);
                     }
@@ -359,9 +359,9 @@ public class FieldController implements Subscriber {
                                 if (attack >= defense) {
 
                                     summonedFirstCard.changeToHasAttacked();
+                                    this.getGameEventHandler().publish(event, EventType.ATTACKHPSUCCESS);
                                     this.getGameEventHandler().setFirstCard(secondCard);
                                     this.getGameEventHandler().publish(event, EventType.DISCARDFIELD);
-                                    this.getGameEventHandler().publish(event, EventType.ATTACKHPSUCCESS);
                                 } else {
                                     throw new NotEnoughStrongException();
                                 }
@@ -398,6 +398,7 @@ public class FieldController implements Subscriber {
         if (!this.isActivePlayer()) {
             try {
                 this.onAttack(event, firstCard, secondCard);
+                this.getParent().getParent().setMessage("HAHAHA");
 
             } catch (NotInAttackStanceException e) {
                 this.getParent().getParent().setMessage(e.getMessage());

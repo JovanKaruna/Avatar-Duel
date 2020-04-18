@@ -19,6 +19,7 @@ public class BoardController implements HasCardController {
     @FXML private CardDescController cardDescController;
     @FXML private PhaseController phaseController;
     @FXML private Text message;
+    @FXML private Text boardStatus;
 
     private GameEventHandler gameEventHandler;
 
@@ -33,6 +34,7 @@ public class BoardController implements HasCardController {
         this.phaseController.init(this);
         this.player1Controller.init(this, 1);
         this.player2Controller.init(this, 2);
+        this.boardStatus.setTranslateY(100);
     }
 
     public CardDescController getCardDescController(){

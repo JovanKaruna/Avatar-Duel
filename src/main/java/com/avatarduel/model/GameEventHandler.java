@@ -119,7 +119,6 @@ public final class GameEventHandler {
             if (card.isAt(Location.FIELD) && !card.isSkill()) {
                 this.secondCard = this.setCard(this.secondCard, card);
                 this.triggerEvent(event, EventType.ATTACK);
-                System.out.println("lol");
             }
             return;
         }

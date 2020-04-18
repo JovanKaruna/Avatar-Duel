@@ -2,9 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.text.Text?>
+
 <BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffecb8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.avatarduel.model.BoardController">
    <left>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="250.0" scaleX="0.5" scaleY="0.5" spacing="10.0" translateX="-62.5" translateY="-175.0" BorderPane.alignment="CENTER">
@@ -19,15 +20,20 @@
       </VBox>
    </left>
    <center>
-      <VBox spacing="0" BorderPane.alignment="CENTER">
-         <children>
-            <fx:include fx:id="player2" source="Player2.fxml" />
-            <Text fx:id="message" strokeType="OUTSIDE" strokeWidth="0.0" text="action message here"/>
-            <fx:include fx:id="player1" source="Player1.fxml" />
-         </children>
+      <StackPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
-      </VBox>
+         <children>
+            <VBox spacing="0">
+               <children>
+                  <fx:include fx:id="player2" source="Player2.fxml" />
+                  <Text fx:id="message" strokeType="OUTSIDE" strokeWidth="0.0" text="action message here" />
+                  <fx:include fx:id="player1" source="Player1.fxml" />
+               </children>
+            </VBox>
+            <Text fx:id="boardStatus" strokeType="OUTSIDE" strokeWidth="0.0" text="Hahahahahaha" />
+         </children>
+      </StackPane>
    </center>
 </BorderPane>

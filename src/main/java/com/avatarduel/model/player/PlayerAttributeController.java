@@ -49,19 +49,22 @@ public class PlayerAttributeController implements Subscriber {
     @Override
     public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
         if (!this.isActivePlayer() && type == EventType.ATTACKHPSUCCESS) {
-            this.onAttackEvent(firstCard, secondCard);
+            this.onAttackHpSuccessEvent(firstCard, secondCard);
             this.update();
         }
     }
 
-    private void onAttackEvent(SelectedCard firstCard, SelectedCard secondCard) {
-        Integer attack = ((Character) firstCard.getCard()).getAttack();
-        Integer defend = secondCard.getCard().isEmpty() ? 0 : ((Character) secondCard.getCard()).getAttack();
+    private void onAttackHpSuccessEvent(SelectedCard firstCard, SelectedCard secondCard) {
+        if (!this.isActivePlayer()) {
+            this.parent.getParent().setMessage("HAHAHA2");
+            Integer attack = ((Character) firstCard.getCard()).getAttack();
+            Integer defend = secondCard.getCard().isEmpty() ? 0 : ((Character) secondCard.getCard()).getAttack();
 
-        this.hpValue -= (attack - defend);
-        this.update();
-        if (this.hpValue < 0) {
-            // TODO trigger defeat
+            this.hpValue -= (attack - defend);
+            this.update();
+            if (this.hpValue < 0) {
+                // TODO trigger defeat
+            }
         }
     }
 
