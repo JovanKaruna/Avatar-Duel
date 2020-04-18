@@ -4,6 +4,15 @@
     -fx-border-style: solid;
 }
 
+.body {
+    -fx-font-family: 'Helvetica', 'Arial', sans-serif;
+    -fx-padding: 20px;
+    -fx-padding-bottom: 0px;
+    -fx-margin: 0px;
+    -fx-font-color: #DFE4E8;
+    -fx-font-size: 50;
+}
+
 .bold {
     -fx-font-weight: bold;
 }

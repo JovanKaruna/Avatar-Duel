@@ -9,8 +9,10 @@ import com.avatarduel.util.CardDAO;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
+import javafx.animation.TranslateTransition;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import javafx.util.Duration;
 
 public class BoardController implements HasCardController {
     @FXML private CardController cardController;
@@ -34,7 +36,7 @@ public class BoardController implements HasCardController {
         this.phaseController.init(this);
         this.player1Controller.init(this, 1);
         this.player2Controller.init(this, 2);
-        this.boardStatus.setTranslateY(100);
+        this.boardStatus.setTranslateY(-400);
     }
 
     public CardDescController getCardDescController(){
@@ -90,5 +92,13 @@ public class BoardController implements HasCardController {
 
     public void setMessage(String message) {
         this.message.setText(message);
+    }
+
+    public void gameOver(Integer id) {
+        String result = "Player " + id + " - " + GameInfo.getPlayer(id).getName() + " WIN";
+        this.boardStatus.setText(result);
+        TranslateTransition trans = new TranslateTransition(Duration.seconds(4), this.boardStatus);
+        trans.setByY(400);
+        trans.play();
     }
 }

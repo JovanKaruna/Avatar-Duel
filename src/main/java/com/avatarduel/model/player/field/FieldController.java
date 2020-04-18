@@ -10,6 +10,7 @@ import com.avatarduel.model.card.*;
 import com.avatarduel.model.card.land.Land;
 import com.avatarduel.model.card.summonable.*;
 import com.avatarduel.model.card.summonable.character.Character;
+import com.avatarduel.model.card.summonable.skill.Destroy;
 import com.avatarduel.model.card.summonable.skill.Skill;
 
 import com.avatarduel.model.player.PlayerController;
@@ -148,9 +149,16 @@ public class FieldController implements Subscriber {
         }
     }
 
-    private void attachSkill(SelectedCard firstCard, SelectedCard secondCard) {
+    private void attachSkill(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
         FieldController field = secondCard.isOurCard() ? this : this.getParent().getParent().getOtherPlayer().getFieldController();
         ((SummonedCharacterCard) field.getSummonedCard(secondCard.getCard())).attachSkill((SummonedSkillCard) this.getSummonedCard(firstCard.getCard()));
+
+        if (firstCard.getCard() instanceof Destroy) {
+            this.getParent().getParent().getActivePlayer().getFieldController().onDiscardFieldSudden(firstCard, secondCard);
+            this.getParent().getParent().getActivePlayer().getInventory().onDiscardFieldSudden(firstCard, secondCard);
+            this.getParent().getParent().getOtherPlayer().getFieldController().onDiscardFieldSudden(secondCard, secondCard);
+            this.getParent().getParent().getOtherPlayer().getInventory().onDiscardFieldSudden(secondCard, secondCard);
+        }
     }
 
     private boolean isRightRow(Integer i, SummonedCard card) {
@@ -276,7 +284,7 @@ public class FieldController implements Subscriber {
                 this.onAttackEvent(event, firstCard, secondCard);
                 break;
             case ATTACHSKILL:
-                this.onAttachSkillEvent(firstCard, secondCard);
+                this.onAttachSkillEvent(event, firstCard, secondCard);
                 break;
         }
         firstCard.getCard().setNotSelected();
@@ -321,9 +329,13 @@ public class FieldController implements Subscriber {
         }
     }
 
-    private void onAttachSkillEvent(SelectedCard firstCard, SelectedCard secondCard) {
+    public void onDiscardFieldSudden(SelectedCard firstCard, SelectedCard secondCard) {
+        this.removeCard(firstCard.getCard());
+    }
+
+    private void onAttachSkillEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
         if (this.isActivePlayer()) {
-            this.attachSkill(firstCard, secondCard);
+            this.attachSkill(event, firstCard, secondCard);
         }
     }
 

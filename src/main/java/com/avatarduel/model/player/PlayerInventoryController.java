@@ -193,6 +193,10 @@ public class PlayerInventoryController implements HasCardController, Subscriber 
         this.setActiveCard(firstCard.getCard());
     }
 
+    public void onDiscardFieldSudden(SelectedCard firstCard, SelectedCard secondCard) {
+        this.setActiveCard(firstCard.getCard());
+    }
+
     private void onDiscardHandEvent(SelectedCard firstCard, SelectedCard secondCard) {
         this.setActiveCard(firstCard.getCard());
     }

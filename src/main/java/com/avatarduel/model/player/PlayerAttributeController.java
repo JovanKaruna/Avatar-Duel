@@ -62,7 +62,7 @@ public class PlayerAttributeController implements Subscriber {
             this.hpValue -= (attack - defend);
             this.update();
             if (this.hpValue < 0) {
-                // TODO trigger defeat
+                this.parent.getParent().gameOver(GameInfo.getPlayerTurn());
                 this.parent.getParent().setMessage("YOU WIN");
             }
         }
