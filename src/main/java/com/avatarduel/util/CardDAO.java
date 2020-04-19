@@ -43,8 +43,10 @@ public class CardDAO {
     }
 
     /**
-     * @throws IOException TODO
-     * @throws URISyntaxException
+     * Initialize all specifications of cards in game
+     * @throws IOException exception when reading csv file.
+     *                     for example: file not found error
+     * @throws URISyntaxException exception when a string could not be parsed as a URI reference
      */
     // Factory Pattern
     public static void init() throws IOException, URISyntaxException {
@@ -61,10 +63,12 @@ public class CardDAO {
     }
 
     /**
-     * @param path TODO
-     * @return
-     * @throws IOException
-     * @throws URISyntaxException
+     * Load a file and get list of specifications od cards
+     * @param path path of specifications of cards
+     * @return list of strings that is used to initialize card
+     * @throws IOException exception when reading csv file.
+     *                     for example: file not found error
+     * @throws URISyntaxException exception when a string could not be parsed as a URI reference
      */
     private static List<String[]> loadCards(String path) throws IOException, URISyntaxException {
         File csvFile = new File(Paths.resourceFolder + path);

@@ -55,7 +55,9 @@ public class BoardController implements HasCardController {
     }
 
     /**
-     * TODO
+     * Start the game
+     * Two player automatically draw cards
+     * Set the Player 1 to play first
      */
     public void startGame() {
         this.player1Controller.drawNCards(Settings.startingCardAmount);
@@ -66,7 +68,8 @@ public class BoardController implements HasCardController {
     }
 
     /**
-     * TODO
+     * Change the player's turn (Player 1 to Player 2 and otherwise)
+     * player1Controller is a player that is active (on its turn)
      */
     public void nextPlayer() {
         this.player1Controller.endTurn();
@@ -97,14 +100,16 @@ public class BoardController implements HasCardController {
     }
 
     /**
-     * @param message TODO
+     * Set the message for action that is mainly not allowed
+     * @param message mostly exception messages
      */
     public void setMessage(String message) {
         this.message.setText(message);
     }
 
     /**
-     * @param id TODO
+     * Set the layout to show boardStatus text when game is over
+     * @param id number of player that wins
      */
     public void gameOver(Integer id) {
         String result = "Player " + id + " - " + GameInfo.getPlayer(id).getName() + " WIN";

@@ -14,11 +14,10 @@ public class CardSummoner<T extends Card> {
     }
 
     /**
-     * @param field TODO
-     * @param i
-     * @param j
-     * @return
-     * @throws NoCharaterOnFieldException
+     * Used to get summon card that its type according to its attribute
+     * @param field Field controller of one player
+     * @throws NoCharaterOnFieldException exception when the card is skill and there are no characters in arena.
+     * @return SummonedCard that its type according to its attribute
      */
     public SummonedCard summon(FieldController field) throws NoCharaterOnFieldException {
         if (card instanceof EmptyCard) {

@@ -67,7 +67,8 @@ public class CardController {
     }
 
     /**
-     * @param root TODO
+     * Set the layout of Card (at top left corner in game)
+     * @param root A parent pane that have many children
      */
     public void setRoot(StackPane root) {
         this.root = (VBox) root.getChildren().get(0);
@@ -93,7 +94,8 @@ public class CardController {
     }
 
     /**
-     * @param location TODO
+     * Set the layout card in real (can be open or close; can be lifted or unlifted; set location of card)
+     * @param location location of the card
      */
     public void show(Location location) {
         boolean tmp = this.getCard().isSelected();
@@ -154,7 +156,7 @@ public class CardController {
     }
 
     /**
-     * TODO
+     * Lift the card (to show that the card is selected)
      */
     private void lift() {
         this.root.setTranslateY(-100);
@@ -163,7 +165,7 @@ public class CardController {
     }
 
     /**
-     * TODO
+     * Unlift the card (to show that the card is not selected)
      */
     private void unlift() {
         this.root.setTranslateY(0);
