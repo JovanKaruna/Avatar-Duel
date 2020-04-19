@@ -20,6 +20,14 @@ public class SummonedSkillCard<T extends Skill> extends SummonedCard {
         return super.getAttackValue();
     }
 
+    @Override
+    public Integer getDefendValue() {
+        if(this.getCard().getCardType().equals(CardType.AURA)){
+            return ((Aura) this.getCard()).getDefend();
+        }
+        return super.getAttackValue();
+    }
+
     void setAttached() {
         this.isAttached = true;
     }

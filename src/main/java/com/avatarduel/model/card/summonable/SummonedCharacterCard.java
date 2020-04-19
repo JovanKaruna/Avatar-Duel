@@ -28,11 +28,10 @@ public class SummonedCharacterCard extends SummonedCard {
 
     @Override
     public Integer getDefendValue() {
-        Integer value = this.supportCards.stream().mapToInt(SummonedSkillCard::getDefendValue).sum();
         if (this.isAttackStance) {
-            return value + ((Character) this.card).getAttack();
+            return ((Character) this.card).getAttack() + this.supportCards.stream().mapToInt(SummonedSkillCard::getAttackValue).sum();
         } else {
-            return value + ((Character) this.card).getDefend();
+            return ((Character) this.card).getDefend() + this.supportCards.stream().mapToInt(SummonedSkillCard::getDefendValue).sum();
         }
     }
 

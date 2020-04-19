@@ -25,4 +25,8 @@ public class Aura extends Skill {
                 " | DEF / " + this.defend.toString() +
                 " | " + super.getAttributeDescription();
     }
+
+    public Integer getDefend() {
+        return defend;
+    }
 }
