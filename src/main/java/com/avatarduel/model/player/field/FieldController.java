@@ -59,7 +59,6 @@ public class FieldController implements Subscriber {
     public void update() {
         for (int i = 0; i < FieldController.nrow; i++) {
             for (int j = 0; j < FieldController.ncol; j++) {
-                System.out.println(this.getSummonedCard(i, j).getCard());
                 this.getCardController(i, j).show(Location.FIELD);
             }
         }
@@ -371,8 +370,6 @@ public class FieldController implements Subscriber {
                         }
                         this.removeCard(secondCard.getCard());
                     } else {
-                        System.out.println(attack);
-                        System.out.println(defense);
                         throw new NotStrongEnoughException();
                     }
                 } else {

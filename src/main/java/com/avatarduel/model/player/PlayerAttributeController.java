@@ -46,24 +46,21 @@ public class PlayerAttributeController implements Subscriber {
 
     @Override
     public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
-        if (this.isActivePlayer() && type.equals(EventType.ATTACKHPSUCCESS)) {
+        if (!this.isActivePlayer() && type.equals(EventType.ATTACKHPSUCCESS)) {
             this.onAttackHpSuccessEvent(firstCard, secondCard);
             this.update();
         }
     }
 
     private void onAttackHpSuccessEvent(SelectedCard firstCard, SelectedCard secondCard) {
-        if (!this.isActivePlayer()) {
-            this.parent.getParent().setMessage("HAHAHA2");
-            Integer attack = this.parent.getFieldController().getSummonedCard(firstCard.getCard()).getAttackValue();
-            Integer defend = secondCard.getCard().isEmpty() ? 0 : this.parent.getParent().getOtherPlayer().getFieldController().getSummonedCard(firstCard.getCard()).getDefendValue();
+        Integer attack = this.parent.getParent().getActivePlayer().getFieldController().getSummonedCard(firstCard.getCard()).getAttackValue();
+        Integer defend = secondCard.getCard().isEmpty() ? 0 : this.parent.getParent().getOtherPlayer().getFieldController().getSummonedCard(secondCard.getCard()).getDefendValue();
 
-            this.hpValue -= (attack - defend);
-            this.update();
-            if (this.hpValue < 0) {
-                this.parent.getParent().gameOver(GameInfo.getPlayerTurn());
-                this.parent.getParent().setMessage("YOU WIN");
-            }
+        this.hpValue -= (attack - defend);
+        this.update();
+        if (this.hpValue < 0) {
+            this.parent.getParent().gameOver(GameInfo.getPlayerTurn());
+            this.parent.getParent().setMessage("YOU WIN");
         }
     }
 

@@ -82,7 +82,6 @@ public final class GameEventHandler {
                         }
                     } else {
                         this.resetCards();
-                        System.out.println("Cannot discard other than skill");
                     }
                 }
                 return;
@@ -102,7 +101,6 @@ public final class GameEventHandler {
             if (this.firstCard == this.empty) {
                 if (card.isOurCard() && card.isAt(Location.FIELD) && card.isType(CardType.CHARACTER)) {
                     this.firstCard = this.setCard(this.firstCard, card);
-                    System.out.println("Card is ready to attack:" + card);
                 }
                 return;
             }
@@ -190,11 +188,8 @@ public final class GameEventHandler {
      * @param type
      */
     public void publish(MouseEvent event, EventType type) {
-        System.out.println("Event " + type + " triggered:");
-        if(this.subscriber != null){
+        if (this.subscriber != null) {
             this.subscriber.get(type).forEach(s -> s.onEvent(event, type, this.firstCard, this.secondCard));
-        } else {
-            System.out.println("No subscribers :(");
         }
     }
 }
