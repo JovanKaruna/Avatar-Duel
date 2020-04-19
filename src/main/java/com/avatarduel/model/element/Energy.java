@@ -7,7 +7,7 @@ public final class Energy extends Element {
     private static Energy singleton;
 
     private Energy() {
-        super(Color.LIGHTBLUE, Type.ENERGY, Paths.energyElementImage);
+        super(Color.PLUM, Type.ENERGY, Paths.energyElementImage);
     }
 
     public static Energy getInstance() {

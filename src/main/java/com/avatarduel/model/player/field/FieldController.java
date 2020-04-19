@@ -148,14 +148,25 @@ public class FieldController implements Subscriber {
     }
 
     private void attachSkill(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
-        FieldController field = secondCard.isOurCard() ? this : this.getParent().getParent().getOtherPlayer().getFieldController();
-        ((SummonedCharacterCard) field.getSummonedCard(secondCard.getCard())).attachSkill((SummonedSkillCard) this.getSummonedCard(firstCard.getCard()));
+        FieldController secondCardField = secondCard.isOurCard() ? this : this.getParent().getParent().getOtherPlayer().getFieldController();
+        ((SummonedCharacterCard) secondCardField.getSummonedCard(secondCard.getCard())).attachSkill((SummonedSkillCard) this.getSummonedCard(firstCard.getCard()));
 
         if (firstCard.getCard() instanceof Destroy) {
-            this.getParent().getParent().getActivePlayer().getFieldController().onDiscardFieldSudden(firstCard, secondCard);
-            this.getParent().getParent().getActivePlayer().getInventory().onDiscardFieldSudden(firstCard, secondCard);
-            this.getParent().getParent().getOtherPlayer().getFieldController().onDiscardFieldSudden(secondCard, secondCard);
-            this.getParent().getParent().getOtherPlayer().getInventory().onDiscardFieldSudden(secondCard, secondCard);
+            Pair<Integer, Integer> idx = this.getIndexFromCursor(event);
+            SummonedCharacterCard destroyedCard = (SummonedCharacterCard) secondCardField.getSummonedCard(idx.first(), idx.second());
+            // delete all attached skills (including destroy)
+            for (SummonedSkillCard summonedSkillCard : destroyedCard.getSupportCard()) {
+                CardController skillCardController = this.getParent().getParent().getActivePlayer().getFieldController().getControllerFromCard(summonedSkillCard);
+                if(skillCardController == null){
+                    skillCardController = this.getParent().getParent().getOtherPlayer().getFieldController().getControllerFromCard(summonedSkillCard);
+                }
+                skillCardController.setEmpty(Location.FIELD);
+            }
+            // set graveyard with character card
+            this.getParent().getInventory().getCardController().setCard(destroyedCard.getCard(), Location.FIELD);
+
+            // delete character card
+            secondCardField.getControllerAtCursor(event).setEmpty(Location.FIELD);
         }
     }
 
@@ -182,6 +193,17 @@ public class FieldController implements Subscriber {
 
     private boolean isActivePlayer() {
         return this.getParent().isActivePlayer();
+    }
+
+    private CardController getControllerFromCard(SummonedCard card){
+        for (ArrayList<SummonedCardController> cardController : this.cardControllers) {
+            for (SummonedCardController summonedCardController : cardController) {
+                if(summonedCardController.getSummonedCard().equals(card)){
+                    return summonedCardController;
+                }
+            }
+        }
+        return null;
     }
 
     private CardController getControllerAtCursor(MouseEvent event) {
