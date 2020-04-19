@@ -54,6 +54,8 @@ public class FieldController implements Subscriber {
         this.getGameEventHandler().subscribe(this, EventType.ATTACK);
         this.getGameEventHandler().subscribe(this, EventType.CHANGESTANCE);
         this.getGameEventHandler().subscribe(this, EventType.ATTACHSKILL);
+        this.getGameEventHandler().subscribe(this, EventType.NEXTPHASE);
+        this.getGameEventHandler().subscribe(this, EventType.SUCCESSNEXTPHASE);
     }
 
     public void update() {
@@ -282,10 +284,37 @@ public class FieldController implements Subscriber {
             case ATTACHSKILL:
                 this.onAttachSkillEvent(event, firstCard, secondCard);
                 break;
+            case NEXTPHASE:
+                this.onNextPhaseEvent(event, firstCard, secondCard);
+                break;
+            case SUCCESSNEXTPHASE:
+                this.onSuccessNextPhase(event, firstCard, secondCard);
         }
         firstCard.getCard().setNotSelected();
         secondCard.getCard().setNotSelected();
         this.update();
+    }
+
+    private void onSuccessNextPhase(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
+        if(this.isActivePlayer() && GameInfo.isBattlePhase()){
+            this.setAllHasNotAttacked();
+        }
+    }
+
+    private void onNextPhaseEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
+        for (ArrayList<SummonedCardController> cardController : this.cardControllers) {
+            for (SummonedCardController summonedCardController : cardController) {
+                SummonedCard summonedCard = summonedCardController.getSummonedCard();
+                if(summonedCard.getType().equals(CardType.AURA) || summonedCard.getType().equals(CardType.POWERUP) || summonedCard.getType().equals(CardType.DESTROY)){
+                    if(!((SummonedSkillCard)summonedCard).isAttached()){
+                        this.getParent().getParent().setMessage("You need to attach all your skills before proceeding");
+                        this.getGameEventHandler().selectCard(event, summonedCard.getCard(), this.getParent().getId(), Location.FIELD);
+                    } else {
+                        this.parent.getGameEventHandler().publish(null, EventType.SUCCESSNEXTPHASE);
+                    }
+                }
+            }
+        }
     }
 
     private void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
@@ -389,7 +418,7 @@ public class FieldController implements Subscriber {
         if (!this.isActivePlayer()) {
             try {
                 this.onAttack(event, firstCard, secondCard);
-                this.getParent().getParent().setMessage("HAHAHA");
+                this.getParent().getParent().setMessage("Attacked Opponent");
 
             } catch (JustSummonedException | JustAttackedException | NotStrongEnoughException e) {
                 this.getParent().getParent().setMessage(e.getMessage());

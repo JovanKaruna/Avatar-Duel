@@ -1,13 +1,17 @@
 package com.avatarduel.model.phase;
 
 import com.avatarduel.Settings;
+import com.avatarduel.event.EventType;
+import com.avatarduel.event.Subscriber;
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.GameInfo;
+import com.avatarduel.model.card.SelectedCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-public class PhaseController {
+public class PhaseController implements Subscriber {
     private BoardController parent;
 
     @FXML private Text playerTurn;
@@ -16,6 +20,7 @@ public class PhaseController {
 
     public void init(BoardController boardController) {
         this.parent = boardController;
+        this.parent.getGameEventHandler().subscribe(this, EventType.SUCCESSNEXTPHASE);
         this.update();
     }
 
@@ -25,10 +30,7 @@ public class PhaseController {
         if ((GameInfo.isMainPhase()) && (this.getParent().getActivePlayer().getHandController().getCards().size() == Settings.maximumHandCard)) {
             this.getParent().setMessage("You must discard 1 card to proceed");
         } else {
-            if (GameInfo.isBattlePhase()) {
-                this.getParent().getActivePlayer().getFieldController().setAllHasNotAttacked();
-            }
-            this.nextPhase();
+            this.parent.getGameEventHandler().publish(null, EventType.NEXTPHASE);
         }
     }
 
@@ -61,6 +63,13 @@ public class PhaseController {
 
     public BoardController getParent() {
         return parent;
+    }
+
+    @Override
+    public void onEvent(MouseEvent event, EventType type, SelectedCard firstCard, SelectedCard secondCard) {
+        if(type.equals(EventType.SUCCESSNEXTPHASE)){
+            this.nextPhase();
+        }
     }
 }
 
