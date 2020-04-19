@@ -63,7 +63,7 @@ public class PlayerController {
         this.handController.startTurn();
         this.inventoryController.startTurn();
 
-        this.getParent().getPhaseController().nextPhase();
+//        GameInfo.nextPhase();
     }
 
     public void endTurn() {

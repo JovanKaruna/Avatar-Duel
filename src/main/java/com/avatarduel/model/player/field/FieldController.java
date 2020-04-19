@@ -303,14 +303,16 @@ public class FieldController implements Subscriber {
 
     private void onNextPhaseEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
         if(this.isActivePlayer()) {
-            for (ArrayList<SummonedCardController> cardController : this.cardControllers) {
-                for (SummonedCardController summonedCardController : cardController) {
-                    SummonedCard summonedCard = summonedCardController.getSummonedCard();
-                    if (summonedCard.getType().equals(CardType.AURA) || summonedCard.getType().equals(CardType.POWERUP) || summonedCard.getType().equals(CardType.DESTROY)) {
-                        if (!((SummonedSkillCard) summonedCard).isAttached()) {
-                            this.getParent().getParent().setMessage("You need to attach all your skills before proceeding");
-                            this.getGameEventHandler().selectCard(event, summonedCard.getCard(), this.getParent().getId(), Location.FIELD);
-                            return;
+            if(GameInfo.isMainPhase()) {
+                for (ArrayList<SummonedCardController> cardController : this.cardControllers) {
+                    for (SummonedCardController summonedCardController : cardController) {
+                        SummonedCard summonedCard = summonedCardController.getSummonedCard();
+                        if (summonedCard.getType().equals(CardType.AURA) || summonedCard.getType().equals(CardType.POWERUP) || summonedCard.getType().equals(CardType.DESTROY)) {
+                            if (!((SummonedSkillCard) summonedCard).isAttached()) {
+                                this.getParent().getParent().setMessage("You need to attach all your skills before proceeding");
+                                this.getGameEventHandler().selectCard(event, summonedCard.getCard(), this.getParent().getId(), Location.FIELD);
+                                return;
+                            }
                         }
                     }
                 }
