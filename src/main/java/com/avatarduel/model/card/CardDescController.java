@@ -16,8 +16,9 @@ public class CardDescController {
 
     @FXML private Text attribute;
     @FXML private Text description;
+
     /**
-     * TODO
+     * List of name of skill cards that attaching one card that shown above this description
      */
     @FXML private ListView<Text> skills;
 
@@ -26,8 +27,9 @@ public class CardDescController {
     }
 
     /**
-     * @param c TODO
-     * @param <T>
+     * Set the description of the card c (a brief description and its power)
+     * @param c any class that extends Card
+     * @param <T> the card c's class
      */
     public <T extends Card> void setAttributes(T c) {
         this.description.setText(c.getDescription());
@@ -35,8 +37,9 @@ public class CardDescController {
     }
 
     /**
-     * @param c TODO
-     * @param <T>
+     * Set the list of name of skill cards that attached to card c
+     * @param c any class that extends Card
+     * @param <T> the card c's class
      */
     public <T extends SummonedCard> void setSkills(T c){
         ArrayList<SummonedSkillCard> supportCard = ((SummonedCharacterCard)c).getSupportCard();

@@ -33,7 +33,7 @@ public class PhaseController {
     }
 
     /**
-     * TODO
+     * Change to next phase
      */
     public void nextPhase() {
         this.getParent().endPhase();
@@ -51,7 +51,7 @@ public class PhaseController {
     }
 
     /**
-     * TODO
+     * Update layout (of Phase) at Pane (at top left down corner)
      */
     private void update() {
         this.playerTurn.setText("Player " + GameInfo.getPlayerTurn().toString());

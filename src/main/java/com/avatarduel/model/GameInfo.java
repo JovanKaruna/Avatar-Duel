@@ -18,8 +18,9 @@ public final class GameInfo {
     private static TreeMap<Integer, PlayerInfo> players = new TreeMap<>();
 
     /**
-     * @param id   TODO
-     * @param info
+     * Add player to game
+     * @param id Number of player
+     * @param info Info of player (name and color)
      */
     public static void addPlayer(Integer id, PlayerInfo info) {
         players.put(id, info);
@@ -46,7 +47,7 @@ public final class GameInfo {
     }
 
     /**
-     * TODO
+     * Change player's turn (can also change round)
      */
     public static void nextTurn() {
         GameInfo.playerTurn %= Settings.numberOfPlayers;

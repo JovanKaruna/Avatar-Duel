@@ -14,8 +14,9 @@ public class ImageLoader {
     }
 
     /**
-     * @param image TODO
-     * @param path
+     * Set image of one card
+     * @param image image of one card
+     * @param path path of card's image
      */
     public static void setImage(ImageView image, String path) {
         try {
@@ -26,9 +27,10 @@ public class ImageLoader {
     }
 
     /**
-     * @param path TODO
-     * @return
-     * @throws FileNotFoundException
+     * Load image of one file and return it
+     * @param path path of card's image
+     * @return image of one card
+     * @throws FileNotFoundException exception if the file is not found
      */
     private static Image loadImageFromPath(String path) throws FileNotFoundException {
         return new Image(new FileInputStream(Paths.resourceFolder + Paths.imageFolder + path));

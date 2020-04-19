@@ -148,8 +148,9 @@ public final class GameEventHandler {
     }
 
     /**
-     * @param event TODO
-     * @param type
+     * Publish or trigger an event depend on the situation
+     * @param event a mouse event (mainly clicks)
+     * @param type type of event that is called
      */
     private void triggerEvent(MouseEvent event, EventType type) {
         this.firstCard.getCard().setNotSelected();
@@ -170,8 +171,9 @@ public final class GameEventHandler {
     }
 
     /**
-     * @param subscriber TODO
-     * @param type
+     * Add subscriber to specific event type
+     * @param subscriber subscriber object
+     * @param type event type
      */
     public void subscribe(Subscriber subscriber, EventType type) {
         if (!this.subscriber.containsKey(type)) {
@@ -181,7 +183,8 @@ public final class GameEventHandler {
     }
 
     /**
-     * @param event TODO
+     * Publish an event (to call its subscribers do something)
+     * @param event a mouse event (mainly clicks)
      * @param type
      */
     public void publish(MouseEvent event, EventType type) {

@@ -37,7 +37,7 @@ public class SummonedCharacterCard extends SummonedCard {
     }
 
     /**
-     * TODO
+     * Change stance of card in field arena (attack or defense)
      */
     public void changeStance() {
         this.isAttackStance ^= true;
@@ -67,7 +67,8 @@ public class SummonedCharacterCard extends SummonedCard {
     }
 
     /**
-     * @return TODO
+     * Check that this card is attached Power Up Card or not
+     * @return true if this card is attached Power Up Card
      */
     public boolean hasPowerUp() {
         return this.supportCards.stream().map(SummonedCard::getType).anyMatch(cardType -> cardType.equals(CardType.POWERUP));
