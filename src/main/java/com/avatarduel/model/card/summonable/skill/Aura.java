@@ -15,6 +15,10 @@ public class Aura extends Skill {
         this.cardType = CardType.AURA;
     }
 
+    public Integer getAttack() {
+        return attack;
+    }
+
     @Override
     public String getAttributeDescription() {
         return "ATK / " + this.attack.toString() +

@@ -40,6 +40,7 @@ public class PhaseController implements Subscriber {
     public void nextPhase() {
         this.getParent().endPhase();
         GameInfo.nextPhase();
+        this.getParent().setMessage("");
         this.getParent().getGameEventHandler().resetCards();
         if (GameInfo.isDrawPhase()) {
             this.nextTurn();
