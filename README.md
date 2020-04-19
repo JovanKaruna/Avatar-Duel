@@ -1,7 +1,9 @@
 # Avatar Duel game
-Avatar Duel is about strategy card game with GUI similar with Yu Gi Oh!. This project is made with Java language, JavaFX for GUI and also use Object-Oriented Programming.
+Avatar Duel is about strategy card game with GUI similar with Yu Gi Oh! or Magic: The Gathering. This project is made with Java language, JavaFX for GUI and also use Object-Oriented Programming.
 
 ## Screenshots
+<img src="docs/Begin.jpg"> 
+<img src="docs/Ingame.jpg">
 
 ## Structure 
 ```
