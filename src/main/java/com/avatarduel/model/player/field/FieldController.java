@@ -420,14 +420,14 @@ public class FieldController implements Subscriber {
                         this.getGameEventHandler().publish(event, EventType.DISCARDFIELD);
                         for (SummonedSkillCard summonedSkillCard : summonedSecondCard.getSupportCard()) {
                             this.getGameEventHandler().selectCard(event, summonedSkillCard.getCard(), this.getParent().getParent().getOtherPlayer().getId(), Location.FIELD);
-                            this.removeCard(summonedSkillCard.getCard());
+                            CardController skillController = this.getParent().getParent().getActivePlayer().getFieldController().getControllerFromCard(summonedSkillCard);
+                            if(skillController == null){
+                                skillController = this.getParent().getParent().getOtherPlayer().getFieldController().getControllerFromCard(summonedSkillCard);
+                            }
+                            skillController.setEmpty(Location.FIELD);
                             this.getGameEventHandler().publish(event, EventType.DISCARDFIELD);
                         }
-                        if(secondCard.isOurCard()) {
-                            this.getParent().getParent().getActivePlayer().getFieldController().removeCard(secondCard.getCard());
-                        } else {
-                            this.removeCard(secondCard.getCard());
-                        }
+                        this.removeCard(secondCard.getCard());
                     } else {
                         throw new NotStrongEnoughException();
                     }
