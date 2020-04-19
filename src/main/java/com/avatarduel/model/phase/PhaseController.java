@@ -3,11 +3,8 @@ package com.avatarduel.model.phase;
 import com.avatarduel.Settings;
 import com.avatarduel.model.BoardController;
 import com.avatarduel.model.GameInfo;
-
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 public class PhaseController {
@@ -16,15 +13,18 @@ public class PhaseController {
     @FXML private Text playerTurn;
     @FXML private Text turn;
     @FXML private Text phase;
-    @FXML private Button next;
+
+    public void init(BoardController boardController) {
+        this.parent = boardController;
+        this.update();
+    }
 
     // on Mouse Click
     @FXML
     public void nextPhase(ActionEvent event) {
         if ((GameInfo.isMainPhase()) && (this.getParent().getActivePlayer().getHandController().getCards().size() == Settings.maximumHandCard)) {
-            System.out.println("You must discard 1 card from your hand!");
-        }
-        else {
+            this.getParent().setMessage("You must discard 1 card to proceed");
+        } else {
             if (GameInfo.isBattlePhase()) {
                 this.getParent().getActivePlayer().getFieldController().setAllHasNotAttacked();
             }
@@ -32,6 +32,9 @@ public class PhaseController {
         }
     }
 
+    /**
+     * TODO
+     */
     public void nextPhase() {
         this.getParent().endPhase();
         GameInfo.nextPhase();
@@ -42,24 +45,22 @@ public class PhaseController {
         this.update();
     }
 
-    private void nextTurn(){
+    private void nextTurn() {
         GameInfo.nextTurn();
         this.getParent().nextPlayer();
     }
 
-    public void init(BoardController boardController) {
-        this.parent = boardController;
-        this.update();
+    /**
+     * TODO
+     */
+    private void update() {
+        this.playerTurn.setText("Player " + GameInfo.getPlayerTurn().toString());
+        this.turn.setText(GameInfo.getTurn().toString());
+        this.phase.setText(GameInfo.getPhase().toString() + " PHASE");
     }
 
     public BoardController getParent() {
         return parent;
-    }
-
-    public void update() {
-        this.playerTurn.setText("Player " + GameInfo.getPlayerTurn().toString());
-        this.turn.setText(GameInfo.getTurn().toString());
-        this.phase.setText(GameInfo.getPhase().toString() + " PHASE");
     }
 }
 

@@ -4,7 +4,7 @@ public class PlayerInfo {
     private String name;
     private String color;
 
-    public PlayerInfo(String name, String color) {
+    PlayerInfo(String name, String color) {
         this.name = name;
         this.color = color;
     }

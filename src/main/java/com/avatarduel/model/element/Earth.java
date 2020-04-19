@@ -1,7 +1,6 @@
 package com.avatarduel.model.element;
 
 import com.avatarduel.Paths;
-
 import javafx.scene.paint.Color;
 
 public final class Earth extends Element {

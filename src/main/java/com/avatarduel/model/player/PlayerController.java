@@ -1,12 +1,11 @@
 package com.avatarduel.model.player;
 
-import com.avatarduel.model.GameEventHandler;
 import com.avatarduel.model.BoardController;
+import com.avatarduel.model.GameEventHandler;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.card.Card;
-import com.avatarduel.model.player.hand.HandController;
 import com.avatarduel.model.player.field.FieldController;
-
+import com.avatarduel.model.player.hand.HandController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -93,7 +92,7 @@ public class PlayerController {
         return parent;
     }
 
-    public boolean isActivePlayer(){
+    public boolean isActivePlayer() {
         return this.id.equals(GameInfo.getPlayerTurn());
     }
 

@@ -6,8 +6,9 @@ import com.avatarduel.model.phase.Phase;
 
 import java.util.TreeMap;
 
+// Utility Pattern
 public final class GameInfo {
-    private GameInfo(){
+    private GameInfo() {
         throw new AssertionError("This is a utility class");
     }
 
@@ -16,11 +17,15 @@ public final class GameInfo {
     private static Phase phase = Phase.DRAW;
     private static TreeMap<Integer, PlayerInfo> players = new TreeMap<>();
 
-    public static void addPlayer(Integer id, PlayerInfo info){
+    /**
+     * @param id   TODO
+     * @param info
+     */
+    public static void addPlayer(Integer id, PlayerInfo info) {
         players.put(id, info);
     }
 
-    public static PlayerInfo getPlayer(Integer id){
+    public static PlayerInfo getPlayer(Integer id) {
         return players.get(id);
     }
 
@@ -40,6 +45,9 @@ public final class GameInfo {
         GameInfo.phase = GameInfo.phase.next();
     }
 
+    /**
+     * TODO
+     */
     public static void nextTurn() {
         GameInfo.playerTurn %= Settings.numberOfPlayers;
         GameInfo.playerTurn++;
@@ -48,19 +56,15 @@ public final class GameInfo {
         }
     }
 
-    public static boolean isMainPhase(){
+    public static boolean isMainPhase() {
         return GameInfo.phase.equals(Phase.MAIN);
     }
 
-    public static boolean isMain2Phase(){
-        return GameInfo.phase.equals(Phase.MAIN);
-    }
-
-    public static boolean isBattlePhase(){
+    public static boolean isBattlePhase() {
         return GameInfo.phase.equals(Phase.BATTLE);
     }
 
-    public static boolean isEndPhase(){
+    public static boolean isEndPhase() {
         return GameInfo.phase.equals(Phase.END);
     }
 

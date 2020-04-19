@@ -1,5 +1,6 @@
 package com.avatarduel;
 
+// Utility Pattern
 public class Paths {
     public static final String resourceFolder = "src/main/resources/com/avatarduel/";
     public static final String srcFolder = "src/main/java/com/avatarduel/";
@@ -10,7 +11,6 @@ public class Paths {
     public static final String cssFolder = "css/";
 
     public static final String appFXML = fxmlFolder + "Board.fxml";
-    public static final String deckViewerFXML = fxmlFolder + "DeckViewer.fxml";
     public static final String cardFXML = fxmlFolder + "Card.fxml";
     public static final String boardCSS = cssFolder + "root.css";
 

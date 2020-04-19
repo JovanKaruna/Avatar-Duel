@@ -1,9 +1,9 @@
 package com.avatarduel.model.player.field;
 
-import com.avatarduel.model.GameEventHandler;
-import com.avatarduel.event.*;
+import com.avatarduel.event.EventType;
+import com.avatarduel.event.Subscriber;
 import com.avatarduel.exception.*;
-
+import com.avatarduel.model.GameEventHandler;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.Location;
 import com.avatarduel.model.card.*;
@@ -12,11 +12,8 @@ import com.avatarduel.model.card.summonable.*;
 import com.avatarduel.model.card.summonable.character.Character;
 import com.avatarduel.model.card.summonable.skill.Destroy;
 import com.avatarduel.model.card.summonable.skill.Skill;
-
 import com.avatarduel.model.player.PlayerController;
-import com.avatarduel.util.CSSLoader;
 import com.avatarduel.util.Pair;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -136,7 +133,7 @@ public class FieldController implements Subscriber {
             Integer i = this.correctRow(GridPane.getRowIndex(this.getNodeAtCursor(event)));
             Integer j = GridPane.getColumnIndex(this.getNodeAtCursor(event));
 
-            SummonedCard summonedCard = new CardSummoner<>(summonCard).summon(this, i, j);
+            SummonedCard summonedCard = new CardSummoner<>(summonCard).summon(this);
             if (this.isEmpty(i, j)) {
                 if (this.isRightRow(i, summonedCard)) {
                     this.getCardController(i, j).setSummonedCard(summonedCard);
@@ -201,10 +198,10 @@ public class FieldController implements Subscriber {
         return this.cardControllers.get(this.correctRow(i)).get(j);
     }
 
-    public SummonedCard getSummonedCard(Card card){
+    public SummonedCard getSummonedCard(Card card) {
         for (ArrayList<SummonedCardController> cardController : this.cardControllers) {
             for (SummonedCardController summonedCardController : cardController) {
-                if(summonedCardController.getSummonedCard().getCard().equals(card)){
+                if (summonedCardController.getSummonedCard().getCard().equals(card)) {
                     return summonedCardController.getSummonedCard();
                 }
             }
@@ -212,7 +209,7 @@ public class FieldController implements Subscriber {
         return SummonedEmptyCard.getInstance();
     }
 
-    private SummonedCard getSummonedCard(Integer i, Integer j){
+    private SummonedCard getSummonedCard(Integer i, Integer j) {
         return this.getCardController(i, j).getSummonedCard();
     }
 
@@ -246,7 +243,7 @@ public class FieldController implements Subscriber {
     }
 
     public void setColor(String color) {
-        root.getChildren().forEach(node -> CSSLoader.addClass(node, color + "-field-cell"));
+        root.getChildren().forEach(node -> node.getStyleClass().add(color + "-field-cell"));
     }
 
     public PlayerController getParent() {
@@ -324,7 +321,7 @@ public class FieldController implements Subscriber {
     private void onDiscardFieldEvent(SelectedCard firstCard, SelectedCard secondCard) {
         if (GameInfo.isMainPhase() && this.isActivePlayer()) {
             this.removeCard(firstCard.getCard());
-        } else if(GameInfo.isBattlePhase() && !this.isActivePlayer()){
+        } else if (GameInfo.isBattlePhase() && !this.isActivePlayer()) {
             this.removeCard(firstCard.getCard());
         }
     }

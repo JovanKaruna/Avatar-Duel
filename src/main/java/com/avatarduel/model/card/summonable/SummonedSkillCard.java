@@ -3,15 +3,15 @@ package com.avatarduel.model.card.summonable;
 import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.card.summonable.skill.Skill;
 
-public class SummonedSkillCard <T extends Skill> extends SummonedCard {
-    boolean isAttached;
+public class SummonedSkillCard<T extends Skill> extends SummonedCard {
+    private boolean isAttached;
 
-    public SummonedSkillCard(Skill card, CardType type) {
+    SummonedSkillCard(Skill card, CardType type) {
         super(card, type);
         this.isAttached = false;
     }
 
-    public void setAttached() {
+    void setAttached() {
         this.isAttached = true;
     }
 

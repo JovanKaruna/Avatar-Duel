@@ -6,7 +6,6 @@ import com.avatarduel.event.Subscriber;
 import com.avatarduel.model.GameEventHandler;
 import com.avatarduel.model.GameInfo;
 import com.avatarduel.model.card.SelectedCard;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;

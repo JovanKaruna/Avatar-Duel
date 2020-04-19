@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
 
-// Repository Pattern
+// Repository Pattern, Utility Pattern
 public class CardDAO {
     public enum Type{
         LAND, AURA, CHARACTER, DESTROY, POWERUP
@@ -33,7 +33,7 @@ public class CardDAO {
         throw new AssertionError("This is a utility class.");
     }
 
-    public static ArrayList<Card> getCards(Type type) {
+    private static ArrayList<Card> getCards(Type type) {
         return CardDAO.cards.get(type);
     }
 
@@ -42,6 +42,10 @@ public class CardDAO {
         return CardDAO.cards.get(type).subList(0,i);
     }
 
+    /**
+     * @throws IOException TODO
+     * @throws URISyntaxException
+     */
     // Factory Pattern
     public static void init() throws IOException, URISyntaxException {
         for (String[] row : loadCards(Paths.landCSV))
@@ -56,6 +60,12 @@ public class CardDAO {
             CardDAO.getCards(Type.POWERUP).add(new PowerUp(row[1], row[3], Element.valueOf(row[2]), row[4], Integer.valueOf(row[5])));
     }
 
+    /**
+     * @param path TODO
+     * @return
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     private static List<String[]> loadCards(String path) throws IOException, URISyntaxException {
         File csvFile = new File(Paths.resourceFolder + path);
         CSVReader landReader = new CSVReader(csvFile, "\t");

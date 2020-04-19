@@ -66,6 +66,9 @@ public class CardController {
         return root;
     }
 
+    /**
+     * @param root TODO
+     */
     public void setRoot(StackPane root) {
         this.root = (VBox) root.getChildren().get(0);
 
@@ -89,6 +92,9 @@ public class CardController {
         return this.card.isEmpty();
     }
 
+    /**
+     * @param location TODO
+     */
     public void show(Location location) {
         boolean tmp = this.getCard().isSelected();
         boolean tmp2 = this.getCard().isPortrait();
@@ -147,12 +153,18 @@ public class CardController {
         this.getCard().setOpen(tmp3);
     }
 
+    /**
+     * TODO
+     */
     private void lift() {
         this.root.setTranslateY(-100);
         this.root.setScaleX(1.1);
         this.root.setScaleY(1.1);
     }
 
+    /**
+     * TODO
+     */
     private void unlift() {
         this.root.setTranslateY(0);
         this.root.setScaleX(1);

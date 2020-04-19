@@ -15,18 +15,10 @@ public class Aura extends Skill {
         this.cardType = CardType.AURA;
     }
 
-    public Integer getAttack() {
-        return attack;
-    }
-
-    public Integer getDefend() {
-        return defend;
-    }
-
     @Override
     public String getAttributeDescription() {
-        return "ATK / " + this.getAttack().toString() +
-                " | DEF / " + this.getDefend().toString() +
+        return "ATK / " + this.attack.toString() +
+                " | DEF / " + this.defend.toString() +
                 " | " + super.getAttributeDescription();
     }
 }

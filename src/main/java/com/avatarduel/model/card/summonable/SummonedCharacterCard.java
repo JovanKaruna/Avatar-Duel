@@ -1,29 +1,24 @@
 package com.avatarduel.model.card.summonable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.avatarduel.model.card.CardType;
 import com.avatarduel.model.card.summonable.character.Character;
 
+import java.util.ArrayList;
+
 public class SummonedCharacterCard extends SummonedCard {
-    ArrayList<SummonedSkillCard> supportCards;
+    private ArrayList<SummonedSkillCard> supportCards;
     private boolean isAttackStance;
     private boolean hasAttacked;
 
-    public SummonedCharacterCard(Character summonableCard) {
+    SummonedCharacterCard(Character summonableCard) {
         super(summonableCard, CardType.CHARACTER);
         this.supportCards = new ArrayList<>();
         this.isAttackStance = true;
         this.hasAttacked = false;
     }
-    public ArrayList<SummonedSkillCard> getSupportCard(){
-        return supportCards;
-    }
 
-    @Override
-    public boolean canAttack() {
-        return this.isAttackStance;
+    public ArrayList<SummonedSkillCard> getSupportCard() {
+        return supportCards;
     }
 
     @Override
@@ -41,6 +36,9 @@ public class SummonedCharacterCard extends SummonedCard {
         }
     }
 
+    /**
+     * TODO
+     */
     public void changeStance() {
         this.isAttackStance ^= true;
         this.isPortrait ^= true;
@@ -68,7 +66,10 @@ public class SummonedCharacterCard extends SummonedCard {
         return this.hasAttacked;
     }
 
-    public boolean hasPowerUp(){
+    /**
+     * @return TODO
+     */
+    public boolean hasPowerUp() {
         return this.supportCards.stream().map(SummonedCard::getType).anyMatch(cardType -> cardType.equals(CardType.POWERUP));
     }
 }

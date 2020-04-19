@@ -7,6 +7,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
+// Utility Pattern
 public class BackgroundLoader {
 
     private BackgroundLoader() {

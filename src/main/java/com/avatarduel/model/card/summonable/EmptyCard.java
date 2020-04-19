@@ -11,9 +11,10 @@ public final class EmptyCard extends SummonableCard {
         super("", "", Element.valueOf("NOELEMENT"), "Empty.png", 0, "");
     }
 
-    public static EmptyCard getInstance(){
-        if(EmptyCard.emptyCard == null)
+    public static EmptyCard getInstance() {
+        if (EmptyCard.emptyCard == null) {
             EmptyCard.emptyCard = new EmptyCard();
+        }
 
         return EmptyCard.emptyCard;
     }

@@ -6,9 +6,9 @@ import com.avatarduel.model.card.CardType;
 
 public abstract class SummonedCard<T extends Card> {
     T card;
-    CardType type;
-    Integer summonedOn;
-    protected boolean isPortrait;
+    private CardType type;
+    private Integer summonedOn;
+    boolean isPortrait;
 
     SummonedCard(T card, CardType type) {
         this.card = card;
@@ -21,12 +21,8 @@ public abstract class SummonedCard<T extends Card> {
         return this.card;
     }
 
-    public CardType getType(){
+    public CardType getType() {
         return this.type;
-    }
-
-    public boolean canAttack() {
-        return false;
     }
 
     public Integer getAttackValue() {
@@ -37,7 +33,7 @@ public abstract class SummonedCard<T extends Card> {
         return 0;
     }
 
-    public boolean isSummonedThisTurn(){
+    public boolean isSummonedThisTurn() {
         return this.summonedOn.equals(GameInfo.getTurn());
     }
 

@@ -5,7 +5,7 @@ import com.avatarduel.model.card.summonable.SummonedCard;
 import com.avatarduel.model.card.summonable.SummonedEmptyCard;
 
 public class SummonedCardController extends CardController {
-    SummonedCard summonedCard;
+    private SummonedCard summonedCard;
 
     public void setSummonedCard(SummonedCard summonedCard) {
         this.summonedCard = summonedCard;

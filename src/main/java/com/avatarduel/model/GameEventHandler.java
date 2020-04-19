@@ -149,6 +149,10 @@ public final class GameEventHandler {
         this.secondCard = this.setCard(this.secondCard, this.empty);
     }
 
+    /**
+     * @param event TODO
+     * @param type
+     */
     private void triggerEvent(MouseEvent event, EventType type) {
         this.firstCard.getCard().setNotSelected();
         this.secondCard.getCard().setNotSelected();
@@ -167,6 +171,10 @@ public final class GameEventHandler {
         return singleton;
     }
 
+    /**
+     * @param subscriber TODO
+     * @param type
+     */
     public void subscribe(Subscriber subscriber, EventType type) {
         if (!this.subscriber.containsKey(type)) {
             this.subscriber.put(type, new ArrayList<>());
@@ -174,6 +182,10 @@ public final class GameEventHandler {
         this.subscriber.get(type).add(subscriber);
     }
 
+    /**
+     * @param event TODO
+     * @param type
+     */
     public void publish(MouseEvent event, EventType type) {
         System.out.println("Event " + type + " triggered:");
         if(this.subscriber != null){

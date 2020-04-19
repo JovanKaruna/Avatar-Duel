@@ -54,6 +54,9 @@ public class BoardController implements HasCardController {
         return this.cardController;
     }
 
+    /**
+     * TODO
+     */
     public void startGame() {
         this.player1Controller.drawNCards(Settings.startingCardAmount);
         this.player2Controller.drawNCards(Settings.startingCardAmount);
@@ -62,6 +65,9 @@ public class BoardController implements HasCardController {
         this.player1Controller.startTurn();
     }
 
+    /**
+     * TODO
+     */
     public void nextPlayer() {
         this.player1Controller.endTurn();
         PlayerController tmp = this.player1Controller;
@@ -90,10 +96,16 @@ public class BoardController implements HasCardController {
         return gameEventHandler;
     }
 
+    /**
+     * @param message TODO
+     */
     public void setMessage(String message) {
         this.message.setText(message);
     }
 
+    /**
+     * @param id TODO
+     */
     public void gameOver(Integer id) {
         String result = "Player " + id + " - " + GameInfo.getPlayer(id).getName() + " WIN";
         this.boardStatus.setText(result);

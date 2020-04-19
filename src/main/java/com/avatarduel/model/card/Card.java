@@ -1,7 +1,6 @@
 package com.avatarduel.model.card;
 
 import com.avatarduel.model.element.Element;
-import com.avatarduel.model.card.CardType;
 
 public abstract class Card {
     private String typeName;
@@ -34,7 +33,7 @@ public abstract class Card {
         return "";
     }
 
-    String getTypeDescription(){
+    String getTypeDescription() {
         return this.typeName;
     }
 
@@ -54,23 +53,13 @@ public abstract class Card {
         return imgPath;
     }
 
+
     public boolean isEmpty() {
         return element.equals(Element.valueOf("NOELEMENT"));
     }
 
     boolean isOpen() {
         return isOpen;
-    }
-
-    public void flip() {
-        if (this.isEmpty()) {
-            return;
-        }
-        if (this.isOpen) {
-            this.close();
-        } else {
-            this.open();
-        }
     }
 
     public void close() {
@@ -81,40 +70,42 @@ public abstract class Card {
         this.isOpen = true;
     }
 
-    public void setOpen(boolean isOpen) {
+    void setOpen(boolean isOpen) {
         this.isOpen = isOpen;
     }
 
-    public void changeOrientation(){
+
+    public void changeOrientation() {
         this.isPortrait ^= true;
     }
 
-    void setOrientation(boolean isPortrait){
+    void setOrientation(boolean isPortrait) {
         this.isPortrait = isPortrait;
     }
+
 
     boolean isPortrait() {
         return isPortrait;
     }
 
-    public void setSelected(){
+    public void setSelected() {
         this.isSelected = true;
     }
 
-    public void setNotSelected(){
+    public void setNotSelected() {
         this.isSelected = false;
     }
 
-    public void setSelection(boolean selection){
+    void setSelection(boolean selection) {
         this.isSelected = selection;
     }
 
-    public boolean isSelected() {
+    boolean isSelected() {
         return isSelected;
     }
 
-    public CardType getCardType(){
-      return this.cardType;
+    public CardType getCardType() {
+        return this.cardType;
     }
 
     @Override
