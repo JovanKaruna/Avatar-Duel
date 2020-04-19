@@ -423,7 +423,11 @@ public class FieldController implements Subscriber {
                             this.removeCard(summonedSkillCard.getCard());
                             this.getGameEventHandler().publish(event, EventType.DISCARDFIELD);
                         }
-                        this.removeCard(secondCard.getCard());
+                        if(secondCard.isOurCard()) {
+                            this.getParent().getParent().getActivePlayer().getFieldController().removeCard(secondCard.getCard());
+                        } else {
+                            this.removeCard(secondCard.getCard());
+                        }
                     } else {
                         throw new NotStrongEnoughException();
                     }
