@@ -309,12 +309,11 @@ public class FieldController implements Subscriber {
                     if(!((SummonedSkillCard)summonedCard).isAttached()){
                         this.getParent().getParent().setMessage("You need to attach all your skills before proceeding");
                         this.getGameEventHandler().selectCard(event, summonedCard.getCard(), this.getParent().getId(), Location.FIELD);
-                    } else {
-                        this.parent.getGameEventHandler().publish(null, EventType.SUCCESSNEXTPHASE);
                     }
                 }
             }
         }
+        this.parent.getGameEventHandler().publish(null, EventType.SUCCESSNEXTPHASE);
     }
 
     private void onSummonEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
