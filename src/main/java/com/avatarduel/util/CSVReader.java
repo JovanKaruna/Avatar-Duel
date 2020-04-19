@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * CSVReader is a reader with given filename and separator.
  * IMPORTANT NOTE:
- * We assume that the csv doesn't have separator in the cells.
+ * We assume that the csv doesn'first have separator in the cells.
  * This implementation only split each line using separator
  * into array of values.
  *

@@ -1,19 +1,19 @@
 package com.avatarduel.util;
 
 public class Pair<T, U> {
-    private final T t;
-    private final U u;
+    public T first;
+    public U second;
 
     public Pair(T t, U u) {
-        this.t= t;
-        this.u= u;
+        this.first = t;
+        this.second = u;
     }
 
     public T first(){
-        return this.t;
+        return this.first;
     }
 
     public U second(){
-        return this.u;
+        return this.second;
     }
 }

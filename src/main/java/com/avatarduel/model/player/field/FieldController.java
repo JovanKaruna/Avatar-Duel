@@ -153,11 +153,14 @@ public class FieldController implements Subscriber {
 
         if (firstCard.getCard() instanceof Destroy) {
             Pair<Integer, Integer> idx = this.getIndexFromCursor(event);
+            if((firstCard.isOurCard() && !secondCard.isOurCard()) || (!firstCard.isOurCard() && secondCard.isOurCard())){
+                idx.first = idx.first()^1;
+            }
             SummonedCharacterCard destroyedCard = (SummonedCharacterCard) secondCardField.getSummonedCard(idx.first(), idx.second());
             // delete all attached skills (including destroy)
             for (SummonedSkillCard summonedSkillCard : destroyedCard.getSupportCard()) {
                 CardController skillCardController = this.getParent().getParent().getActivePlayer().getFieldController().getControllerFromCard(summonedSkillCard);
-                if(skillCardController == null){
+                if (skillCardController == null) {
                     skillCardController = this.getParent().getParent().getOtherPlayer().getFieldController().getControllerFromCard(summonedSkillCard);
                 }
                 skillCardController.setEmpty(Location.FIELD);
@@ -195,10 +198,10 @@ public class FieldController implements Subscriber {
         return this.getParent().isActivePlayer();
     }
 
-    private CardController getControllerFromCard(SummonedCard card){
+    private CardController getControllerFromCard(SummonedCard card) {
         for (ArrayList<SummonedCardController> cardController : this.cardControllers) {
             for (SummonedCardController summonedCardController : cardController) {
-                if(summonedCardController.getSummonedCard().equals(card)){
+                if (summonedCardController.getSummonedCard().equals(card)) {
                     return summonedCardController;
                 }
             }
@@ -318,14 +321,14 @@ public class FieldController implements Subscriber {
     }
 
     private void onSuccessNextPhase(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
-        if(this.isActivePlayer() && GameInfo.isBattlePhase()){
+        if (this.isActivePlayer() && GameInfo.isBattlePhase()) {
             this.setAllHasNotAttacked();
         }
     }
 
     private void onNextPhaseEvent(MouseEvent event, SelectedCard firstCard, SelectedCard secondCard) {
-        if(this.isActivePlayer()) {
-            if(GameInfo.isMainPhase()) {
+        if (this.isActivePlayer()) {
+            if (GameInfo.isMainPhase()) {
                 for (ArrayList<SummonedCardController> cardController : this.cardControllers) {
                     for (SummonedCardController summonedCardController : cardController) {
                         SummonedCard summonedCard = summonedCardController.getSummonedCard();
@@ -421,7 +424,7 @@ public class FieldController implements Subscriber {
                         for (SummonedSkillCard summonedSkillCard : summonedSecondCard.getSupportCard()) {
                             this.getGameEventHandler().selectCard(event, summonedSkillCard.getCard(), this.getParent().getParent().getOtherPlayer().getId(), Location.FIELD);
                             CardController skillController = this.getParent().getParent().getActivePlayer().getFieldController().getControllerFromCard(summonedSkillCard);
-                            if(skillController == null){
+                            if (skillController == null) {
                                 skillController = this.getParent().getParent().getOtherPlayer().getFieldController().getControllerFromCard(summonedSkillCard);
                             }
                             skillController.setEmpty(Location.FIELD);
